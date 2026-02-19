@@ -3,61 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BetterQuesting Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Minecraft Quest Tracker</title>
+  <link rel="stylesheet" href="home.css">
 </head>
 <body>
-  <!-- Header with title and file inputs -->
-  <header>
-    <h1>Nomifactory CeU Quest Tracker</h1>
-    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your <strong>PlayerData</strong> file to track quest completion. Quest data loads automatically.</p>
-    <div class="file-inputs">
-      <div class="file-input-group">
-        <label for="playerFile">PlayerData (required):</label>
-        <input type="file" id="playerFile" accept=".dat,.json">
-      </div>
-    </div>
-    <!-- Debug (remove when fixed): paste this line if quests don't show -->
-    <div id="debugLine" style="display:none; font-size:11px; color:#888; margin-top:8px; word-break:break-all;"></div>
-    <!-- Progress bar -->
-    <div class="progress-container" id="progressContainer" style="display: none;">
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <span class="progress-text" id="progressText">0%</span>
-    </div>
-  </header>
+  <div class="home-page">
+    <header class="home-header">
+      <h1>Minecraft Quest Tracker</h1>
+      <p>Select a modpack to start tracking your quests</p>
+    </header>
 
-  <div class="container">
-    <!-- Left sidebar for chapters -->
-    <aside id="chapterList">
-      <h2>Chapters</h2>
-      <ul id="chapterNav"></ul>
-    </aside>
+    <main class="home-main">
+      <div class="modpack-grid">
 
-    <!-- Main panel for quest list -->
-    <main id="questList">
-      <p class="placeholder">Upload your PlayerData file to view quests</p>
+        <a href="nomifactory.html" class="modpack-card">
+          <div class="modpack-icon">⚙️</div>
+          <div class="modpack-info">
+            <h2>Nomifactory CEu</h2>
+            <p>GregTech: Community Edition Unofficial — automation &amp; processing tech progression</p>
+          </div>
+          <span class="modpack-arrow">&rarr;</span>
+        </a>
+
+        <a href="enigmatica2expert.html" class="modpack-card modpack-card--coming-soon">
+          <div class="modpack-icon">🔮</div>
+          <div class="modpack-info">
+            <h2>Enigmatica 2: Expert</h2>
+            <p>Expert-mode kitchen sink with complex mod interactions across every major tech mod</p>
+          </div>
+          <span class="modpack-badge">Coming Soon</span>
+        </a>
+
+        <a href="gregtechnewhorizons.html" class="modpack-card modpack-card--coming-soon">
+          <div class="modpack-icon">🛠️</div>
+          <div class="modpack-info">
+            <h2>GregTech: New Horizons</h2>
+            <p>The ultimate GregTech adventure — hundreds of hours of quests and progression</p>
+          </div>
+          <span class="modpack-badge">Coming Soon</span>
+        </a>
+
+        <a href="skyfactory4.html" class="modpack-card modpack-card--coming-soon">
+          <div class="modpack-icon">🌲</div>
+          <div class="modpack-info">
+            <h2>SkyFactory 4</h2>
+            <p>Skyblock reinvented — automation, prestige, and hundreds of quests</p>
+          </div>
+          <span class="modpack-badge">Coming Soon</span>
+        </a>
+
+        <a href="allthemods10.html" class="modpack-card modpack-card--coming-soon">
+          <div class="modpack-icon">🧪</div>
+          <div class="modpack-info">
+            <h2>All the Mods 10</h2>
+            <p>The latest in the ATM series — massive mod variety and questing</p>
+          </div>
+          <span class="modpack-badge">Coming Soon</span>
+        </a>
+
+      </div>
     </main>
   </div>
-
-  <!-- Quest description modal (shown on quest card click) -->
-  <div id="questModal" class="quest-modal hidden" aria-hidden="true">
-    <div class="quest-modal-backdrop"></div>
-    <div class="quest-modal-content">
-      <div class="quest-modal-header">
-        <h3 id="questModalTitle"></h3>
-        <button type="button" class="quest-modal-close" aria-label="Close">&times;</button>
-      </div>
-      <div class="quest-modal-body">
-        <p class="quest-modal-desc-label">What this quest wants:</p>
-        <div id="questModalDesc" class="quest-modal-desc"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- NBT Parser Library -->
-  <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
-  <script src="app.js"></script>
 </body>
 </html>

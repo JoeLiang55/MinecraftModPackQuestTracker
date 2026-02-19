@@ -1,152 +1,35 @@
-/* 
-Goal: Style BetterQuesting Tracker
-Requirements:
-1. Dark background
-2. Rounded cards for quests
-3. Completed quests have green border/text
-4. Incomplete quests have gray border/text
-5. Icon displayed on left side of card
-6. Sidebar with chapter list
-7. Responsive layout (sidebar + main panel)
-*/
+/* ========== TRACKER STYLES ========== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-/* ========== HOME PAGE ========== */
-.home-page {
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1e2430;
+  color: #e0e0e0;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
-.home-header {
-  background-color: #0b0f1e;
-  padding: 60px 20px 40px;
+/* Header */
+header {
+  background-color: #252d3d;
+  padding: 20px;
   text-align: center;
-  border-bottom: 2px solid #0a1a30;
+  border-bottom: 2px solid #2e3a4e;
 }
 
-.home-header h1 {
-  color: #00b86b;
-  font-size: 2.8rem;
-  margin-bottom: 12px;
-  text-shadow: 0 0 20px rgba(0, 184, 107, 0.25);
+header h1 {
+  color: #00e08a;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  text-shadow: 0 0 10px rgba(0, 224, 138, 0.15);
 }
 
-.home-header p {
-  color: #707070;
-  font-size: 1.1rem;
-}
-
-.home-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
-}
-
-.modpack-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  max-width: 640px;
-}
-
-.modpack-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background-color: #0b0f1e;
-  border: 2px solid #0a1a30;
-  border-radius: 14px;
-  padding: 24px 28px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.25s ease;
-  cursor: pointer;
-}
-
-.modpack-card:hover {
-  border-color: #00874d;
-  background-color: rgba(0, 135, 77, 0.06);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-}
-
-.modpack-card--coming-soon {
-  opacity: 0.4;
-  cursor: default;
-  pointer-events: none;
-}
-
-.modpack-card--coming-soon:hover {
-  border-color: #0a1a30;
-  background-color: #0b0f1e;
-  transform: none;
-  box-shadow: none;
-}
-
-.modpack-icon {
-  font-size: 2.8rem;
-  flex-shrink: 0;
-  width: 60px;
-  text-align: center;
-}
-
-.modpack-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.modpack-info h2 {
-  color: #00b86b;
-  font-size: 1.4rem;
-  margin-bottom: 6px;
-}
-
-.modpack-info p {
-  color: #606060;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-.modpack-arrow {
-  color: #00874d;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.modpack-badge {
-  background-color: #0c1525;
-  color: #505050;
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 20px;
-  border: 1px solid #0f2035;
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.home-back-btn {
-  display: inline-block;
-  background-color: #0c1525;
-  color: #00b86b;
-  border: 1px solid #00874d;
-  border-radius: 8px;
-  padding: 12px 28px;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: all 0.2s ease;
-}
-
-.home-back-btn:hover {
-  background-color: rgba(0, 135, 77, 0.1);
-}
-
-/* ========== TRACKER HEADER BACK LINK ========== */
 .header-back-link {
   display: inline-block;
-  color: #00874d;
+  color: #00c878;
   font-size: 0.9rem;
   text-decoration: none;
   margin-bottom: 10px;
@@ -157,36 +40,8 @@ Requirements:
 .header-back-link:hover {
   opacity: 1;
 }
-/* ========== END HOME PAGE ========== */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #08080f;
-  color: #c8c8c8;
-  min-height: 100vh;
-}
-
-/* Header styles */
-header {
-  background-color: #0b0f1e;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #0a1a30;
-}
-
-header h1 {
-  color: #00b86b;
-  margin-bottom: 15px;
-  font-size: 2rem;
-  text-shadow: 0 0 10px rgba(0, 184, 107, 0.25);
-}
-
+/* File inputs */
 .file-inputs {
   display: flex;
   justify-content: center;
@@ -202,26 +57,26 @@ header h1 {
 }
 
 .file-input-group label {
-  color: #7a7a7a;
+  color: #9aa0aa;
   font-size: 0.9rem;
 }
 
 .file-input-group input[type="file"] {
-  background-color: #0c1a2e;
-  color: #c8c8c8;
+  background-color: #2e3a4e;
+  color: #e0e0e0;
   padding: 10px 15px;
-  border: 1px solid #0f2540;
+  border: 1px solid #3a4660;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .file-input-group input[type="file"]:hover {
-  background-color: #0f2540;
-  border-color: #00b86b;
+  background-color: #3a4660;
+  border-color: #00e08a;
 }
 
-/* Progress bar styles */
+/* Progress bar */
 .progress-container {
   margin-top: 20px;
   display: flex;
@@ -233,21 +88,21 @@ header h1 {
 .progress-bar {
   width: 300px;
   height: 20px;
-  background-color: #0c1a2e;
+  background-color: #2e3a4e;
   border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #0f2540;
+  border: 1px solid #3a4660;
 }
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #00b86b, #009955);
+  background: linear-gradient(90deg, #00e08a, #00b86b);
   width: 0%;
   transition: width 0.5s ease;
 }
 
 .progress-text {
-  color: #00b86b;
+  color: #00e08a;
   font-weight: bold;
   min-width: 50px;
 }
@@ -258,20 +113,20 @@ header h1 {
   min-height: calc(100vh - 150px);
 }
 
-/* Sidebar styles */
+/* Sidebar */
 #chapterList {
   width: 420px;
-  background-color: #0b0f1e;
+  background-color: #252d3d;
   padding: 28px;
-  border-right: 2px solid #0a1a30;
+  border-right: 2px solid #2e3a4e;
   overflow-y: auto;
 }
 
 #chapterList h2 {
-  color: #00b86b;
+  color: #00e08a;
   margin-bottom: 15px;
   font-size: 1.3rem;
-  border-bottom: 1px solid #0a1a30;
+  border-bottom: 1px solid #2e3a4e;
   padding-bottom: 10px;
 }
 
@@ -282,7 +137,7 @@ header h1 {
 #chapterNav li {
   padding: 22px 22px;
   margin-bottom: 14px;
-  background-color: #0c1728;
+  background-color: #2e3a4e;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -309,22 +164,22 @@ header h1 {
 }
 
 #chapterNav li:hover {
-  background-color: #0f2035;
-  border-left-color: #00b86b;
+  background-color: #3a4660;
+  border-left-color: #00e08a;
 }
 
 #chapterNav li.active {
-  background-color: #0f2035;
-  border-left-color: #00b86b;
+  background-color: #3a4660;
+  border-left-color: #00e08a;
 }
 
 .chapter-progress {
   font-size: 0.8rem;
-  color: #606060;
+  color: #9aa0aa;
   margin-top: 5px;
 }
 
-/* Main panel styles */
+/* Main quest panel */
 #questList {
   flex: 1;
   padding: 20px;
@@ -338,55 +193,62 @@ header h1 {
 .placeholder {
   width: 100%;
   text-align: center;
-  color: #666;
+  color: #7a8090;
   font-size: 1.2rem;
   margin-top: 50px;
 }
 
-/* Quest card styles */
+/* Quest cards — 2 column layout */
 .quest-card {
-  background-color: #0b0f1e;
+  background-color: #252d3d;
   border-radius: 12px;
   padding: 15px;
   width: calc(50% - 10px);
   display: flex;
   align-items: center;
   gap: 15px;
-  border: 2px solid #1a1a2a;
+  border: 2px solid #2e3a4e;
   transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
 }
 
 .quest-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Completed quest styles */
+.quest-card:focus {
+  outline: 2px solid #00e08a;
+  outline-offset: 2px;
+}
+
+/* Completed quests */
 .quest-card.completed {
-  border-color: #00874d;
-  background-color: rgba(0, 135, 77, 0.08);
+  border-color: #00c878;
+  background-color: rgba(0, 200, 120, 0.08);
 }
 
 .quest-card.completed .quest-name {
-  color: #00b86b;
+  color: #00e08a;
 }
 
 .quest-card.completed .quest-status {
-  color: #00b86b;
+  color: #00e08a;
 }
 
-/* Incomplete quest styles */
+/* Incomplete quests */
 .quest-card.incomplete {
-  border-color: #252530;
-  background-color: rgba(25, 25, 35, 0.5);
+  border-color: #333a48;
+  background-color: rgba(51, 58, 72, 0.3);
 }
 
 .quest-card.incomplete .quest-name {
-  color: #606068;
+  color: #9aa0aa;
 }
 
 .quest-card.incomplete .quest-status {
-  color: #606068;
+  color: #9aa0aa;
 }
 
 /* Quest icon */
@@ -394,7 +256,7 @@ header h1 {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  background-color: #0c1525;
+  background-color: #2e3a4e;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -428,7 +290,7 @@ header h1 {
 
 .quest-reward {
   font-size: 0.85rem;
-  color: #a07800;
+  color: #ffd700;
   margin-bottom: 5px;
 }
 
@@ -437,32 +299,22 @@ header h1 {
   font-weight: 500;
 }
 
-/* Tooltip styles */
+/* Tooltip */
 .quest-card[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #0b0f1e;
-  color: #c8c8c8;
+  background-color: #252d3d;
+  color: #e0e0e0;
   padding: 10px 15px;
   border-radius: 8px;
   font-size: 0.85rem;
   white-space: pre-wrap;
   max-width: 250px;
   z-index: 100;
-  border: 1px solid #0f2540;
-}
-
-.quest-card {
-  position: relative;
-  cursor: pointer;
-}
-
-.quest-card:focus {
-  outline: 2px solid #00874d;
-  outline-offset: 2px;
+  border: 1px solid #3a4660;
 }
 
 .hidden {
@@ -483,20 +335,20 @@ header h1 {
 .quest-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .quest-modal-content {
   position: relative;
-  background: #0b0f1e;
-  border: 2px solid #0a1a30;
+  background: #252d3d;
+  border: 2px solid #2e3a4e;
   border-radius: 12px;
   max-width: 480px;
   width: 100%;
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
 }
 
 .quest-modal-header {
@@ -504,11 +356,11 @@ header h1 {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #0a1a30;
+  border-bottom: 1px solid #2e3a4e;
 }
 
 .quest-modal-header h3 {
-  color: #00b86b;
+  color: #00e08a;
   font-size: 1.25rem;
   margin: 0;
 }
@@ -516,7 +368,7 @@ header h1 {
 .quest-modal-close {
   background: transparent;
   border: none;
-  color: #606060;
+  color: #9aa0aa;
   font-size: 1.5rem;
   line-height: 1;
   cursor: pointer;
@@ -524,7 +376,7 @@ header h1 {
 }
 
 .quest-modal-close:hover {
-  color: #c8c8c8;
+  color: #e0e0e0;
 }
 
 .quest-modal-body {
@@ -533,13 +385,13 @@ header h1 {
 }
 
 .quest-modal-desc-label {
-  color: #606060;
+  color: #9aa0aa;
   font-size: 0.85rem;
   margin-bottom: 8px;
 }
 
 .quest-modal-desc {
-  color: #c8c8c8;
+  color: #e0e0e0;
   font-size: 1rem;
   line-height: 1.5;
   white-space: pre-wrap;
@@ -547,7 +399,7 @@ header h1 {
 
 /* Error message */
 .error-message {
-  background-color: rgba(255, 68, 68, 0.2);
+  background-color: rgba(255, 68, 68, 0.15);
   border: 1px solid #ff4444;
   color: #ff6666;
   padding: 15px 20px;
@@ -556,7 +408,7 @@ header h1 {
   text-align: center;
 }
 
-/* Responsive layout */
+/* Responsive */
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
@@ -565,7 +417,7 @@ header h1 {
   #chapterList {
     width: 100%;
     border-right: none;
-    border-bottom: 2px solid #0a1a30;
+    border-bottom: 2px solid #2e3a4e;
   }
 
   #chapterNav {

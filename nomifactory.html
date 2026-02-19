@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterQuesting Tracker</title>
+  <link rel="stylesheet" href="tracker.css">
+</head>
+<body>
+  <!-- Header with title and file inputs -->
+  <header>
+    <a href="index.html" class="header-back-link">← All Modpacks</a>
+    <h1>Nomifactory CeU Quest Tracker</h1>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your <strong>PlayerData</strong> file to track quest completion. Quest data loads automatically.</p>
+    <div class="file-inputs">
+      <div class="file-input-group">
+        <label for="playerFile">PlayerData (required):</label>
+        <input type="file" id="playerFile" accept=".dat,.json">
+      </div>
+    </div>
+    <!-- Debug (remove when fixed): paste this line if quests don't show -->
+    <div id="debugLine" style="display:none; font-size:11px; color:#888; margin-top:8px; word-break:break-all;"></div>
+    <!-- Progress bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-text" id="progressText">0%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Left sidebar for chapters -->
+    <aside id="chapterList">
+      <h2>Chapters</h2>
+      <ul id="chapterNav"></ul>
+    </aside>
+
+    <!-- Main panel for quest list -->
+    <main id="questList">
+      <p class="placeholder">Upload your PlayerData file to view quests</p>
+    </main>
+  </div>
+
+  <!-- Quest description modal (shown on quest card click) -->
+  <div id="questModal" class="quest-modal hidden" aria-hidden="true">
+    <div class="quest-modal-backdrop"></div>
+    <div class="quest-modal-content">
+      <div class="quest-modal-header">
+        <h3 id="questModalTitle"></h3>
+        <button type="button" class="quest-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="quest-modal-body">
+        <p class="quest-modal-desc-label">What this quest wants:</p>
+        <div id="questModalDesc" class="quest-modal-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NBT Parser Library -->
+  <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

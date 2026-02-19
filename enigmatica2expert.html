@@ -3,21 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enigmatica 2: Expert Quest Tracker</title>
-  <link rel="stylesheet" href="home.css">
+  <title>E2E Quest Tracker</title>
+  <link rel="stylesheet" href="tracker.css">
 </head>
 <body>
-  <div class="home-page">
-    <header class="home-header">
-      <h1>Enigmatica 2: Expert</h1>
-      <p>Quest tracker coming soon</p>
-    </header>
-    <main class="home-main">
-      <div style="text-align:center; margin-top: 40px;">
-        <p style="color:#aaa; font-size:1.1rem; margin-bottom:30px;">This modpack tracker is not yet available.</p>
-        <a href="index.html" class="home-back-btn">← Back to Home</a>
+  <!-- Header with title and file inputs -->
+  <header>
+    <a href="index.html" class="header-back-link">&larr; All Modpacks</a>
+    <!-- Player name display (top-right corner) -->
+    <div id="playerNameDisplay" class="player-name-display" style="display:none;">
+      <img id="playerHead" class="player-head" src="" alt="">
+      <span id="playerNameText"></span>
+    </div>
+    <h1>Enigmatica 2: Expert Quest Tracker</h1>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your <strong>PlayerData</strong> file to track quest completion. Quest data loads automatically.</p>
+    <div class="file-inputs">
+      <div class="file-input-group">
+        <label for="playerFile">PlayerData (required):</label>
+        <input type="file" id="playerFile" accept=".dat,.json">
       </div>
+      <div class="file-input-group">
+        <button id="shareBtn" class="share-btn" style="display:none;">Share Progress</button>
+      </div>
+    </div>
+    <!-- Share link banner -->
+    <div id="shareBanner" class="share-banner" style="display:none;">
+      <span>Share link copied! Anyone with this link can view your progress (read-only).</span>
+      <input type="text" id="shareUrl" class="share-url" readonly>
+      <button id="shareCopyBtn" class="share-copy-btn">Copy</button>
+    </div>
+    <!-- Progress bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-text" id="progressText">0%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Left sidebar for chapters -->
+    <aside id="chapterList">
+      <h2>Chapters</h2>
+      <ul id="chapterNav"></ul>
+    </aside>
+
+    <!-- Main panel for quest list -->
+    <main id="questList">
+      <p class="placeholder">Upload your PlayerData file to view quests</p>
     </main>
   </div>
+
+  <!-- Quest description modal (shown on quest card click) -->
+  <div id="questModal" class="quest-modal hidden" aria-hidden="true">
+    <div class="quest-modal-backdrop"></div>
+    <div class="quest-modal-content">
+      <div class="quest-modal-header">
+        <h3 id="questModalTitle"></h3>
+        <button type="button" class="quest-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="quest-modal-body">
+        <p class="quest-modal-desc-label">What this quest wants:</p>
+        <div id="questModalDesc" class="quest-modal-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NBT Parser Library -->
+  <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
+  <script src="appE2E.js"></script>
 </body>
 </html>

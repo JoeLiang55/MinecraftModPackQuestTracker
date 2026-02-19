@@ -78,9 +78,9 @@ function parseLangText(text) {
 // Quest names load automatically from Nomifactory CEU Quests.txt in the same folder (no upload).
 loadLangFileFromUrl();
 
-// DefaultQuests.json is bundled in the repo — fetch it automatically.
+// DefaultQuests is bundled in the repo — fetch it automatically.
 function loadQuestFileFromUrl() {
-  fetch('defaultquests/DefaultQuests.json')
+  fetch('defaultquests/DefaultQuestsNomifactory.json')
     .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
     .then(function(data) {
       questData = data;

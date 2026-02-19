@@ -404,6 +404,11 @@ function mergeQuestData(root) {
   // Get completed quest IDs from player data
   // BetterQuesting NBT/JSON format can vary, so we check multiple possible structures
   let completedIds = new Set();
+
+  // If loaded from a shared link, use the pre-decoded IDs directly
+  if (window._sharedCompletedIds) {
+    window._sharedCompletedIds.forEach(id => completedIds.add(String(id)));
+  } else {
   
   // Helper: get a property regardless of NBT type suffix (e.g. "completed" matches "completed:1")
   function nbtGet(obj, baseName) {
@@ -548,6 +553,7 @@ function mergeQuestData(root) {
   }
 
   findCompletedQuests(playerData, '', 0);
+  } // end of else (non-shared path)
   console.log('Found completed quest IDs:', completedIds.size, Array.from(completedIds).slice(0, 20));
   
   // Debug: dump player data structure to help diagnose issues
@@ -1050,3 +1056,126 @@ function showError(message) {
   questList.innerHTML = `<div class="error-message">${message}</div>`;
   console.error(message);
 }
+
+// ========== SHARING FEATURE ==========
+// Encode completed quest IDs into a URL-safe compressed string
+function encodeShareData() {
+  var ids = mergedQuests.filter(q => q.completed).map(q => q.id);
+  if (ids.length === 0) return null;
+  var json = JSON.stringify(ids);
+  var compressed = pako.deflate(json);
+  // Convert Uint8Array to base64url
+  var binary = '';
+  for (var i = 0; i < compressed.length; i++) {
+    binary += String.fromCharCode(compressed[i]);
+  }
+  var b64 = btoa(binary);
+  // Make URL-safe: + -> -, / -> _, remove trailing =
+  return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+// Decode shared data from URL hash
+function decodeShareData(encoded) {
+  try {
+    // Undo URL-safe base64
+    var b64 = encoded.replace(/-/g, '+').replace(/_/g, '/');
+    // Add back padding
+    while (b64.length % 4 !== 0) b64 += '=';
+    var binary = atob(b64);
+    var bytes = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    var json = pako.inflate(bytes, { to: 'string' });
+    return JSON.parse(json);
+  } catch (e) {
+    console.error('Failed to decode share data:', e);
+    return null;
+  }
+}
+
+// Generate share URL and show banner
+function generateShareLink() {
+  var encoded = encodeShareData();
+  if (!encoded) {
+    alert('No completed quests to share.');
+    return;
+  }
+  var url = window.location.origin + window.location.pathname + '#share=' + encoded;
+  var banner = document.getElementById('shareBanner');
+  var urlInput = document.getElementById('shareUrl');
+  if (banner && urlInput) {
+    urlInput.value = url;
+    banner.style.display = 'flex';
+    // Auto-copy
+    navigator.clipboard.writeText(url).catch(function() {});
+  }
+}
+
+// Check URL for shared progress on page load
+function checkForSharedProgress() {
+  var hash = window.location.hash;
+  if (!hash || !hash.startsWith('#share=')) return false;
+  var encoded = hash.slice(7); // remove '#share='
+  if (!encoded) return false;
+  var ids = decodeShareData(encoded);
+  if (!ids || !Array.isArray(ids) || ids.length === 0) return false;
+
+  // Build a fake playerData so tryMergeAndRender works
+  // We create a minimal structure that the completedIds parser can find
+  var completedSet = new Set(ids.map(String));
+  window._sharedCompletedIds = completedSet;
+  playerData = { _shared: true, completedQuests: ids.map(id => ({ id: id })) };
+
+  // Hide file upload, show shared-mode banner
+  var fileInputs = document.querySelector('.file-inputs');
+  if (fileInputs) fileInputs.style.display = 'none';
+  var header = document.querySelector('header');
+  if (header) {
+    var banner = document.createElement('div');
+    banner.className = 'shared-mode-banner';
+    banner.textContent = '👁️ Viewing shared progress (read-only) — ' + ids.length + ' completed quests';
+    header.appendChild(banner);
+  }
+
+  console.log('Loaded shared progress:', ids.length, 'completed quests');
+  return true;
+}
+
+// Wire up share button and copy button
+(function initSharing() {
+  // Check for shared link on load
+  var isShared = checkForSharedProgress();
+
+  var shareBtn = document.getElementById('shareBtn');
+  var copyBtn = document.getElementById('shareCopyBtn');
+
+  if (shareBtn) {
+    shareBtn.addEventListener('click', generateShareLink);
+  }
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function() {
+      var urlInput = document.getElementById('shareUrl');
+      if (urlInput) {
+        navigator.clipboard.writeText(urlInput.value).then(function() {
+          copyBtn.textContent = 'Copied!';
+          setTimeout(function() { copyBtn.textContent = 'Copy'; }, 2000);
+        });
+      }
+    });
+  }
+
+  // Show share button after quests are rendered
+  var origUpdateProgressBar = updateProgressBar;
+  updateProgressBar = function() {
+    origUpdateProgressBar();
+    if (mergedQuests.length > 0 && shareBtn && !window._sharedCompletedIds) {
+      shareBtn.style.display = 'inline-block';
+    }
+  };
+
+  // If shared, trigger merge once quest data finishes loading
+  if (isShared) {
+    tryMergeAndRender();
+  }
+})();

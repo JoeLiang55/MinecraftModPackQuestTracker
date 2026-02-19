@@ -17,6 +17,15 @@
         <label for="playerFile">PlayerData (required):</label>
         <input type="file" id="playerFile" accept=".dat,.json">
       </div>
+      <div class="file-input-group">
+        <button id="shareBtn" class="share-btn" style="display:none;">Share Progress</button>
+      </div>
+    </div>
+    <!-- Share link banner -->
+    <div id="shareBanner" class="share-banner" style="display:none;">
+      <span>Share link copied! Anyone with this link can view your progress (read-only).</span>
+      <input type="text" id="shareUrl" class="share-url" readonly>
+      <button id="shareCopyBtn" class="share-copy-btn">Copy</button>
     </div>
     <!-- Debug (remove when fixed): paste this line if quests don't show -->
     <div id="debugLine" style="display:none; font-size:11px; color:#888; margin-top:8px; word-break:break-all;"></div>

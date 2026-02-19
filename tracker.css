@@ -408,6 +408,79 @@ header h1 {
   text-align: center;
 }
 
+/* Share button */
+.share-btn {
+  background-color: #2e3a4e;
+  color: #00e08a;
+  border: 1px solid #00c878;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  background-color: rgba(0, 200, 120, 0.12);
+}
+
+.share-banner {
+  margin-top: 14px;
+  background-color: rgba(0, 200, 120, 0.08);
+  border: 1px solid #00c878;
+  border-radius: 8px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.share-banner span {
+  color: #9aa0aa;
+  font-size: 0.85rem;
+}
+
+.share-url {
+  flex: 1;
+  min-width: 200px;
+  background-color: #1e2430;
+  color: #e0e0e0;
+  border: 1px solid #3a4660;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+.share-copy-btn {
+  background-color: #2e3a4e;
+  color: #00e08a;
+  border: 1px solid #3a4660;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.share-copy-btn:hover {
+  background-color: #3a4660;
+}
+
+/* Shared (read-only) mode indicator */
+.shared-mode-banner {
+  background-color: rgba(0, 200, 120, 0.08);
+  border: 1px solid #00c878;
+  border-radius: 8px;
+  padding: 10px 18px;
+  margin-top: 12px;
+  color: #9aa0aa;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .container {

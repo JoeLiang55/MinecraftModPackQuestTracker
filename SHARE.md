@@ -1,31 +1,35 @@
 # Sharing Your Quest Progress
 
-You can share your quest progress with others by generating a special link that encodes your PlayerData file. Here’s how:
+You can share your quest progress with friends by generating a link. No accounts or servers required — everything is encoded directly in the URL.
 
 ## How to Share
-1. **Upload your PlayerData file** on the tracker page for your modpack.
-2. After your progress loads, click the **"Share Progress"** button (coming soon to all modpacks).
-3. A link will be generated. Copy and send this link to your friends or post it online.
-4. Anyone with the link can view your quest progress (read-only).
+1. Go to a modpack tracker page (e.g. Nomifactory CEu).
+2. Upload your **PlayerData** file as usual.
+3. Once your quests load, click the **"Share Progress"** button in the header.
+4. A link is automatically generated and copied to your clipboard.
+5. Send the link to anyone — they can view your progress without uploading anything.
 
 ## How it Works
-- The tracker encodes your PlayerData as a compact string in the URL (or uploads it to a temporary server, if enabled).
-- When someone opens the link, the tracker loads your progress and displays it, but does not allow editing.
+- When you click "Share Progress", the tracker collects your completed quest IDs.
+- Those IDs are compressed (using gzip/pako) and encoded into a URL-safe string.
+- The string is added to the page URL as a hash fragment: `#share=...`
+- When someone opens that link, the tracker decodes the data and displays your progress — read-only, no file upload needed.
+
+## Viewing a Shared Link
+- Just open the link in any browser.
+- The file upload section is hidden — the page automatically loads the shared progress.
+- A banner at the top shows you're viewing someone else's progress.
 
 ## Privacy
-- Only the data in your PlayerData file is shared.
-- No account or login is required.
-- You can delete the link or clear your browser history to remove access.
+- Only your **completed quest IDs** are included in the link (just numbers, no usernames or personal data).
+- The data lives entirely in the URL — nothing is uploaded to any server.
+- If you stop sharing the link, no one new can access it.
 
 ## Example Link
 ```
-https://your-tracker-site.com/nomifactory.html?share=eyJjb21wbGV0ZWRRdWVzdElkcyI6WyIxIiwiMiIsIjMiXX0=
+https://yourusername.github.io/your-repo/nomifactory.html#share=eJzLKC0u...
 ```
 
-## Coming Soon
-- Share progress for all supported modpacks
-- Optional upload to a public leaderboard
-- QR code sharing
-
----
-If you have feedback or want to request more sharing features, open an issue on GitHub or contact the site maintainer.
+## Limitations
+- Very long URLs (thousands of completed quests) may hit browser URL length limits (~2000 chars for some browsers). In practice, Nomifactory's ~400 quests compress well within this.
+- The link is a snapshot — it doesn't update if you complete more quests later. Generate a new link to share updated progress.

@@ -10,12 +10,8 @@
   <!-- Header with title and file inputs -->
   <header>
     <h1>Nomifactory CeU Quest Tracker</h1>
-    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload <strong>DefaultQuests.json</strong> (quest list &amp; chapters) and <strong>PlayerData</strong> (completion). Quest names load automatically from <em>Nomifactory CEU Quests.txt</em> in the same folder (no import needed).</p>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your <strong>PlayerData</strong> file to track quest completion. Quest data loads automatically.</p>
     <div class="file-inputs">
-      <div class="file-input-group">
-        <label for="questFile">DefaultQuests.json (required):</label>
-        <input type="file" id="questFile" accept=".json">
-      </div>
       <div class="file-input-group">
         <label for="playerFile">PlayerData (required):</label>
         <input type="file" id="playerFile" accept=".dat,.json">
@@ -41,7 +37,7 @@
 
     <!-- Main panel for quest list -->
     <main id="questList">
-      <p class="placeholder">Upload DefaultQuests.json and PlayerData to view quests</p>
+      <p class="placeholder">Upload your PlayerData file to view quests</p>
     </main>
   </div>
 

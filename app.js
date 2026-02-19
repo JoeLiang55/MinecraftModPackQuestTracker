@@ -37,7 +37,6 @@ let currentChapter = null;
 window.NOMI_LANG = {};
 
 // DOM elements
-const questFileInput = document.getElementById('questFile');
 const playerFileInput = document.getElementById('playerFile');
 const chapterNav = document.getElementById('chapterNav');
 const questList = document.getElementById('questList');
@@ -46,7 +45,6 @@ const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
 
 // Event listeners for file inputs
-questFileInput.addEventListener('change', handleQuestFile);
 playerFileInput.addEventListener('change', handlePlayerFile);
 initQuestModal();
 
@@ -79,6 +77,22 @@ function parseLangText(text) {
 
 // Quest names load automatically from Nomifactory CEU Quests.txt in the same folder (no upload).
 loadLangFileFromUrl();
+
+// DefaultQuests.json is bundled in the repo — fetch it automatically.
+function loadQuestFileFromUrl() {
+  fetch('defaultquests/DefaultQuests.json')
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error('HTTP ' + r.status)); })
+    .then(function(data) {
+      questData = data;
+      window._debugRootKeys = data && typeof data === 'object' ? Object.keys(data) : [];
+      console.log('Quest data loaded from repo:', questData);
+      tryMergeAndRender();
+    })
+    .catch(function(err) {
+      showError('Failed to load DefaultQuests.json: ' + err.message);
+    });
+}
+loadQuestFileFromUrl();
 
 // Apply NOMI_LANG titles/descriptions to merged quests (nomifactory.quest.normal.db.{id}.title / .desc)
 function applyLangToMergedQuests() {

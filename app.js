@@ -177,10 +177,61 @@ function handleQuestFile(event) {
   reader.readAsText(file);
 }
 
+// ========== PLAYER NAME RESOLUTION ==========
+// Extract UUID from filename and look up Minecraft username
+function tryResolvePlayerName(filename) {
+  if (!filename) return;
+  // Match UUID pattern: 8-4-4-4-12 hex chars (with or without dashes)
+  var uuidRegex = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
+  var match = filename.match(uuidRegex);
+  if (!match) return;
+  var uuid = match[1].replace(/-/g, ''); // strip dashes for API call
+
+  // Show UUID immediately while we look up the name
+  showPlayerName(match[1], null);
+
+  // Try CORS-friendly API to resolve UUID to username
+  fetch('https://api.ashcon.app/mojang/v2/user/' + uuid)
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(new Error(r.status)); })
+    .then(function(data) {
+      if (data && data.username) {
+        showPlayerName(data.username, uuid);
+      }
+    })
+    .catch(function() {
+      // API failed — UUID is already shown as fallback
+      console.log('Could not resolve username for UUID:', uuid);
+    });
+}
+
+function showPlayerName(name, uuid) {
+  var display = document.getElementById('playerNameDisplay');
+  var textEl = document.getElementById('playerNameText');
+  var headImg = document.getElementById('playerHead');
+  if (!display || !textEl) return;
+
+  textEl.textContent = name;
+  display.style.display = 'flex';
+
+  // Show player head using Crafatar (CORS-friendly, works with UUID)
+  if (headImg && uuid) {
+    var cleanUuid = uuid.replace(/-/g, '');
+    headImg.src = 'https://crafatar.com/avatars/' + cleanUuid + '?size=32&overlay';
+    headImg.alt = name;
+    headImg.style.display = 'block';
+  }
+
+  // Store for sharing
+  window._playerDisplayName = name;
+}
+
 // Handle PlayerData.dat file upload (NBT format)
 function handlePlayerFile(event) {
   const file = event.target.files[0];
   if (!file) return;
+
+  // Try to extract UUID from filename (e.g. "60586fce-7db5-486f-b7fc-20965f503990.json")
+  tryResolvePlayerName(file.name);
 
   const reader = new FileReader();
   reader.onload = async function(e) {
@@ -1102,6 +1153,10 @@ function generateShareLink() {
     return;
   }
   var url = window.location.origin + window.location.pathname + '#share=' + encoded;
+  // Append player name if available
+  if (window._playerDisplayName) {
+    url += '&player=' + encodeURIComponent(window._playerDisplayName);
+  }
   var banner = document.getElementById('shareBanner');
   var urlInput = document.getElementById('shareUrl');
   if (banner && urlInput) {
@@ -1116,7 +1171,16 @@ function generateShareLink() {
 function checkForSharedProgress() {
   var hash = window.location.hash;
   if (!hash || !hash.startsWith('#share=')) return false;
-  var encoded = hash.slice(7); // remove '#share='
+  var hashContent = hash.slice(7); // remove '#share='
+  // Split on '&' to separate share data from player name
+  var parts = hashContent.split('&');
+  var encoded = parts[0];
+  var sharedPlayerName = null;
+  for (var p = 1; p < parts.length; p++) {
+    if (parts[p].startsWith('player=')) {
+      sharedPlayerName = decodeURIComponent(parts[p].slice(7));
+    }
+  }
   if (!encoded) return false;
   var ids = decodeShareData(encoded);
   if (!ids || !Array.isArray(ids) || ids.length === 0) return false;
@@ -1134,8 +1198,15 @@ function checkForSharedProgress() {
   if (header) {
     var banner = document.createElement('div');
     banner.className = 'shared-mode-banner';
-    banner.textContent = '👁️ Viewing shared progress (read-only) — ' + ids.length + ' completed quests';
+    var bannerText = '👁️ Viewing shared progress (read-only) — ' + ids.length + ' completed quests';
+    if (sharedPlayerName) bannerText = '👁️ Viewing ' + sharedPlayerName + "'s progress (read-only) — " + ids.length + ' completed quests';
+    banner.textContent = bannerText;
     header.appendChild(banner);
+  }
+
+  // Show shared player name in the corner
+  if (sharedPlayerName) {
+    showPlayerName(sharedPlayerName, null);
   }
 
   console.log('Loaded shared progress:', ids.length, 'completed quests');

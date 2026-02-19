@@ -18,6 +18,7 @@ header {
   padding: 20px;
   text-align: center;
   border-bottom: 2px solid #2e3a4e;
+  position: relative;
 }
 
 header h1 {
@@ -25,6 +26,34 @@ header h1 {
   margin-bottom: 15px;
   font-size: 2rem;
   text-shadow: 0 0 10px rgba(0, 224, 138, 0.15);
+}
+
+/* Player name display (top-right corner) */
+.player-name-display {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #2e3a4e;
+  border: 1px solid #3a4660;
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+
+.player-head {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  display: none;
+}
+
+.player-name-display span {
+  color: #00e08a;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .header-back-link {

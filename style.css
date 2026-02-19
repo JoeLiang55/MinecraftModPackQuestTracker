@@ -1,0 +1,450 @@
+/* 
+Goal: Style BetterQuesting Tracker
+Requirements:
+1. Dark background
+2. Rounded cards for quests
+3. Completed quests have green border/text
+4. Incomplete quests have gray border/text
+5. Icon displayed on left side of card
+6. Sidebar with chapter list
+7. Responsive layout (sidebar + main panel)
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a1a2e;
+  color: #eaeaea;
+  min-height: 100vh;
+}
+
+/* Header styles */
+header {
+  background-color: #16213e;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #0f3460;
+}
+
+header h1 {
+  color: #00ff88;
+  margin-bottom: 15px;
+  font-size: 2rem;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.file-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.file-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-input-group label {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+}
+
+.file-input-group input[type="file"] {
+  background-color: #0f3460;
+  color: #eaeaea;
+  padding: 10px 15px;
+  border: 1px solid #1a4a7a;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input-group input[type="file"]:hover {
+  background-color: #1a4a7a;
+  border-color: #00ff88;
+}
+
+/* Progress bar styles */
+.progress-container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.progress-bar {
+  width: 300px;
+  height: 20px;
+  background-color: #0f3460;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #1a4a7a;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ff88, #00cc6a);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  color: #00ff88;
+  font-weight: bold;
+  min-width: 50px;
+}
+
+/* Container layout */
+.container {
+  display: flex;
+  min-height: calc(100vh - 150px);
+}
+
+/* Sidebar styles */
+#chapterList {
+  width: 420px;
+  background-color: #16213e;
+  padding: 28px;
+  border-right: 2px solid #0f3460;
+  overflow-y: auto;
+}
+
+#chapterList h2 {
+  color: #00ff88;
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  border-bottom: 1px solid #0f3460;
+  padding-bottom: 10px;
+}
+
+#chapterNav {
+  list-style: none;
+}
+
+#chapterNav li {
+  padding: 22px 22px;
+  margin-bottom: 14px;
+  background-color: #0f3460;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+#chapterNav li .chapter-icon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+#chapterNav li .chapter-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+#chapterNav li:hover {
+  background-color: #1a4a7a;
+  border-left-color: #00ff88;
+}
+
+#chapterNav li.active {
+  background-color: #1a4a7a;
+  border-left-color: #00ff88;
+}
+
+.chapter-progress {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 5px;
+}
+
+/* Main panel styles */
+#questList {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-content: flex-start;
+}
+
+.placeholder {
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 1.2rem;
+  margin-top: 50px;
+}
+
+/* Quest card styles */
+.quest-card {
+  background-color: #16213e;
+  border-radius: 12px;
+  padding: 15px;
+  width: calc(50% - 10px);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 2px solid #333;
+  transition: all 0.3s ease;
+}
+
+.quest-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Completed quest styles */
+.quest-card.completed {
+  border-color: #00ff88;
+  background-color: rgba(0, 255, 136, 0.1);
+}
+
+.quest-card.completed .quest-name {
+  color: #00ff88;
+}
+
+.quest-card.completed .quest-status {
+  color: #00ff88;
+}
+
+/* Incomplete quest styles */
+.quest-card.incomplete {
+  border-color: #555;
+  background-color: rgba(85, 85, 85, 0.1);
+}
+
+.quest-card.incomplete .quest-name {
+  color: #888;
+}
+
+.quest-card.incomplete .quest-status {
+  color: #888;
+}
+
+/* Quest icon */
+.quest-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #0f3460;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.quest-icon img {
+  max-width: 40px;
+  max-height: 40px;
+  image-rendering: pixelated;
+}
+
+.quest-icon .fallback-icon {
+  font-size: 24px;
+}
+
+/* Quest info */
+.quest-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.quest-name {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quest-reward {
+  font-size: 0.85rem;
+  color: #ffd700;
+  margin-bottom: 5px;
+}
+
+.quest-status {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Tooltip styles */
+.quest-card[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0f3460;
+  color: #eaeaea;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  max-width: 250px;
+  z-index: 100;
+  border: 1px solid #1a4a7a;
+}
+
+.quest-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.quest-card:focus {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Quest description modal */
+.quest-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.quest-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.quest-modal-content {
+  position: relative;
+  background: #16213e;
+  border: 2px solid #0f3460;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.quest-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #0f3460;
+}
+
+.quest-modal-header h3 {
+  color: #00ff88;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.quest-modal-close {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 6px;
+}
+
+.quest-modal-close:hover {
+  color: #eaeaea;
+}
+
+.quest-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.quest-modal-desc-label {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.quest-modal-desc {
+  color: #eaeaea;
+  font-size: 1rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* Error message */
+.error-message {
+  background-color: rgba(255, 68, 68, 0.2);
+  border: 1px solid #ff4444;
+  color: #ff6666;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin: 20px;
+  text-align: center;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+  }
+
+  #chapterList {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #0f3460;
+  }
+
+  #chapterNav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #chapterNav li {
+    margin-bottom: 0;
+  }
+
+  .quest-card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .file-inputs {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .progress-bar {
+    width: 200px;
+  }
+}

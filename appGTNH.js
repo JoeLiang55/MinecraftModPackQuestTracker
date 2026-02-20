@@ -375,7 +375,17 @@ function renderChapters() {
     if (chapterQuests.length > 0) {
       const prog = document.createElement('div');
       prog.className = 'chapter-progress';
-      prog.textContent = completedCount + '/' + chapterQuests.length + ' completed';
+      const percentage = Math.round((completedCount / chapterQuests.length) * 100);
+      prog.textContent = completedCount + '/' + chapterQuests.length + ' completed (' + percentage + '%)';
+      
+      // Add color indicator for completion
+      if (completedCount === chapterQuests.length) {
+        prog.style.color = '#00e08a';
+        prog.innerHTML = '✓ ' + prog.textContent;
+      } else if (completedCount > 0) {
+        prog.style.color = '#ffd700';
+      }
+      
       li.appendChild(prog);
     }
     li.addEventListener('click', () => selectChapter(chapter.id));
@@ -436,6 +446,15 @@ function createQuestCard(quest) {
   card.tabIndex = 0;
   card.addEventListener('click', function () { showQuestModal(quest); });
   card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showQuestModal(quest); } });
+
+  // Add completion badge for completed quests
+  if (quest.completed) {
+    const badge = document.createElement('div');
+    badge.className = 'quest-completion-badge';
+    badge.innerHTML = '✓';
+    badge.title = 'Completed';
+    card.appendChild(badge);
+  }
 
   const iconDiv = document.createElement('div');
   iconDiv.className = 'quest-icon';

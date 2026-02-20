@@ -256,6 +256,11 @@ header h1 {
 .quest-card.completed {
   border-color: #00c878;
   background-color: rgba(0, 200, 120, 0.08);
+  box-shadow: 0 0 15px rgba(0, 224, 138, 0.15);
+}
+
+.quest-card.completed:hover {
+  box-shadow: 0 5px 25px rgba(0, 224, 138, 0.25);
 }
 
 .quest-card.completed .quest-name {
@@ -264,6 +269,34 @@ header h1 {
 
 .quest-card.completed .quest-status {
   color: #00e08a;
+}
+
+/* Completion indicator badge */
+.quest-completion-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: #00c878;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e2430;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 224, 138, 0.4);
+  animation: completionPulse 2s ease-in-out infinite;
+}
+
+@keyframes completionPulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 224, 138, 0.4);
+  }
+  50% {
+    box-shadow: 0 2px 12px rgba(0, 224, 138, 0.6);
+  }
 }
 
 /* Incomplete quests */

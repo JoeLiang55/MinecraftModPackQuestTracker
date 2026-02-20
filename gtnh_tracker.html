@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GregTech: New Horizons Quest Tracker</title>
+  <link rel="stylesheet" href="tracker.css">
+  <style>
+    /* GTNH-specific styles */
+    .quest-line-selector {
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .quest-line-selector select {
+      background-color: #2e3a4e;
+      color: #e0e0e0;
+      padding: 10px 15px;
+      border: 1px solid #3a4660;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 300px;
+    }
+
+    .quest-line-selector select:focus {
+      outline: 2px solid #00e08a;
+      outline-offset: 2px;
+    }
+
+    .quest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .quest-node {
+      background-color: #252d3d;
+      border-radius: 12px;
+      padding: 15px;
+      border: 2px solid #2e3a4e;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .quest-node:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .quest-node.completed {
+      border-color: #00c878;
+      background-color: rgba(0, 200, 120, 0.08);
+      box-shadow: 0 0 15px rgba(0, 224, 138, 0.15);
+    }
+
+    .quest-node.completed:hover {
+      box-shadow: 0 5px 25px rgba(0, 224, 138, 0.25);
+    }
+
+    .quest-node.completed .quest-node-icon {
+      border: 2px solid #00c878;
+      background-color: rgba(0, 200, 120, 0.12);
+      box-shadow: 0 0 10px rgba(0, 224, 138, 0.25);
+    }
+
+    .quest-node-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2e3a4e;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    .quest-node-icon img {
+      max-width: 40px;
+      max-height: 40px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+    }
+
+    .quest-node.completed .quest-node-icon img {
+      filter: drop-shadow(0 0 3px rgba(0, 224, 138, 0.5));
+    }
+
+    .quest-node-title {
+      color: #e0e0e0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 8px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quest-node.completed .quest-node-title {
+      color: #00e08a;
+      text-shadow: 0 0 8px rgba(0, 224, 138, 0.3);
+    }
+
+    .quest-id-badge {
+      display: none; /* Quest IDs are removed from UI */
+      background-color: #2e3a4e;
+      color: #9aa0aa;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-align: center;
+      font-family: monospace;
+    }
+
+    .loading-message {
+      text-align: center;
+      padding: 40px;
+      color: #9aa0aa;
+      font-size: 1.2rem;
+    }
+
+    .error-banner {
+      background-color: rgba(255, 68, 68, 0.15);
+      border: 1px solid #ff4444;
+      color: #ff6666;
+      padding: 15px 20px;
+      border-radius: 8px;
+      margin: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="header-back-link">&larr; All Modpacks</a>
+    <div id="playerNameDisplay" class="player-name-display" style="display:none;">
+      <img id="playerHead" class="player-head" src="" alt="">
+      <span id="playerNameText"></span>
+    </div>
+    <h1>GregTech: New Horizons Quest Tracker</h1>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your quest progress file to track completion</p>
+    
+    <div class="file-inputs">
+      <div class="file-input-group">
+        <label for="playerFile">Quest Progress File:</label>
+        <input type="file" id="playerFile" accept=".json,.dat">
+      </div>
+      <div class="file-input-group">
+        <button id="shareBtn" class="share-btn" style="display:none;">Share Progress</button>
+      </div>
+    </div>
+
+    <div id="shareBanner" class="share-banner" style="display:none;">
+      <span>Share link copied! Anyone with this link can view your progress (read-only).</span>
+      <input type="text" id="shareUrl" class="share-url" readonly>
+      <button id="shareCopyBtn" class="share-copy-btn">Copy</button>
+    </div>
+
+    <div class="progress-container" id="overallProgressContainer" style="display: none;">
+      <div style="text-align: center; margin-bottom: 5px; color: #9aa0aa; font-size: 0.85rem;">Overall Progress</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="overallProgressFill"></div>
+      </div>
+      <span class="progress-text" id="overallProgressText">0%</span>
+    </div>
+    
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div style="text-align: center; margin-bottom: 5px; color: #9aa0aa; font-size: 0.85rem;">Current Quest Line</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-text" id="progressText">0%</span>
+    </div>
+
+    <div class="quest-line-selector">
+      <label for="questLineSelect" style="color: #9aa0aa; margin-right: 10px;">Select Quest Line:</label>
+      <select id="questLineSelect">
+        <option value="">Loading quest lines...</option>
+      </select>
+    </div>
+  </header>
+
+  <main id="questContainer">
+    <div class="loading-message">Loading quest data...</div>
+  </main>
+
+  <div id="questModal" class="quest-modal hidden" aria-hidden="true">
+    <div class="quest-modal-backdrop"></div>
+    <div class="quest-modal-content">
+      <div class="quest-modal-header">
+        <h3 id="questModalTitle"></h3>
+        <button type="button" class="quest-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="quest-modal-body">
+        <div id="questModalIcon" style="text-align: center; margin-bottom: 15px;"></div>
+        <p class="quest-modal-desc-label">Quest Details:</p>
+        <div id="questModalDesc" class="quest-modal-desc"></div>
+        <div id="questModalId" style="margin-top: 15px; color: #9aa0aa; font-size: 0.85rem;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="libs/pako.min.js"></script>
+  <script src="libs/jquery.min.js"></script>
+  <script src="appGTNH_new.js"></script>
+</body>
+</html>

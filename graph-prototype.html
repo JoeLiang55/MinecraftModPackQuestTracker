@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quest Graph Prototype</title>
+  <style>
+    body { background: #23272e; color: #eee; font-family: sans-serif; }
+    svg { background: #2d3340; border-radius: 10px; margin: 30px auto; display: block; }
+    .quest-node { cursor: pointer; }
+    .quest-node.completed rect { stroke: #00e08a; fill: #1e3d2f; }
+    .quest-node.incomplete rect { stroke: #888; fill: #23272e; }
+    .quest-icon { pointer-events: none; }
+    .quest-label { font-size: 12px; text-anchor: middle; fill: #eee; pointer-events: none; }
+    .edge { stroke-width: 3; marker-end: url(#arrow); }
+    .edge.completed { stroke: #00e08a; }
+    .edge.incomplete { stroke: #c33; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Quest Dependency Graph Prototype</h2>
+  <svg id="quest-graph" width="900" height="500"></svg>
+  <script>
+    // Example: Nomifactory Mid Game tab (Expecting specific filenames in /icons/)
+    const quests = [
+      { id: 'bucket', name: 'Bucket', x: 100, y: 200, icon: 'icons/bucket.png', completed: true },
+      { id: 'lv_machine', name: 'LV Machine', x: 300, y: 120, icon: 'icons/lv_machine.png', completed: true },
+      { id: 'mv_machine', name: 'MV Machine', x: 500, y: 200, icon: 'icons/mv_machine.png', completed: false },
+      { id: 'assembler', name: 'Assembler', x: 700, y: 120, icon: 'icons/assembler.png', completed: false }
+    ];
+    const edges = [
+      { from: 'bucket', to: 'lv_machine', completed: true },
+      { from: 'lv_machine', to: 'mv_machine', completed: false },
+      { from: 'mv_machine', to: 'assembler', completed: false }
+    ];
+    const svg = document.getElementById('quest-graph');
+    // Arrow marker
+    svg.innerHTML = `<defs>
+      <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#888" />
+      </marker>
+    </defs>`;
+    // Draw edges
+    edges.forEach(e => {
+      const from = quests.find(q => q.id === e.from);
+      const to = quests.find(q => q.id === e.to);
+      if (!from || !to) return;
+      const edge = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      edge.setAttribute('x1', from.x + 40);
+      edge.setAttribute('y1', from.y + 40);
+      edge.setAttribute('x2', to.x + 40);
+      edge.setAttribute('y2', to.y + 40);
+      edge.setAttribute('class', 'edge ' + (from.completed && to.completed ? 'completed' : 'incomplete'));
+      svg.appendChild(edge);
+    });
+    // Draw nodes
+    quests.forEach(q => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'quest-node ' + (q.completed ? 'completed' : 'incomplete'));
+      g.setAttribute('transform', `translate(${q.x},${q.y})`);
+      
+      // Node box
+      const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      rect.setAttribute('width', 80);
+      rect.setAttribute('height', 80);
+      rect.setAttribute('rx', 10);
+      rect.setAttribute('stroke-width', 4);
+      g.appendChild(rect);
+      
+      // Icon Image
+      const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
+      img.setAttribute('href', q.icon);
+      img.setAttribute('x', 16);
+      img.setAttribute('y', 10);
+      img.setAttribute('width', 48);
+      img.setAttribute('height', 48);
+      // Add error handler to show placeholder if image is missing
+      img.setAttribute('onerror', "this.style.display='none'; this.nextSibling.style.display='block';");
+      g.appendChild(img);
+
+      // Fallback Text (hidden by default, shown if image missing)
+      const fallback = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      fallback.textContent = '?';
+      fallback.setAttribute('x', 40);
+      fallback.setAttribute('y', 55);
+      fallback.setAttribute('text-anchor', 'middle');
+      fallback.setAttribute('fill', '#666');
+      fallback.setAttribute('font-size', '30px');
+      fallback.setAttribute('style', 'display:none; pointer-events:none;');
+      g.appendChild(fallback);
+      
+      // Label
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', 40);
+      label.setAttribute('y', 95);
+      label.setAttribute('class', 'quest-label');
+      label.textContent = q.name;
+      g.appendChild(label);
+      
+      svg.appendChild(g);
+    });
+  </script>
+</body>
+</html>

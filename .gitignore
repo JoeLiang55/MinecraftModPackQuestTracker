@@ -1,0 +1,14 @@
+# Temporary files and build artifacts
+temp_gtnh_repo/
+node_modules/
+.DS_Store
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+Thumbs.db

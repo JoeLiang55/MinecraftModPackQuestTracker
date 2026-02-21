@@ -1,0 +1,14 @@
+{
+  "name": "minecraft-quest-tracker",
+  "private": true,
+  "scripts": {
+    "makeFileConfig": "node scripts/makeFileConfig.js",
+    "mapIcons": "node scripts/mapIconsFromList.js",
+    "extractIcons": "node scripts/extractMissingIcons.js",
+    "buildAtlas": "node scripts/buildNomiAtlas.js",
+    "build": "node scripts/makeFileConfig.js"
+  },
+  "devDependencies": {
+    "adm-zip": "^0.5.16"
+  }
+}

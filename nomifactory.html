@@ -15,8 +15,8 @@
       <img id="playerHead" class="player-head" src="" alt="">
       <span id="playerNameText"></span>
     </div>
-    <h1>Nomifactory CeU Quest Tracker</h1>
-    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Upload your <strong>PlayerData</strong> file to track quest completion. Quest data loads automatically.</p>
+    <h1>Nomifactory CEu Quest Tracker</h1>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">Quest list loads automatically. Upload <strong>PlayerData</strong> to mark completion.</p>
     <div class="file-inputs">
       <div class="file-input-group">
         <label for="playerFile">PlayerData (required):</label>
@@ -32,8 +32,6 @@
       <input type="text" id="shareUrl" class="share-url" readonly>
       <button id="shareCopyBtn" class="share-copy-btn">Copy</button>
     </div>
-    <!-- Debug (remove when fixed): paste this line if quests don't show -->
-    <div id="debugLine" style="display:none; font-size:11px; color:#888; margin-top:8px; word-break:break-all;"></div>
     <!-- Progress bar -->
     <div class="progress-container" id="progressContainer" style="display: none;">
       <div class="progress-bar">
@@ -44,15 +42,45 @@
   </header>
 
   <div class="container">
+    <!-- Sidebar toggle button -->
+    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
     <!-- Left sidebar for chapters -->
-    <aside id="chapterList">
-      <h2>Chapters</h2>
-      <ul id="chapterNav"></ul>
+    <aside id="chapterList" class="sidebar">
+      <div class="sidebar-header">
+        <h2>Chapters</h2>
+        <button id="sidebarClose" class="sidebar-close" aria-label="Close sidebar">&times;</button>
+      </div>
+      <div class="sidebar-content">
+        <ul id="chapterNav"></ul>
+      </div>
     </aside>
 
     <!-- Main panel for quest list -->
     <main id="questList">
-      <p class="placeholder">Upload your PlayerData file to view quests</p>
+      <div class="quest-header">
+        <div class="quest-chapter-info">
+          <img id="currentChapterIcon" class="quest-chapter-icon" src="" alt="" style="display: none;">
+          <h2 id="currentChapterTitle">Select a Chapter</h2>
+        </div>
+        <div class="quest-stats" id="questStats" style="display: none;">
+          <span class="stat-item">
+            <span class="stat-label">Completed:</span>
+            <span class="stat-value" id="completedCount">0</span>
+          </span>
+          <span class="stat-item">
+            <span class="stat-label">Total:</span>
+            <span class="stat-value" id="totalCount">0</span>
+          </span>
+        </div>
+      </div>
+      <div class="quest-content">
+        <p class="placeholder">Loading quest data...</p>
+      </div>
     </main>
   </div>
 

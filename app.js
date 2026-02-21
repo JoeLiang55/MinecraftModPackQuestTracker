@@ -33,6 +33,173 @@ let mergedQuests = [];
 let chapters = [];
 let currentChapter = null;
 
+// ========== QUEST ICONS (GTNH-style: icons/ + optional internet fallback) ==========
+// Primary: icons/<mod>_<item>.png (e.g. icons/appliedenergistics2_charger.png), same as gregtechnewhorizons / appGTNH.js
+// Optional: set ICON_CDN_BASE to a URL that serves PNGs as {base}{iconId}.png (e.g. GitHub raw or your CDN)
+const ICON_CDN_BASE = ''; // e.g. 'https://raw.githubusercontent.com/.../icons/' to pull missing icons from internet
+// Legacy atlas (optional): nomi/quests_icons.json + nomi/quests_icons/QuestIcon/<AtlasName>.gtbl
+const NOMI_ICON_MAPPING_URL = 'nomi/quests_icons.json';
+const NOMI_ICON_ATLAS_BASE_URL = 'nomi/quests_icons/QuestIcon';
+
+// ========== Pre-built icon map (nomi-icon-map.json) ==========
+// Maps icon IDs ("modid:itemname") → relative path in filtered-textures/
+let nomiIconMap = null; // { "modid:itemname": "filtered-textures/assets/..." }
+let nomiIconMapPromise = null;
+
+function initNomiIconMap() {
+  if (!nomiIconMapPromise) {
+    nomiIconMapPromise = fetch('nomi-icon-map.json')
+      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => {
+        nomiIconMap = data.icons || {};
+        console.log('[NOMI] Loaded icon map with', Object.keys(nomiIconMap).length, 'entries');
+        return nomiIconMap;
+      })
+      .catch(err => {
+        console.warn('[NOMI] Icon map not available:', err.message);
+        nomiIconMap = {};
+        return nomiIconMap;
+      });
+  }
+  return nomiIconMapPromise;
+}
+
+// Start loading immediately
+initNomiIconMap();
+
+let nomiIconMapping = null; // { questId(string) : atlasName(string) }
+let nomiLoadedAtlases = {}; // { atlasName : { [questId]: base64Webp } }
+let nomiAtlasLoadQueue = {}; // { atlasName : 'loading' | Array<{img, questId}> }
+let nomiIconMappingPromise = null;
+
+function initNomiIconSystem() {
+  if (!nomiIconMappingPromise) {
+    nomiIconMappingPromise = loadNomiIconMapping();
+  }
+  return nomiIconMappingPromise;
+}
+
+async function loadNomiIconMapping() {
+  try {
+    const response = await fetch(NOMI_ICON_MAPPING_URL);
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const mapping = await response.json();
+    const out = {};
+
+    // mapping format (from MakeFileConfig.js):
+    // { "QuestIcon/Genesis": ["0","1",...], ... }
+    for (const [atlasPath, questIds] of Object.entries(mapping || {})) {
+      const parts = String(atlasPath).split('/');
+      const atlasName = parts.length >= 2 ? parts[1] : null;
+      if (!atlasName || !Array.isArray(questIds)) continue;
+      questIds.forEach((qid) => { out[String(qid)] = atlasName; });
+    }
+
+    nomiIconMapping = out;
+    console.log('[NOMI] Loaded icon mapping for', Object.keys(nomiIconMapping).length, 'quests');
+    return nomiIconMapping;
+  } catch (error) {
+    // Non-fatal: if not present, we fall back to icons/<item>.png
+    console.warn('[NOMI] Icon mapping not available:', error.message || error);
+    nomiIconMapping = null;
+    return null;
+  }
+}
+
+async function loadNomiIconAtlas(atlasName) {
+  if (!atlasName) return null;
+  if (nomiLoadedAtlases[atlasName]) return nomiLoadedAtlases[atlasName];
+
+  if (nomiAtlasLoadQueue[atlasName] === 'loading') {
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (nomiLoadedAtlases[atlasName] || nomiAtlasLoadQueue[atlasName] == null) {
+          clearInterval(interval);
+          resolve(nomiLoadedAtlases[atlasName] || null);
+        }
+      }, 100);
+    });
+  }
+
+  nomiAtlasLoadQueue[atlasName] = 'loading';
+
+  async function tryLoadGtblOrJson(ext) {
+    const url = `${NOMI_ICON_ATLAS_BASE_URL}/${atlasName}.${ext}`;
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    if (ext === 'json') return await r.json();
+    const arrayBuffer = await r.arrayBuffer();
+    const decompressed = pako.ungzip(new Uint8Array(arrayBuffer), { to: 'string' });
+    return JSON.parse(decompressed);
+  }
+
+  try {
+    let iconData = null;
+    try {
+      iconData = await tryLoadGtblOrJson('gtbl');
+    } catch (eGtbl) {
+      iconData = await tryLoadGtblOrJson('json');
+    }
+
+    if (!iconData || typeof iconData !== 'object') throw new Error('Invalid atlas data');
+
+    nomiLoadedAtlases[atlasName] = iconData;
+    console.log(`[NOMI] Loaded atlas ${atlasName} with ${Object.keys(iconData).length} icons`);
+
+    if (Array.isArray(nomiAtlasLoadQueue[atlasName])) {
+      nomiAtlasLoadQueue[atlasName].forEach(({ img, questId }) => {
+        const data = iconData[String(questId)];
+        if (data) {
+          img.src = `data:${b64MimeType(data)};base64,${data}`;
+          img.style.display = 'block';
+        }
+      });
+    }
+    delete nomiAtlasLoadQueue[atlasName];
+    return iconData;
+  } catch (error) {
+    console.warn(`[NOMI] Failed to load atlas ${atlasName}:`, error.message || error);
+    delete nomiAtlasLoadQueue[atlasName];
+    return null;
+  }
+}
+
+/** Detect MIME type from a base64-encoded image string. PNG → image/png, else image/webp. */
+function b64MimeType(b64) {
+  return b64.startsWith('iVBOR') ? 'image/png' : 'image/webp';
+}
+
+async function setNomiQuestIcon(img, questId) {
+  if (!img || questId == null) return false;
+  await initNomiIconSystem();
+  if (!nomiIconMapping) return false;
+
+  const qid = String(questId);
+  const atlasName = nomiIconMapping[qid];
+  if (!atlasName) return false;
+
+  if (nomiLoadedAtlases[atlasName] && nomiLoadedAtlases[atlasName][qid]) {
+    const d0 = nomiLoadedAtlases[atlasName][qid];
+    img.src = `data:${b64MimeType(d0)};base64,${d0}`;
+    img.style.display = 'block';
+    return true;
+  }
+
+  // Queue this image, then load the atlas
+  if (!nomiAtlasLoadQueue[atlasName]) nomiAtlasLoadQueue[atlasName] = [];
+  if (Array.isArray(nomiAtlasLoadQueue[atlasName])) {
+    nomiAtlasLoadQueue[atlasName].push({ img, questId: qid });
+  }
+  const atlas = await loadNomiIconAtlas(atlasName);
+  if (atlas && atlas[qid]) {
+    const d1 = atlas[qid];
+    img.src = `data:${b64MimeType(d1)};base64,${d1}`;
+    img.style.display = 'block';
+    return true;
+  }
+  return false;
+}
+
 // Lang file entries (key -> value). Filled automatically from Nomifactory CEU Quests.txt in same folder.
 window.NOMI_LANG = {};
 
@@ -44,9 +211,46 @@ const progressContainer = document.getElementById('progressContainer');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
 
+// Sidebar elements
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebarClose = document.getElementById('sidebarClose');
+const sidebar = document.getElementById('chapterList');
+const currentChapterTitle = document.getElementById('currentChapterTitle');
+const currentChapterIcon = document.getElementById('currentChapterIcon');
+const questStats = document.getElementById('questStats');
+const completedCount = document.getElementById('completedCount');
+const totalCount = document.getElementById('totalCount');
+const questContent = document.querySelector('.quest-content');
+
 // Event listeners for file inputs
 playerFileInput.addEventListener('change', handlePlayerFile);
 initQuestModal();
+
+// Sidebar toggle functionality
+function toggleSidebar() {
+  sidebar.classList.toggle('hidden');
+  sidebarToggle.classList.toggle('active');
+}
+
+function hideSidebar() {
+  sidebar.classList.add('hidden');
+  sidebarToggle.classList.remove('active');
+}
+
+// Add event listeners for sidebar toggle
+if (sidebarToggle) {
+  sidebarToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleSidebar();
+  });
+}
+
+if (sidebarClose) {
+  sidebarClose.addEventListener('click', (e) => {
+    e.preventDefault();
+    hideSidebar();
+  });
+}
 
 // Try to load Nomifactory CEU Quests.txt from the same folder (e.g. GitHub Pages). No upload needed if file is in repo.
 function loadLangFileFromUrl() {
@@ -77,6 +281,9 @@ function parseLangText(text) {
 
 // Quest names load automatically from Nomifactory CEU Quests.txt in the same folder (no upload).
 loadLangFileFromUrl();
+
+// Try to initialize icon mapping early (non-blocking).
+initNomiIconSystem();
 
 // DefaultQuests is bundled in the repo — fetch it automatically.
 function loadQuestFileFromUrl() {
@@ -163,9 +370,6 @@ function handleQuestFile(event) {
       questData = JSON.parse(e.target.result);
       window._debugRootKeys = questData && typeof questData === 'object' ? Object.keys(questData) : [];
       console.log('Quest data loaded:', questData);
-      // #region agent log
-      fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3f59d1'},body:JSON.stringify({sessionId:'3f59d1',location:'app.js:handleQuestFile',message:'questData root keys',data:{rootKeys:window._debugRootKeys},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-      // #endregion
       tryMergeAndRender();
     } catch (error) {
       showError('Error parsing DefaultQuests.json: ' + error.message);
@@ -400,10 +604,10 @@ async function parseNBT(arrayBuffer) {
   return result;
 }
 
-// Try to merge data and render if both files are loaded
+// Try to merge data and render when quest data is loaded (player file optional — no file = all incomplete)
 function tryMergeAndRender() {
-  if (!questData || !playerData) {
-    return; // Wait for both files
+  if (!questData) {
+    return; // Wait for quest data (from URL or upload)
   }
 
   try {
@@ -421,19 +625,6 @@ function tryMergeAndRender() {
     extractChapters(_effectiveQuestRoot);
     renderChapters();
     updateProgressBar();
-    
-    // Visible debug for diagnosis
-    var debugEl = document.getElementById('debugLine');
-    if (debugEl) {
-      debugEl.style.display = 'block';
-      var completedCount = mergedQuests.filter(function(q){ return q.completed; }).length;
-      var pdbg = window._playerDataDebug || {};
-      debugEl.textContent = 'Debug: merged=' + mergedQuests.length + 
-        ' completed=' + completedCount +
-        ' playerCompletedIds=' + (pdbg.completedCount || 0) +
-        ' playerKeys=[' + (pdbg.playerDataKeys || []).join(',') + ']' +
-        ' sampleCompletedIds=[' + (pdbg.sampleIds || []).join(',') + ']';
-    }
 
     // Show first chapter by default or all quests
     if (chapters.length > 0) {
@@ -459,8 +650,8 @@ function mergeQuestData(root) {
   // If loaded from a shared link, use the pre-decoded IDs directly
   if (window._sharedCompletedIds) {
     window._sharedCompletedIds.forEach(id => completedIds.add(String(id)));
-  } else {
-  
+  } else if (playerData) {
+  // Parse completion from player data only when a file was loaded
   // Helper: get a property regardless of NBT type suffix (e.g. "completed" matches "completed:1")
   function nbtGet(obj, baseName) {
     if (!obj || typeof obj !== 'object') return undefined;
@@ -604,10 +795,10 @@ function mergeQuestData(root) {
   }
 
   findCompletedQuests(playerData, '', 0);
-  } // end of else (non-shared path)
+  } // end else if (playerData)
   console.log('Found completed quest IDs:', completedIds.size, Array.from(completedIds).slice(0, 20));
   
-  // Debug: dump player data structure to help diagnose issues
+  if (playerData) {
   window._playerDataDebug = {
     completedCount: completedIds.size,
     sampleIds: Array.from(completedIds).slice(0, 20),
@@ -623,7 +814,7 @@ function mergeQuestData(root) {
     })(playerData, 0)
   };
   console.log('Player data debug:', window._playerDataDebug);
-
+  }
 
   // Resolve quest database: try known keys first, then discover from root
   let questDB = root.questDatabase || root.questDB || root['questDatabase:9'] || root.defaultQuests || root.quests;
@@ -651,12 +842,6 @@ function mergeQuestData(root) {
   }
   if (!questDB) questDB = root;
 
-  // #region agent log
-  var _dbKeys = questDB && typeof questDB === 'object' && !Array.isArray(questDB) ? Object.keys(questDB).slice(0, 15) : null;
-  var _dbLen = Array.isArray(questDB) ? questDB.length : (questDB && typeof questDB === 'object' ? Object.keys(questDB).length : 0);
-  var _logPayload = {sessionId:'3f59d1',location:'app.js:mergeQuestData',message:'questDB resolved',data:{isArray:Array.isArray(questDB),size:_dbLen,sampleKeys:_dbKeys},timestamp:Date.now(),hypothesisId:'H2'};
-  fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3f59d1'},body:JSON.stringify(_logPayload)}).catch(function(){ console.log('[DEBUG]', JSON.stringify(_logPayload)); });
-  // #endregion
   // Handle different BetterQuesting formats (including NBT-style list of { key, value })
   // Use quest's own ID when present so chapter references (Early Game, Late Game, etc.) match
   if (Array.isArray(questDB)) {
@@ -675,14 +860,6 @@ function mergeQuestData(root) {
   }
 
   console.log('Merged quests:', mergedQuests.length);
-  // #region agent log
-  var _logPayload2 = {sessionId:'3f59d1',location:'app.js:mergeQuestData',message:'after process',data:{mergedCount:mergedQuests.length,firstIds:mergedQuests.slice(0,3).map(function(q){return q.id;})},timestamp:Date.now(),hypothesisId:'H2'};
-  fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3f59d1'},body:JSON.stringify(_logPayload2)}).catch(function(){ console.log('[DEBUG]', JSON.stringify(_logPayload2)); });
-  var completedArr = Array.from(completedIds);
-  var mergedCompletedCount = mergedQuests.filter(function(q){ return q.completed; }).length;
-  var _logComplete = { sessionId: '3f59d1', location: 'app.js:mergeQuestData', message: 'player completion', data: { completedIdsCount: completedIds.size, sampleCompletedIds: completedArr.slice(0, 10), mergedQuestCount: mergedQuests.length, mergedCompletedCount: mergedCompletedCount, sampleMergedIds: mergedQuests.slice(0, 5).map(function(q){ return { id: q.id, completed: q.completed }; }) }, timestamp: Date.now(), hypothesisId: 'H5' };
-  fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '3f59d1' }, body: JSON.stringify(_logComplete) }).catch(function () { console.log('[DEBUG completion]', JSON.stringify(_logComplete)); });
-  // #endregion
 }
 
 // Process individual quest entry
@@ -870,11 +1047,6 @@ function extractChapters(root) {
   chapters = ordered;
 
   console.log('Chapters extracted:', chapters.length);
-  // #region agent log
-  var _ch0 = chapters.length > 0 ? {id: chapters[0].id, name: chapters[0].name, questCount: chapters[0].quests.length, sampleQuestIds: chapters[0].quests.slice(0, 5)} : null;
-  var _logPayload3 = {sessionId:'3f59d1',location:'app.js:extractChapters',message:'chapters built',data:{chapterCount:chapters.length,firstChapter:_ch0},timestamp:Date.now(),hypothesisId:'H3'};
-  fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3f59d1'},body:JSON.stringify(_logPayload3)}).catch(function(){ console.log('[DEBUG]', JSON.stringify(_logPayload3)); });
-  // #endregion
 }
 
 // Get quest IDs for a chapter/quest line (must match merged quest IDs for filtering)
@@ -954,10 +1126,17 @@ function renderChapters() {
     if (totalCount > 0) {
       const progressSpan = document.createElement('div');
       progressSpan.className = 'chapter-progress';
-      progressSpan.textContent = `${completedCount}/${totalCount} completed`;
+      const percentage = Math.round((completedCount / totalCount) * 100);
+      progressSpan.textContent = completedCount + '/' + totalCount + ' completed (' + percentage + '%)';
+      if (completedCount === totalCount) {
+        progressSpan.style.color = '#00e08a';
+        progressSpan.innerHTML = '✓ ' + progressSpan.textContent;
+      } else if (completedCount > 0) {
+        progressSpan.style.color = '#ffd700';
+      }
       li.appendChild(progressSpan);
     }
-    
+
     li.addEventListener('click', () => selectChapter(chapter.id));
     chapterNav.appendChild(li);
   });
@@ -977,26 +1156,58 @@ function selectChapter(chapterId) {
   if (chapter) {
     var chapterQuests = mergedQuests.filter(q => chapter.quests.includes(q.id));
     chapterQuests = chapterQuests.slice().sort(function (a, b) { return (Number(a.id) || 0) - (Number(b.id) || 0); });
-    // #region agent log
-    fetch('http://127.0.0.1:7625/ingest/1e1b655b-08d3-49a3-8143-37203c10b8bb',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3f59d1'},body:JSON.stringify({sessionId:'3f59d1',location:'app.js:selectChapter',message:'filter result',data:{chapterId:chapterId,chapterQuestIdsCount:chapter.quests.length,renderedCount:chapterQuests.length},timestamp:Date.now(),hypothesisId:'H4'})}).catch(()=>{});
-    // #endregion
+    
+    // Update chapter title and icon
+    if (currentChapterTitle) {
+      currentChapterTitle.textContent = chapter.name || `Chapter ${chapterId}`;
+    }
+    
+    // Update chapter icon
+    if (currentChapterIcon) {
+      var iconPath = chapterIconPath(chapter.name);
+      if (iconPath) {
+        currentChapterIcon.src = iconPath;
+        currentChapterIcon.style.display = 'block';
+        currentChapterIcon.onerror = function () { 
+          this.style.display = 'none'; 
+        };
+      } else {
+        currentChapterIcon.style.display = 'none';
+      }
+    }
+    
+    // Update quest stats
+    const completedQuests = chapterQuests.filter(q => q.completed);
+    if (questStats) {
+      questStats.style.display = 'flex';
+      if (completedCount) completedCount.textContent = completedQuests.length;
+      if (totalCount) totalCount.textContent = chapterQuests.length;
+    }
+    
     renderQuests(chapterQuests);
   }
 }
 
-// Render quest cards in main panel
+// Render quest cards in main panel (grid of square tiles, GTNH-style)
 function renderQuests(quests) {
-  questList.innerHTML = '';
-  
-  if (quests.length === 0) {
-    questList.innerHTML = '<p class="placeholder">No quests found in this chapter</p>';
+  const questContentContainer = questContent || document.querySelector('.quest-content');
+  if (!questContentContainer) {
+    console.error('Quest content container not found');
     return;
   }
   
+  questContentContainer.innerHTML = '';
+  if (quests.length === 0) {
+    questContentContainer.innerHTML = '<p class="placeholder">No quests found in this chapter</p>';
+    return;
+  }
+  
+  const grid = document.createElement('div');
+  grid.className = 'quest-grid';
   quests.forEach(quest => {
-    const card = createQuestCard(quest);
-    questList.appendChild(card);
+    grid.appendChild(createQuestCard(quest));
   });
+  questContentContainer.appendChild(grid);
 }
 
 // Show quest description modal
@@ -1032,30 +1243,113 @@ function initQuestModal() {
   if (closeBtn) closeBtn.addEventListener('click', hideQuestModal);
 }
 
-// Create a quest card element
+// Create a quest card element — square tile: icon center, name bottom, checkmark top-right (GTNH-style)
 function createQuestCard(quest) {
   const card = document.createElement('div');
-  card.className = `quest-card ${quest.completed ? 'completed' : 'incomplete'}`;
+  card.className = 'quest-card ' + (quest.completed ? 'completed' : 'incomplete');
   card.setAttribute('role', 'button');
   card.tabIndex = 0;
   card.addEventListener('click', function () { showQuestModal(quest); });
   card.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showQuestModal(quest); } });
 
-  // Quest icon
+  if (quest.completed) {
+    const badge = document.createElement('div');
+    badge.className = 'quest-completion-badge';
+    badge.innerHTML = '✓';
+    badge.title = 'Completed';
+    card.appendChild(badge);
+  }
+
   const iconDiv = document.createElement('div');
   iconDiv.className = 'quest-icon';
 
+  // Add tier badge only for EnderIO conduit items where damage value indicates tier variant
+  // (e.g. item_power_conduit damage 0=Conductive Iron, 1=Energetic Alloy, 2=Vibrant Alloy)
+  const TIERED_ICON_ITEMS = [
+    'enderio:item_power_conduit',
+    'enderio:item_liquid_conduit',
+    'enderio:item_item_conduit',
+    'enderio:item_me_conduit',
+    'enderio:item_redstone_conduit'
+  ];
+  const iconDamage = quest.icon && quest.icon.damage ? quest.icon.damage : 0;
+  const iconItemId = quest.icon && quest.icon.id ? quest.icon.id : '';
+  if (iconDamage > 0 && TIERED_ICON_ITEMS.indexOf(iconItemId) !== -1) {
+    const tierBadge = document.createElement('span');
+    tierBadge.className = 'quest-icon-tier-badge';
+    const romanNumerals = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+    // tier = damage + 1, show Roman numeral (e.g. damage 1 → II, damage 2 → III)
+    const tierNum = iconDamage + 1;
+    tierBadge.textContent = tierNum <= romanNumerals.length ? romanNumerals[tierNum - 1] : String(tierNum);
+    tierBadge.title = 'Tier ' + tierBadge.textContent;
+    iconDiv.appendChild(tierBadge);
+  }
+
   const iconImg = document.createElement('img');
-  const iconId = quest.icon.id.replace(':', '_');
-  iconImg.src = `icons/${iconId}.png`;
-  iconImg.alt = quest.icon.id;
-  iconImg.onerror = function() {
-    this.style.display = 'none';
+  iconImg.alt = quest.icon && quest.icon.id ? quest.icon.id : 'quest icon';
+
+  if (quest.icon && quest.icon.id) {
+    const iconId = quest.icon.id.replace(':', '_');
+
+    // Helper: emoji fallback when all sources fail
+    function showFallbackEmoji() {
+      iconImg.onerror = null;
+      iconImg.style.display = 'none';
+      const fallback = document.createElement('span');
+      fallback.className = 'fallback-icon';
+      fallback.textContent = quest.completed ? '✅' : '📋';
+      iconDiv.appendChild(fallback);
+    }
+
+    // Helper: old fallback chain (icons_nomi → icons/ → CDN → emoji)
+    function applyOldPngFallback() {
+      iconImg.style.display = '';
+      iconImg.src = 'icons_nomi/' + iconId + '.png';
+      iconImg.onerror = function () {
+        iconImg.onerror = function () {
+          if (ICON_CDN_BASE) {
+            iconImg.onerror = function () { showFallbackEmoji(); };
+            iconImg.src = ICON_CDN_BASE + iconId + '.png';
+          } else {
+            showFallbackEmoji();
+          }
+        };
+        iconImg.src = 'icons/' + iconId + '.png';
+      };
+    }
+
+    // Main resolution: atlas first (best quality), then icon map, then old fallback
+    iconImg.style.display = 'none'; // hide until a source is confirmed
+    (async function () {
+      // 1. Try atlas first (GTNH-style .gtbl) — has properly sized icons
+      const atlasFound = await setNomiQuestIcon(iconImg, quest.id);
+      if (atlasFound) return;
+
+      // 2. Check pre-built icon map (filtered-textures/ exact match)
+      await initNomiIconMap();
+      const mappedPath = nomiIconMap ? nomiIconMap[quest.icon.id] : null;
+      if (mappedPath) {
+        iconImg.style.display = '';
+        iconImg.src = mappedPath;
+        iconImg.onerror = function () {
+          // Map entry failed? Fall to old chain
+          iconImg.onerror = null;
+          applyOldPngFallback();
+        };
+        return;
+      }
+
+      // 3. Fall back to icons_nomi/ → icons/ → CDN → emoji
+      applyOldPngFallback();
+    })();
+  } else {
+    iconImg.style.display = 'none';
     const fallback = document.createElement('span');
     fallback.className = 'fallback-icon';
     fallback.textContent = quest.completed ? '✅' : '📋';
     iconDiv.appendChild(fallback);
-  };
+  }
+
   iconDiv.appendChild(iconImg);
 
   const infoDiv = document.createElement('div');
@@ -1067,18 +1361,7 @@ function createQuestCard(quest) {
   if (displayName.indexOf('§') !== -1) nameDiv.innerHTML = mcColorToHtml(displayName);
   else nameDiv.textContent = displayName;
 
-  const rewardDiv = document.createElement('div');
-  rewardDiv.className = 'quest-reward';
-  rewardDiv.textContent = `🎁 ${quest.rewards}`;
-
-  const statusDiv = document.createElement('div');
-  statusDiv.className = 'quest-status';
-  statusDiv.textContent = quest.completed ? '✓ Completed' : '○ Incomplete';
-
   infoDiv.appendChild(nameDiv);
-  infoDiv.appendChild(rewardDiv);
-  infoDiv.appendChild(statusDiv);
-
   card.appendChild(iconDiv);
   card.appendChild(infoDiv);
 

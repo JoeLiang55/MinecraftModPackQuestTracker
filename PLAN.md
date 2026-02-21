@@ -6,9 +6,10 @@ This plan makes the tracker work reliably when you **manually upload** both **De
 
 ## 1. How it’s supposed to work
 
-1. **Upload two files**
+1. **Upload one files**
    - **DefaultQuests.json** – quest definitions (names, icons, rewards, chapters).
    - **PlayerData.json** or **PlayerData.dat** – which quests the player has completed.
+   - For specific pack will be hard coded other packs will just be default upload with not too many images.
 
 2. **Merge**
    - The app finds “completed” quest IDs in PlayerData and matches them to quest IDs in DefaultQuests (using normalized string IDs so numbers and strings match).
@@ -120,3 +121,116 @@ All of these are traversed and every “completed” ID is added to a **set of s
 - **PlayerData**: BetterQuesting player save; might be inside a world save or exported as JSON; or the raw .dat from the same mod.
 
 Once IDs are normalized and both files are loaded, the merge and display (completed vs unfinished, icons, progress bars, chapters) should work with manual uploads on GitHub Pages.
+
+---
+
+## 9. Future: Player Leaderboards (Nomifactory, GTNH, etc.)
+
+Goal: make it possible to host **public leaderboards per modpack** (e.g. "Nomifactory – quests completed", "GTNH – how many quests completed") using the same data the tracker already computes.
+
+### 9.1 What each leaderboard entry stores
+
+For each player + modpack combination (e.g. `player = Notch`, `pack = nomifactory`):
+
+- `packId` – e.g. `nomifactory`, `gtnh`, `e2e`.
+- `playerName` (and optional UUID if available).
+- `completedCount` – how many quests the player has completed.
+- `totalQuests` – total quests for that pack, to derive `% completed`.
+- Optional: `completedQuestIds[]` (or a compressed bitset/hash) for per-quest views.
+
+These values already exist in-memory after we build `mergedQuests` and the overall progress numbers; the leaderboard payload is a small JSON object derived from that.
+
+### 9.2 How players submit to the leaderboard
+
+Starting point: we already have a **Share Progress** button that generates a share URL / payload.
+
+Planned flow:
+
+1. User opens a modpack page (Nomifactory, GTNH, etc.), uploads or loads their data.
+2. Once progress is calculated, show a new UI action: **“Submit to Leaderboard”**.
+3. Clicking it builds a minimal JSON payload from current state:
+   - `{ packId, playerName, completedCount, totalQuests, completedQuestIds[] }`.
+4. That payload is sent to a backend (see hosting options below) which validates and stores/updates the player’s row for that `packId`.
+
+### 9.3 Hosting / storage options
+
+Because GitHub Pages is static, leaderboards require **some external storage**:
+
+- **Option A – GitHub-driven (low infra, manual/semi-automated)**
+  - The app shows a JSON snippet in a textarea when you click “Submit to Leaderboard”.
+  - Player pastes it into a GitHub Issue/PR against this repo.
+  - A maintainer or GitHub Action merges it into `leaderboards/{packId}.json`.
+  - Each `leaderboards/*.json` file is a simple array of entries as described above.
+
+- **Option B – Simple serverless API (fully automatic)**
+  - Deploy a tiny API (e.g. Cloudflare Workers, Vercel, Netlify Functions, Supabase/Firestore HTTP endpoint).
+  - Expose endpoints like:
+    - `POST /api/leaderboard` → accepts a payload, upserts by `(packId, playerName)`.
+    - `GET /api/leaderboard?pack=nomifactory` → returns all rows for that pack, sorted by `completedCount` and `%`.
+  - This keeps all dynamic data off GitHub Pages while allowing instant updates.
+
+The plan does **not** lock us into a specific backend; we only need a JSON contract between frontend and whatever storage is chosen.
+
+### 9.4 Displaying leaderboards in the UI
+
+Per modpack page (Nomifactory, GTNH, etc.):
+
+- Add a **Leaderboard** panel/tab next to the main quest grid.
+- On load, call `GET /api/leaderboard?pack=<packId>` (or fetch `leaderboards/<packId>.json` in the GitHub-based option).
+- Render a table or list:
+  - Rank, player name, `completedCount`, `totalQuests`, `% completed`.
+  - Optional filters: global vs friends-only, or per-chapter leaderboards later.
+
+This section is only a **plan**; actual implementation will require choosing a storage option and wiring the existing share/progress logic to produce and consume leaderboard JSON.
+
+---
+
+## 10. FTB Quests Packs (SkyFactory 4, All the Mods 10)
+
+Some modpacks in this site (e.g. **SkyFactory 4** and **All the Mods 10**) use **FTB Quests** instead of BetterQuesting. Their tracker pages should still feel the same (chapters on the left, quests on the right), but the data comes from different files.
+
+### 10.1 What we need from FTB Quests
+
+For each FTB pack we need two kinds of data, similar to DefaultQuests + PlayerData:
+
+- **Quest definitions ("default quests")**
+  - An exported FTB Quests file that contains all quests, chapters/quest lines, names, and icons.
+  - Example sources (exact file names may differ per pack/version):
+    - `config/ftbquests/quests.snbt` or a JSON export from the FTB Quests editor.
+    - A manually exported "all quests" JSON provided by the modpack author.
+- **Player progress**
+  - An exported FTB Quests progress file per player / world, in JSON or NBT converted to JSON.
+
+Without the **quest definitions export**, the tracker cannot know what quests or chapters exist; it can only show a placeholder explaining that FTB data is missing.
+
+### 10.2 File expectations for this repo
+
+To keep a similar structure to BetterQuesting-based packs, each FTB pack should have:
+
+- A dedicated HTML page:
+  - `skyfactory4.html` → uses `tracker.css` and `appFTB.js`.
+  - `allthemods10.html` → uses `tracker.css` and `appFTB.js`.
+- A pack identifier in the HTML body:
+  - `data-pack-id="skyfactory4"`, `data-pack-name="SkyFactory 4"`.
+  - `data-pack-id="allthemods10"`, `data-pack-name="All the Mods 10"`.
+- A future quest-definition file per pack (naming to be decided), for example:
+  - `ftbquests/skyfactory4_quests.json`
+  - `ftbquests/allthemods10_quests.json`
+
+The new shared script `appFTB.js` is wired to these pages and currently shows a clear message:
+
+- It accepts an uploaded **FTB Quests player progress JSON**.
+- It logs the data and explains that full quest/chapter rendering will work once an exported quest-definition file for that pack is added.
+
+### 10.3 Next steps to fully support FTB packs
+
+To move from "scaffold" to a full tracker for SkyFactory 4 / ATM10:
+
+1. **Obtain quest definition exports** from each FTB pack and add them to the repo under a consistent folder (e.g. `ftbquests/`).
+2. **Define a mapping layer in `appFTB.js`** that:
+   - Reads the pack-specific quest-definition JSON.
+   - Normalizes FTB quests into the same internal shape used elsewhere: `chapters[]`, `quests[]`, `completed` flags.
+3. **Parse player progress JSON** for each pack and build a `completedIds` set similar to BetterQuesting.
+4. Reuse the existing UI patterns (sidebar chapters, quest grid, progress bars) so FTB packs feel identical to BQ packs from the user’s perspective.
+
+Until those exports and mappings exist, the SkyFactory 4 and All the Mods 10 pages will show a tracker UI with an explanation asking the site maintainer to add the pack’s FTB Quests "default quests" data.

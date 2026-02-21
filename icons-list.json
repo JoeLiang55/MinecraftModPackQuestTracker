@@ -1,0 +1,5229 @@
+{
+  "source": "betterquesting\\DefaultQuests.json",
+  "iconIds": [
+    "appliedenergistics2:charger",
+    "ae2stuff:grower",
+    "gregtech:machine",
+    "minecraft:crafting_table",
+    "gregtech:meta_ingot",
+    "gregtech:spade",
+    "minecraft:redstone",
+    "gregtech:cable_single",
+    "minecraft:air",
+    "gregtech:meta_crushed",
+    "nomilabs:tiertwoship",
+    "gregtech:meta_item_1",
+    "gregtech:wrench",
+    "morefurnaces:furnaceblock",
+    "minecraft:obsidian",
+    "thermalexpansion:dynamo",
+    "dimensionaledibles:overworld_cake",
+    "nomilabs:meta_ingot",
+    "nomilabs:pulsatingdust",
+    "enderio:block_cap_bank",
+    "gregtech:meta_plate",
+    "enderio:item_item_conduit",
+    "enderio:item_power_conduit",
+    "enderio:item_basic_capacitor",
+    "simplyjetpacks:itemjetpack",
+    "enderio:item_liquid_conduit",
+    "appliedenergistics2:inscriber",
+    "nomilabs:gemsensor",
+    "appliedenergistics2:part",
+    "appliedenergistics2:chest",
+    "appliedenergistics2:material",
+    "nomilabs:tierthreeship",
+    "gregtech:meta_dust",
+    "enderio:block_experience_obelisk",
+    "enderio:item_me_conduit",
+    "actuallyadditions:block_misc",
+    "extrautils2:machine",
+    "gregtech:meta_gem_perfect",
+    "gregtech:meta_lens",
+    "actuallyadditions:block_farmer",
+    "forge:bucketfilled",
+    "extendedcrafting:singularity_ultimate",
+    "appliedenergistics2:drive",
+    "actuallyadditions:block_atomic_reconstructor",
+    "appliedenergistics2:interface",
+    "appliedenergistics2:crafting_unit",
+    "actuallyadditions:item_crystal",
+    "extrautils2:resonator",
+    "extrautils2:passivegenerator",
+    "extrautils2:ingredients",
+    "ae2stuff:inscriber",
+    "nomilabs:nomicoin",
+    "gregtech:wire_coil",
+    "actuallyadditions:block_canola_press",
+    "advancedrocketry:rocketmotor",
+    "advancedrocketry:spacehelmet",
+    "advancedrocketry:suitworkstation",
+    "extendedcrafting:material",
+    "advancedrocketry:rocketbuilder",
+    "extendedcrafting:table_advanced",
+    "advancedrocketry:planetidchip",
+    "advancedrocketry:fuelingstation",
+    "enderio:item_travel_staff",
+    "nomilabs:tieroneship",
+    "enderio:block_travel_anchor",
+    "snad:snad",
+    "extrautils2:angelring",
+    "appliedenergistics2:energy_cell",
+    "enderio:block_reservoir",
+    "armorplus:btm_moon",
+    "actuallyadditions:block_phantomface",
+    "appliedenergistics2:sky_compass",
+    "nomilabs:tiereightship",
+    "draconicevolution:chaos_shard",
+    "nomilabs:tiernineship",
+    "nomilabs:meta_plate_double",
+    "draconicevolution:reactor_core",
+    "advancedrocketry:stationbuilder",
+    "advancedrocketry:warpcore",
+    "libvulpes:productgem",
+    "nomilabs:tierfourship",
+    "nomilabs:tierfiveship",
+    "nomilabs:tiersixship",
+    "nomilabs:tiersevenship",
+    "nomilabs:meta_block_compressed_0",
+    "thermalfoundation:upgrade",
+    "gregtech:item_pipe_small",
+    "draconicevolution:reactor_component",
+    "draconicevolution:dragon_heart",
+    "deepmoblearning:data_model_blank",
+    "minecraft:dragon_egg",
+    "appliedenergistics2:energy_acceptor",
+    "draconicevolution:chaotic_core",
+    "moreplates:empowered_restonia_gear",
+    "draconicevolution:crafting_injector",
+    "enderio:item_material",
+    "thermalfoundation:material",
+    "thermalexpansion:frame",
+    "minecraft:blaze_powder",
+    "thermalexpansion:machine",
+    "nomilabs:quantumfluxedeterniumplating",
+    "minecraft:diamond_hoe",
+    "moreplates:empowered_void_gear",
+    "moreplates:empowered_palis_gear",
+    "moreplates:empowered_emeradic_gear",
+    "nomilabs:meta_dust",
+    "draconicevolution:draconic_core",
+    "actuallyadditions:block_empowerer",
+    "draconicevolution:wyvern_core",
+    "nuclearcraft:part",
+    "nuclearcraft:fission_controller_new_fixed",
+    "armorplus:material",
+    "openglider:hang_glider_basic",
+    "moreplates:empowered_enori_gear",
+    "nomilabs:eternalcatalyst",
+    "avaritia:resource",
+    "avaritia:infinity_helmet",
+    "avaritia:infinity_chestplate",
+    "avaritia:infinity_pants",
+    "avaritia:infinity_boots",
+    "armorplus:the_ultimate_helmet",
+    "armorplus:the_ultimate_chestplate",
+    "armorplus:the_ultimate_boots",
+    "armorplus:the_ultimate_leggings",
+    "hooked:hook",
+    "minecraft:coal",
+    "gregtech:mallet",
+    "extendedcrafting:table_elite",
+    "extendedcrafting:table_ultimate",
+    "minecraft:nether_star",
+    "gregtech:machine_casing",
+    "extrautils2:chunkloader",
+    "thermalexpansion:capacitor",
+    "nomilabs:quantumflux",
+    "draconicevolution:creative_rf_source",
+    "minecraft:anvil",
+    "gregtech:screwdriver",
+    "minecraft:book",
+    "jecalculation:item_calculator",
+    "packagedexcrafting:ultimate_crafter",
+    "packagedauto:package",
+    "thermalinnovation:magnet",
+    "minecraft:fish",
+    "packagedexcrafting:combination_crafter",
+    "thermalexpansion:satchel",
+    "gregtech:axe",
+    "storagedrawers:controller",
+    "storagedrawers:framingtable",
+    "storagedrawers:compdrawers",
+    "nomilabs:exoticmaterialscatalyst",
+    "simplyjetpacks:metaitemmods",
+    "nomilabs:wire_octal",
+    "enderio:block_vat",
+    "enderio:block_slice_and_splice",
+    "enderio:block_soul_binder",
+    "actuallyadditions:block_phantom_booster",
+    "thermalfoundation:fertilizer",
+    "bountiful:bountyboarditem",
+    "thermalexpansion:augment",
+    "solarflux:solar_panel_neutronium",
+    "nomilabs:heartofauniverse",
+    "nomilabs:tiertenship",
+    "nomilabs:wire_single",
+    "nuclearcraft:alloy",
+    "nomilabs:solidifiedhydrogen",
+    "nomilabs:solidifiedhelium",
+    "nomilabs:solidifiednitrogen",
+    "nomilabs:solidifiedoxygen",
+    "nomilabs:solidifiedfluorine",
+    "nomilabs:solidifiedneon",
+    "nomilabs:solidifiedchlorine",
+    "nomilabs:solidifiedargon",
+    "minecraft:iron_ingot",
+    "nomilabs:solidifiedkrypton",
+    "nomilabs:solidifiedxenon",
+    "minecraft:gold_ingot",
+    "nomilabs:solidifiedmercury",
+    "nomilabs:solidifiedradon",
+    "nomilabs:stabilizeduranium",
+    "nomilabs:stabilizedneptunium",
+    "nomilabs:stabilizedplutonium",
+    "nomilabs:stabilizedcurium",
+    "nomilabs:stabilizedberkelium",
+    "nomilabs:stabilizedcalifornium",
+    "nomilabs:stabilizedeinsteinium",
+    "nuclearcraft:fuel_uranium",
+    "nuclearcraft:fuel_thorium",
+    "nuclearcraft:fuel_neptunium",
+    "nuclearcraft:uranium",
+    "nuclearcraft:fuel_plutonium",
+    "nuclearcraft:fuel_curium",
+    "nuclearcraft:fuel_americium",
+    "nuclearcraft:fuel_berkelium",
+    "nuclearcraft:fuel_californium",
+    "gregtech:warning_sign",
+    "deepmoblearning:simulation_chamber",
+    "deepmoblearning:living_matter_overworldian",
+    "nomilabs:pulsatingmesh",
+    "deepmoblearning:extraction_chamber",
+    "deepmoblearning:data_model_zombie",
+    "nuclearcraft:water_source",
+    "deepmoblearning:living_matter_hellish",
+    "deepmoblearning:data_model_blaze",
+    "deepmoblearning:living_matter_extraterrestrial",
+    "deepmoblearning:data_model_enderman",
+    "enderio:item_yeta_wrench",
+    "appliedenergistics2:fluid_interface",
+    "draconicevolution:info_tablet",
+    "enderio:block_enchanter",
+    "thermalexpansion:device",
+    "enderio:block_tele_pad",
+    "buildinggadgets:buildingtool",
+    "minecraft:skull",
+    "minecraft:chorus_flower",
+    "draconicevolution:dislocator",
+    "minecraft:ender_pearl",
+    "enderio:item_rod_of_return",
+    "draconicevolution:awakened_core",
+    "moreplates:empowered_diamatine_gear",
+    "draconicevolution:energy_storage_core",
+    "nuclearcraft:cobblestone_generator",
+    "dimensionaledibles:nether_cake",
+    "effortlessbuilding:reach_upgrade1",
+    "enderio:block_farm_station",
+    "minecraft:tnt",
+    "advsolars:sunnarium",
+    "gregtech:fusion_casing",
+    "minecraft:bed",
+    "actuallyadditions:block_laser_relay_item",
+    "naturescompass:naturescompass",
+    "minecraft:wheat_seeds",
+    "minecraft:knowledge_book",
+    "gregtech:ore_sulfur_0",
+    "gregtech:drill_mv",
+    "gregtech:meta_foil",
+    "minecraft:name_tag",
+    "gregtech:cleanroom_casing",
+    "deepmoblearning:polymer_clay",
+    "minecraft:clay",
+    "nomilabs:block_dust",
+    "minecraft:sand",
+    "minecraft:gravel",
+    "minecraft:water_bucket",
+    "minecraft:cobblestone",
+    "minecraft:glass",
+    "minecraft:quartz",
+    "minecraft:lava_bucket",
+    "minecraft:netherrack",
+    "minecraft:clay_ball",
+    "minecraft:stone",
+    "minecraft:sandstone",
+    "appliedenergistics2:crafting_monitor",
+    "minecraft:flint",
+    "appliedenergistics2:wireless_terminal",
+    "chisel:futura",
+    "packageddraconic:fusion_crafter",
+    "chisel:auto_chisel",
+    "toolbelt:belt",
+    "minecraft:rabbit_hide",
+    "minecraft:chest",
+    "enderio:block_powered_spawner",
+    "nae2:pattern_multiplier",
+    "gregtech:optical_pipe_normal",
+    "solarflux:solar_panel_8",
+    "gregtech:warning_sign_1",
+    "actuallyadditions:block_giant_chest",
+    "minecraft:filled_map",
+    "redstonearsenal:tool.wrench_flux",
+    "nae2:material",
+    "nae2:upgrade",
+    "betterp2p:advanced_memory_card",
+    "nae2:part",
+    "nae2:reconstruction_chamber",
+    "appliedenergistics2:condenser",
+    "nae2:exposer",
+    "minecraft:grass",
+    "nomilabs:moondust",
+    "appliedenergistics2:quantum_link",
+    "gregtech:meta_dust_tiny",
+    "advancedrocketry:beaconfinder",
+    "uberconduitprobe:uber_conduit_probe_item",
+    "nomilabs:excitationcoil",
+    "ulv_covers:ulv_cover_meta_item",
+    "appliedenergistics2:certus_quartz_cutting_knife",
+    "minecraft:item_frame",
+    "extrautils2:crafter",
+    "nuclearcraft:cell_block",
+    "nuclearcraft:active_cooler",
+    "nuclearcraft:cooler",
+    "buildinggadgets:template",
+    "extrautils2:playerchest"
+  ],
+  "iconEntries": [
+    {
+      "id": "appliedenergistics2:charger",
+      "damage": 0,
+      "key": "appliedenergistics2:charger",
+      "filename": "appliedenergistics2_charger.png"
+    },
+    {
+      "id": "ae2stuff:grower",
+      "damage": 0,
+      "key": "ae2stuff:grower",
+      "filename": "ae2stuff_grower.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 170,
+      "key": "gregtech:machine@170",
+      "filename": "gregtech_machine_170.png"
+    },
+    {
+      "id": "minecraft:crafting_table",
+      "damage": 0,
+      "key": "minecraft:crafting_table",
+      "filename": "minecraft_crafting_table.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 335,
+      "key": "gregtech:meta_ingot@335",
+      "filename": "gregtech_meta_ingot_335.png"
+    },
+    {
+      "id": "gregtech:spade",
+      "damage": 0,
+      "key": "gregtech:spade",
+      "filename": "gregtech_spade.png"
+    },
+    {
+      "id": "minecraft:redstone",
+      "damage": 0,
+      "key": "minecraft:redstone",
+      "filename": "minecraft_redstone.png"
+    },
+    {
+      "id": "gregtech:cable_single",
+      "damage": 2517,
+      "key": "gregtech:cable_single@2517",
+      "filename": "gregtech_cable_single_2517.png"
+    },
+    {
+      "id": "minecraft:air",
+      "damage": 0,
+      "key": "minecraft:air",
+      "filename": "minecraft_air.png"
+    },
+    {
+      "id": "gregtech:meta_crushed",
+      "damage": 2064,
+      "key": "gregtech:meta_crushed@2064",
+      "filename": "gregtech_meta_crushed_2064.png"
+    },
+    {
+      "id": "nomilabs:tiertwoship",
+      "damage": 0,
+      "key": "nomilabs:tiertwoship",
+      "filename": "nomilabs_tiertwoship.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 519,
+      "key": "gregtech:meta_item_1@519",
+      "filename": "gregtech_meta_item_1_519.png"
+    },
+    {
+      "id": "gregtech:wrench",
+      "damage": 0,
+      "key": "gregtech:wrench",
+      "filename": "gregtech_wrench.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1647,
+      "key": "gregtech:machine@1647",
+      "filename": "gregtech_machine_1647.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 0,
+      "key": "morefurnaces:furnaceblock",
+      "filename": "morefurnaces_furnaceblock.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 5,
+      "key": "morefurnaces:furnaceblock@5",
+      "filename": "morefurnaces_furnaceblock_5.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 6,
+      "key": "morefurnaces:furnaceblock@6",
+      "filename": "morefurnaces_furnaceblock_6.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 1,
+      "key": "morefurnaces:furnaceblock@1",
+      "filename": "morefurnaces_furnaceblock_1.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 3,
+      "key": "morefurnaces:furnaceblock@3",
+      "filename": "morefurnaces_furnaceblock_3.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 80,
+      "key": "gregtech:machine@80",
+      "filename": "gregtech_machine_80.png"
+    },
+    {
+      "id": "morefurnaces:furnaceblock",
+      "damage": 2,
+      "key": "morefurnaces:furnaceblock@2",
+      "filename": "morefurnaces_furnaceblock_2.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1004,
+      "key": "gregtech:machine@1004",
+      "filename": "gregtech_machine_1004.png"
+    },
+    {
+      "id": "minecraft:obsidian",
+      "damage": 0,
+      "key": "minecraft:obsidian",
+      "filename": "minecraft_obsidian.png"
+    },
+    {
+      "id": "thermalexpansion:dynamo",
+      "damage": 0,
+      "key": "thermalexpansion:dynamo",
+      "filename": "thermalexpansion_dynamo.png"
+    },
+    {
+      "id": "dimensionaledibles:overworld_cake",
+      "damage": 0,
+      "key": "dimensionaledibles:overworld_cake",
+      "filename": "dimensionaledibles_overworld_cake.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 3,
+      "key": "nomilabs:meta_ingot@3",
+      "filename": "nomilabs_meta_ingot_3.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 215,
+      "key": "gregtech:machine@215",
+      "filename": "gregtech_machine_215.png"
+    },
+    {
+      "id": "nomilabs:pulsatingdust",
+      "damage": 0,
+      "key": "nomilabs:pulsatingdust",
+      "filename": "nomilabs_pulsatingdust.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 14,
+      "key": "nomilabs:meta_ingot@14",
+      "filename": "nomilabs_meta_ingot_14.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 15,
+      "key": "nomilabs:meta_ingot@15",
+      "filename": "nomilabs_meta_ingot_15.png"
+    },
+    {
+      "id": "enderio:block_cap_bank",
+      "damage": 3,
+      "key": "enderio:block_cap_bank@3",
+      "filename": "enderio_block_cap_bank_3.png"
+    },
+    {
+      "id": "enderio:block_cap_bank",
+      "damage": 2,
+      "key": "enderio:block_cap_bank@2",
+      "filename": "enderio_block_cap_bank_2.png"
+    },
+    {
+      "id": "enderio:block_cap_bank",
+      "damage": 1,
+      "key": "enderio:block_cap_bank@1",
+      "filename": "enderio_block_cap_bank_1.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 12,
+      "key": "nomilabs:meta_ingot@12",
+      "filename": "nomilabs_meta_ingot_12.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 13,
+      "key": "nomilabs:meta_ingot@13",
+      "filename": "nomilabs_meta_ingot_13.png"
+    },
+    {
+      "id": "gregtech:meta_plate",
+      "damage": 1068,
+      "key": "gregtech:meta_plate@1068",
+      "filename": "gregtech_meta_plate_1068.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1675,
+      "key": "gregtech:machine@1675",
+      "filename": "gregtech_machine_1675.png"
+    },
+    {
+      "id": "enderio:item_item_conduit",
+      "damage": 0,
+      "key": "enderio:item_item_conduit",
+      "filename": "enderio_item_item_conduit.png"
+    },
+    {
+      "id": "enderio:item_power_conduit",
+      "damage": 0,
+      "key": "enderio:item_power_conduit",
+      "filename": "enderio_item_power_conduit.png"
+    },
+    {
+      "id": "enderio:item_power_conduit",
+      "damage": 1,
+      "key": "enderio:item_power_conduit@1",
+      "filename": "enderio_item_power_conduit_1.png"
+    },
+    {
+      "id": "enderio:item_power_conduit",
+      "damage": 2,
+      "key": "enderio:item_power_conduit@2",
+      "filename": "enderio_item_power_conduit_2.png"
+    },
+    {
+      "id": "enderio:item_basic_capacitor",
+      "damage": 1,
+      "key": "enderio:item_basic_capacitor@1",
+      "filename": "enderio_item_basic_capacitor_1.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 1,
+      "key": "simplyjetpacks:itemjetpack@1",
+      "filename": "simplyjetpacks_itemjetpack_1.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 3,
+      "key": "simplyjetpacks:itemjetpack@3",
+      "filename": "simplyjetpacks_itemjetpack_3.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 2,
+      "key": "simplyjetpacks:itemjetpack@2",
+      "filename": "simplyjetpacks_itemjetpack_2.png"
+    },
+    {
+      "id": "enderio:item_liquid_conduit",
+      "damage": 1,
+      "key": "enderio:item_liquid_conduit@1",
+      "filename": "enderio_item_liquid_conduit_1.png"
+    },
+    {
+      "id": "appliedenergistics2:inscriber",
+      "damage": 0,
+      "key": "appliedenergistics2:inscriber",
+      "filename": "appliedenergistics2_inscriber.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1035,
+      "key": "gregtech:machine@1035",
+      "filename": "gregtech_machine_1035.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 620,
+      "key": "gregtech:machine@620",
+      "filename": "gregtech_machine_620.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 281,
+      "key": "gregtech:meta_item_1@281",
+      "filename": "gregtech_meta_item_1_281.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 185,
+      "key": "gregtech:machine@185",
+      "filename": "gregtech_machine_185.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 580,
+      "key": "gregtech:meta_item_1@580",
+      "filename": "gregtech_meta_item_1_580.png"
+    },
+    {
+      "id": "enderio:item_liquid_conduit",
+      "damage": 2,
+      "key": "enderio:item_liquid_conduit@2",
+      "filename": "enderio_item_liquid_conduit_2.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 732,
+      "key": "gregtech:meta_item_1@732",
+      "filename": "gregtech_meta_item_1_732.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 69,
+      "key": "gregtech:meta_ingot@69",
+      "filename": "gregtech_meta_ingot_69.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1001,
+      "key": "gregtech:machine@1001",
+      "filename": "gregtech_machine_1001.png"
+    },
+    {
+      "id": "nomilabs:gemsensor",
+      "damage": 0,
+      "key": "nomilabs:gemsensor",
+      "filename": "nomilabs_gemsensor.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 380,
+      "key": "appliedenergistics2:part@380",
+      "filename": "appliedenergistics2_part_380.png"
+    },
+    {
+      "id": "appliedenergistics2:chest",
+      "damage": 0,
+      "key": "appliedenergistics2:chest",
+      "filename": "appliedenergistics2_chest.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 35,
+      "key": "appliedenergistics2:material@35",
+      "filename": "appliedenergistics2_material_35.png"
+    },
+    {
+      "id": "nomilabs:tierthreeship",
+      "damage": 0,
+      "key": "nomilabs:tierthreeship",
+      "filename": "nomilabs_tierthreeship.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2517,
+      "key": "gregtech:meta_dust@2517",
+      "filename": "gregtech_meta_dust_2517.png"
+    },
+    {
+      "id": "enderio:item_basic_capacitor",
+      "damage": 2,
+      "key": "enderio:item_basic_capacitor@2",
+      "filename": "enderio_item_basic_capacitor_2.png"
+    },
+    {
+      "id": "enderio:block_experience_obelisk",
+      "damage": 0,
+      "key": "enderio:block_experience_obelisk",
+      "filename": "enderio_block_experience_obelisk.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2,
+      "key": "gregtech:meta_ingot@2",
+      "filename": "gregtech_meta_ingot_2.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 736,
+      "key": "gregtech:meta_item_1@736",
+      "filename": "gregtech_meta_item_1_736.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 276,
+      "key": "gregtech:machine@276",
+      "filename": "gregtech_machine_276.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 110,
+      "key": "gregtech:machine@110",
+      "filename": "gregtech_machine_110.png"
+    },
+    {
+      "id": "enderio:item_me_conduit",
+      "damage": 0,
+      "key": "enderio:item_me_conduit",
+      "filename": "enderio_item_me_conduit.png"
+    },
+    {
+      "id": "actuallyadditions:block_misc",
+      "damage": 9,
+      "key": "actuallyadditions:block_misc@9",
+      "filename": "actuallyadditions_block_misc_9.png"
+    },
+    {
+      "id": "extrautils2:machine",
+      "damage": 0,
+      "key": "extrautils2:machine",
+      "filename": "extrautils2_machine.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 622,
+      "key": "gregtech:meta_item_1@622",
+      "filename": "gregtech_meta_item_1_622.png"
+    },
+    {
+      "id": "gregtech:meta_gem_perfect",
+      "damage": 276,
+      "key": "gregtech:meta_gem_perfect@276",
+      "filename": "gregtech_meta_gem_perfect_276.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 351,
+      "key": "gregtech:meta_dust@351",
+      "filename": "gregtech_meta_dust_351.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 246,
+      "key": "gregtech:machine@246",
+      "filename": "gregtech_machine_246.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 361,
+      "key": "gregtech:meta_item_1@361",
+      "filename": "gregtech_meta_item_1_361.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 371,
+      "key": "gregtech:meta_item_1@371",
+      "filename": "gregtech_meta_item_1_371.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 382,
+      "key": "gregtech:meta_item_1@382",
+      "filename": "gregtech_meta_item_1_382.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 561,
+      "key": "gregtech:machine@561",
+      "filename": "gregtech_machine_561.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 568,
+      "key": "gregtech:meta_item_1@568",
+      "filename": "gregtech_meta_item_1_568.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 623,
+      "key": "gregtech:meta_item_1@623",
+      "filename": "gregtech_meta_item_1_623.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 624,
+      "key": "gregtech:meta_item_1@624",
+      "filename": "gregtech_meta_item_1_624.png"
+    },
+    {
+      "id": "gregtech:meta_lens",
+      "damage": 311,
+      "key": "gregtech:meta_lens@311",
+      "filename": "gregtech_meta_lens_311.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 625,
+      "key": "gregtech:meta_item_1@625",
+      "filename": "gregtech_meta_item_1_625.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 111,
+      "key": "gregtech:machine@111",
+      "filename": "gregtech_machine_111.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 22,
+      "key": "gregtech:meta_dust@22",
+      "filename": "gregtech_meta_dust_22.png"
+    },
+    {
+      "id": "actuallyadditions:block_farmer",
+      "damage": 0,
+      "key": "actuallyadditions:block_farmer",
+      "filename": "actuallyadditions_block_farmer.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 988,
+      "key": "gregtech:machine@988",
+      "filename": "gregtech_machine_988.png"
+    },
+    {
+      "id": "forge:bucketfilled",
+      "damage": 0,
+      "key": "forge:bucketfilled",
+      "filename": "forge_bucketfilled.png"
+    },
+    {
+      "id": "gregtech:meta_plate",
+      "damage": 1012,
+      "key": "gregtech:meta_plate@1012",
+      "filename": "gregtech_meta_plate_1012.png"
+    },
+    {
+      "id": "gregtech:meta_plate",
+      "damage": 323,
+      "key": "gregtech:meta_plate@323",
+      "filename": "gregtech_meta_plate_323.png"
+    },
+    {
+      "id": "extendedcrafting:singularity_ultimate",
+      "damage": 0,
+      "key": "extendedcrafting:singularity_ultimate",
+      "filename": "extendedcrafting_singularity_ultimate.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 24,
+      "key": "appliedenergistics2:material@24",
+      "filename": "appliedenergistics2_material_24.png"
+    },
+    {
+      "id": "appliedenergistics2:drive",
+      "damage": 0,
+      "key": "appliedenergistics2:drive",
+      "filename": "appliedenergistics2_drive.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 22,
+      "key": "appliedenergistics2:material@22",
+      "filename": "appliedenergistics2_material_22.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 13,
+      "key": "appliedenergistics2:material@13",
+      "filename": "appliedenergistics2_material_13.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 52,
+      "key": "appliedenergistics2:material@52",
+      "filename": "appliedenergistics2_material_52.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 23,
+      "key": "appliedenergistics2:material@23",
+      "filename": "appliedenergistics2_material_23.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 340,
+      "key": "appliedenergistics2:part@340",
+      "filename": "appliedenergistics2_part_340.png"
+    },
+    {
+      "id": "actuallyadditions:block_atomic_reconstructor",
+      "damage": 0,
+      "key": "actuallyadditions:block_atomic_reconstructor",
+      "filename": "actuallyadditions_block_atomic_reconstructor.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 480,
+      "key": "appliedenergistics2:part@480",
+      "filename": "appliedenergistics2_part_480.png"
+    },
+    {
+      "id": "appliedenergistics2:interface",
+      "damage": 0,
+      "key": "appliedenergistics2:interface",
+      "filename": "appliedenergistics2_interface.png"
+    },
+    {
+      "id": "appliedenergistics2:crafting_unit",
+      "damage": 0,
+      "key": "appliedenergistics2:crafting_unit",
+      "filename": "appliedenergistics2_crafting_unit.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 360,
+      "key": "appliedenergistics2:part@360",
+      "filename": "appliedenergistics2_part_360.png"
+    },
+    {
+      "id": "actuallyadditions:item_crystal",
+      "damage": 3,
+      "key": "actuallyadditions:item_crystal@3",
+      "filename": "actuallyadditions_item_crystal_3.png"
+    },
+    {
+      "id": "extrautils2:resonator",
+      "damage": 0,
+      "key": "extrautils2:resonator",
+      "filename": "extrautils2_resonator.png"
+    },
+    {
+      "id": "extrautils2:passivegenerator",
+      "damage": 7,
+      "key": "extrautils2:passivegenerator@7",
+      "filename": "extrautils2_passivegenerator_7.png"
+    },
+    {
+      "id": "extrautils2:ingredients",
+      "damage": 4,
+      "key": "extrautils2:ingredients@4",
+      "filename": "extrautils2_ingredients_4.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2011,
+      "key": "gregtech:meta_dust@2011",
+      "filename": "gregtech_meta_dust_2011.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 54,
+      "key": "appliedenergistics2:material@54",
+      "filename": "appliedenergistics2_material_54.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 36,
+      "key": "appliedenergistics2:material@36",
+      "filename": "appliedenergistics2_material_36.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 37,
+      "key": "appliedenergistics2:material@37",
+      "filename": "appliedenergistics2_material_37.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 38,
+      "key": "appliedenergistics2:material@38",
+      "filename": "appliedenergistics2_material_38.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 55,
+      "key": "appliedenergistics2:material@55",
+      "filename": "appliedenergistics2_material_55.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 56,
+      "key": "appliedenergistics2:material@56",
+      "filename": "appliedenergistics2_material_56.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 57,
+      "key": "appliedenergistics2:material@57",
+      "filename": "appliedenergistics2_material_57.png"
+    },
+    {
+      "id": "extrautils2:passivegenerator",
+      "damage": 5,
+      "key": "extrautils2:passivegenerator@5",
+      "filename": "extrautils2_passivegenerator_5.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 523,
+      "key": "gregtech:meta_item_1@523",
+      "filename": "gregtech_meta_item_1_523.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 218,
+      "key": "gregtech:meta_item_1@218",
+      "filename": "gregtech_meta_item_1_218.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 252,
+      "key": "gregtech:meta_ingot@252",
+      "filename": "gregtech_meta_ingot_252.png"
+    },
+    {
+      "id": "gregtech:meta_plate",
+      "damage": 1007,
+      "key": "gregtech:meta_plate@1007",
+      "filename": "gregtech_meta_plate_1007.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 630,
+      "key": "gregtech:meta_item_1@630",
+      "filename": "gregtech_meta_item_1_630.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 627,
+      "key": "gregtech:meta_item_1@627",
+      "filename": "gregtech_meta_item_1_627.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 403,
+      "key": "gregtech:meta_item_1@403",
+      "filename": "gregtech_meta_item_1_403.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 628,
+      "key": "gregtech:meta_item_1@628",
+      "filename": "gregtech_meta_item_1_628.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 991,
+      "key": "gregtech:machine@991",
+      "filename": "gregtech_machine_991.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 1598,
+      "key": "gregtech:meta_dust@1598",
+      "filename": "gregtech_meta_dust_1598.png"
+    },
+    {
+      "id": "ae2stuff:inscriber",
+      "damage": 0,
+      "key": "ae2stuff:inscriber",
+      "filename": "ae2stuff_inscriber.png"
+    },
+    {
+      "id": "nomilabs:nomicoin",
+      "damage": 0,
+      "key": "nomilabs:nomicoin",
+      "filename": "nomilabs_nomicoin.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 121,
+      "key": "gregtech:meta_dust@121",
+      "filename": "gregtech_meta_dust_121.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 172,
+      "key": "gregtech:meta_item_1@172",
+      "filename": "gregtech_meta_item_1_172.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 142,
+      "key": "gregtech:meta_item_1@142",
+      "filename": "gregtech_meta_item_1_142.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 545,
+      "key": "gregtech:machine@545",
+      "filename": "gregtech_machine_545.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 113,
+      "key": "gregtech:meta_ingot@113",
+      "filename": "gregtech_meta_ingot_113.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1002,
+      "key": "gregtech:machine@1002",
+      "filename": "gregtech_machine_1002.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 285,
+      "key": "gregtech:meta_dust@285",
+      "filename": "gregtech_meta_dust_285.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 217,
+      "key": "gregtech:machine@217",
+      "filename": "gregtech_machine_217.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1005,
+      "key": "gregtech:machine@1005",
+      "filename": "gregtech_machine_1005.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 640,
+      "key": "gregtech:meta_item_1@640",
+      "filename": "gregtech_meta_item_1_640.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 288,
+      "key": "gregtech:meta_ingot@288",
+      "filename": "gregtech_meta_ingot_288.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 1,
+      "key": "gregtech:wire_coil@1",
+      "filename": "gregtech_wire_coil_1.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 294,
+      "key": "gregtech:meta_ingot@294",
+      "filename": "gregtech_meta_ingot_294.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 2,
+      "key": "gregtech:wire_coil@2",
+      "filename": "gregtech_wire_coil_2.png"
+    },
+    {
+      "id": "actuallyadditions:block_canola_press",
+      "damage": 0,
+      "key": "actuallyadditions:block_canola_press",
+      "filename": "actuallyadditions_block_canola_press.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 377,
+      "key": "gregtech:meta_dust@377",
+      "filename": "gregtech_meta_dust_377.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 530,
+      "key": "gregtech:machine@530",
+      "filename": "gregtech_machine_530.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 405,
+      "key": "gregtech:meta_item_1@405",
+      "filename": "gregtech_meta_item_1_405.png"
+    },
+    {
+      "id": "gregtech:meta_plate",
+      "damage": 1013,
+      "key": "gregtech:meta_plate@1013",
+      "filename": "gregtech_meta_plate_1013.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 499,
+      "key": "gregtech:meta_item_1@499",
+      "filename": "gregtech_meta_item_1_499.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1679,
+      "key": "gregtech:machine@1679",
+      "filename": "gregtech_machine_1679.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 404,
+      "key": "gregtech:meta_item_1@404",
+      "filename": "gregtech_meta_item_1_404.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 594,
+      "key": "gregtech:meta_item_1@594",
+      "filename": "gregtech_meta_item_1_594.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 631,
+      "key": "gregtech:meta_item_1@631",
+      "filename": "gregtech_meta_item_1_631.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 362,
+      "key": "gregtech:meta_item_1@362",
+      "filename": "gregtech_meta_item_1_362.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1020,
+      "key": "gregtech:machine@1020",
+      "filename": "gregtech_machine_1020.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 128,
+      "key": "gregtech:meta_ingot@128",
+      "filename": "gregtech_meta_ingot_128.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 451,
+      "key": "gregtech:meta_ingot@451",
+      "filename": "gregtech_meta_ingot_451.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 990,
+      "key": "gregtech:machine@990",
+      "filename": "gregtech_machine_990.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 338,
+      "key": "gregtech:meta_ingot@338",
+      "filename": "gregtech_meta_ingot_338.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 115,
+      "key": "gregtech:meta_ingot@115",
+      "filename": "gregtech_meta_ingot_115.png"
+    },
+    {
+      "id": "advancedrocketry:rocketmotor",
+      "damage": 0,
+      "key": "advancedrocketry:rocketmotor",
+      "filename": "advancedrocketry_rocketmotor.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 629,
+      "key": "gregtech:meta_item_1@629",
+      "filename": "gregtech_meta_item_1_629.png"
+    },
+    {
+      "id": "advancedrocketry:spacehelmet",
+      "damage": 0,
+      "key": "advancedrocketry:spacehelmet",
+      "filename": "advancedrocketry_spacehelmet.png"
+    },
+    {
+      "id": "advancedrocketry:suitworkstation",
+      "damage": 0,
+      "key": "advancedrocketry:suitworkstation",
+      "filename": "advancedrocketry_suitworkstation.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 15,
+      "key": "extendedcrafting:material@15",
+      "filename": "extendedcrafting_material_15.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 9,
+      "key": "extendedcrafting:material@9",
+      "filename": "extendedcrafting_material_9.png"
+    },
+    {
+      "id": "advancedrocketry:rocketbuilder",
+      "damage": 0,
+      "key": "advancedrocketry:rocketbuilder",
+      "filename": "advancedrocketry_rocketbuilder.png"
+    },
+    {
+      "id": "extendedcrafting:table_advanced",
+      "damage": 0,
+      "key": "extendedcrafting:table_advanced",
+      "filename": "extendedcrafting_table_advanced.png"
+    },
+    {
+      "id": "advancedrocketry:planetidchip",
+      "damage": 0,
+      "key": "advancedrocketry:planetidchip",
+      "filename": "advancedrocketry_planetidchip.png"
+    },
+    {
+      "id": "advancedrocketry:fuelingstation",
+      "damage": 0,
+      "key": "advancedrocketry:fuelingstation",
+      "filename": "advancedrocketry_fuelingstation.png"
+    },
+    {
+      "id": "enderio:item_travel_staff",
+      "damage": 0,
+      "key": "enderio:item_travel_staff",
+      "filename": "enderio_item_travel_staff.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1530,
+      "key": "gregtech:machine@1530",
+      "filename": "gregtech_machine_1530.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 32100,
+      "key": "gregtech:machine@32100",
+      "filename": "gregtech_machine_32100.png"
+    },
+    {
+      "id": "nomilabs:tieroneship",
+      "damage": 0,
+      "key": "nomilabs:tieroneship",
+      "filename": "nomilabs_tieroneship.png"
+    },
+    {
+      "id": "enderio:block_travel_anchor",
+      "damage": 0,
+      "key": "enderio:block_travel_anchor",
+      "filename": "enderio_block_travel_anchor.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 216,
+      "key": "gregtech:machine@216",
+      "filename": "gregtech_machine_216.png"
+    },
+    {
+      "id": "snad:snad",
+      "damage": 0,
+      "key": "snad:snad",
+      "filename": "snad_snad.png"
+    },
+    {
+      "id": "extrautils2:angelring",
+      "damage": 4,
+      "key": "extrautils2:angelring@4",
+      "filename": "extrautils2_angelring_4.png"
+    },
+    {
+      "id": "appliedenergistics2:energy_cell",
+      "damage": 0,
+      "key": "appliedenergistics2:energy_cell",
+      "filename": "appliedenergistics2_energy_cell.png"
+    },
+    {
+      "id": "enderio:block_reservoir",
+      "damage": 0,
+      "key": "enderio:block_reservoir",
+      "filename": "enderio_block_reservoir.png"
+    },
+    {
+      "id": "armorplus:btm_moon",
+      "damage": 0,
+      "key": "armorplus:btm_moon",
+      "filename": "armorplus_btm_moon.png"
+    },
+    {
+      "id": "actuallyadditions:block_phantomface",
+      "damage": 0,
+      "key": "actuallyadditions:block_phantomface",
+      "filename": "actuallyadditions_block_phantomface.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 8,
+      "key": "gregtech:meta_dust@8",
+      "filename": "gregtech_meta_dust_8.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 518,
+      "key": "gregtech:meta_item_1@518",
+      "filename": "gregtech_meta_item_1_518.png"
+    },
+    {
+      "id": "appliedenergistics2:sky_compass",
+      "damage": 0,
+      "key": "appliedenergistics2:sky_compass",
+      "filename": "appliedenergistics2_sky_compass.png"
+    },
+    {
+      "id": "nomilabs:tiereightship",
+      "damage": 0,
+      "key": "nomilabs:tiereightship",
+      "filename": "nomilabs_tiereightship.png"
+    },
+    {
+      "id": "draconicevolution:chaos_shard",
+      "damage": 0,
+      "key": "draconicevolution:chaos_shard",
+      "filename": "draconicevolution_chaos_shard.png"
+    },
+    {
+      "id": "nomilabs:tiernineship",
+      "damage": 0,
+      "key": "nomilabs:tiernineship",
+      "filename": "nomilabs_tiernineship.png"
+    },
+    {
+      "id": "nomilabs:meta_plate_double",
+      "damage": 23,
+      "key": "nomilabs:meta_plate_double@23",
+      "filename": "nomilabs_meta_plate_double_23.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 407,
+      "key": "gregtech:meta_item_1@407",
+      "filename": "gregtech_meta_item_1_407.png"
+    },
+    {
+      "id": "draconicevolution:reactor_core",
+      "damage": 0,
+      "key": "draconicevolution:reactor_core",
+      "filename": "draconicevolution_reactor_core.png"
+    },
+    {
+      "id": "advancedrocketry:stationbuilder",
+      "damage": 0,
+      "key": "advancedrocketry:stationbuilder",
+      "filename": "advancedrocketry_stationbuilder.png"
+    },
+    {
+      "id": "advancedrocketry:warpcore",
+      "damage": 0,
+      "key": "advancedrocketry:warpcore",
+      "filename": "advancedrocketry_warpcore.png"
+    },
+    {
+      "id": "libvulpes:productgem",
+      "damage": 0,
+      "key": "libvulpes:productgem",
+      "filename": "libvulpes_productgem.png"
+    },
+    {
+      "id": "nomilabs:tierfourship",
+      "damage": 0,
+      "key": "nomilabs:tierfourship",
+      "filename": "nomilabs_tierfourship.png"
+    },
+    {
+      "id": "nomilabs:tierfiveship",
+      "damage": 0,
+      "key": "nomilabs:tierfiveship",
+      "filename": "nomilabs_tierfiveship.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 50,
+      "key": "gregtech:meta_ingot@50",
+      "filename": "gregtech_meta_ingot_50.png"
+    },
+    {
+      "id": "nomilabs:tiersixship",
+      "damage": 0,
+      "key": "nomilabs:tiersixship",
+      "filename": "nomilabs_tiersixship.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 396,
+      "key": "gregtech:meta_ingot@396",
+      "filename": "gregtech_meta_ingot_396.png"
+    },
+    {
+      "id": "nomilabs:tiersevenship",
+      "damage": 0,
+      "key": "nomilabs:tiersevenship",
+      "filename": "nomilabs_tiersevenship.png"
+    },
+    {
+      "id": "nomilabs:meta_plate_double",
+      "damage": 1,
+      "key": "nomilabs:meta_plate_double@1",
+      "filename": "nomilabs_meta_plate_double_1.png"
+    },
+    {
+      "id": "nomilabs:meta_block_compressed_0",
+      "damage": 2,
+      "key": "nomilabs:meta_block_compressed_0@2",
+      "filename": "nomilabs_meta_block_compressed_0_2.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 987,
+      "key": "gregtech:machine@987",
+      "filename": "gregtech_machine_987.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 275,
+      "key": "gregtech:machine@275",
+      "filename": "gregtech_machine_275.png"
+    },
+    {
+      "id": "thermalfoundation:upgrade",
+      "damage": 2,
+      "key": "thermalfoundation:upgrade@2",
+      "filename": "thermalfoundation_upgrade_2.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 13,
+      "key": "extendedcrafting:material@13",
+      "filename": "extendedcrafting_material_13.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 48,
+      "key": "gregtech:meta_dust@48",
+      "filename": "gregtech_meta_dust_48.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 636,
+      "key": "gregtech:meta_item_1@636",
+      "filename": "gregtech_meta_item_1_636.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 595,
+      "key": "gregtech:meta_item_1@595",
+      "filename": "gregtech_meta_item_1_595.png"
+    },
+    {
+      "id": "gregtech:item_pipe_small",
+      "damage": 112,
+      "key": "gregtech:item_pipe_small@112",
+      "filename": "gregtech_item_pipe_small_112.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 637,
+      "key": "gregtech:meta_item_1@637",
+      "filename": "gregtech_meta_item_1_637.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 638,
+      "key": "gregtech:meta_item_1@638",
+      "filename": "gregtech_meta_item_1_638.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 65,
+      "key": "gregtech:machine@65",
+      "filename": "gregtech_machine_65.png"
+    },
+    {
+      "id": "draconicevolution:reactor_component",
+      "damage": 0,
+      "key": "draconicevolution:reactor_component",
+      "filename": "draconicevolution_reactor_component.png"
+    },
+    {
+      "id": "enderio:item_basic_capacitor",
+      "damage": 0,
+      "key": "enderio:item_basic_capacitor",
+      "filename": "enderio_item_basic_capacitor.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 470,
+      "key": "gregtech:machine@470",
+      "filename": "gregtech_machine_470.png"
+    },
+    {
+      "id": "draconicevolution:dragon_heart",
+      "damage": 0,
+      "key": "draconicevolution:dragon_heart",
+      "filename": "draconicevolution_dragon_heart.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 7,
+      "key": "extendedcrafting:material@7",
+      "filename": "extendedcrafting_material_7.png"
+    },
+    {
+      "id": "deepmoblearning:data_model_blank",
+      "damage": 0,
+      "key": "deepmoblearning:data_model_blank",
+      "filename": "deepmoblearning_data_model_blank.png"
+    },
+    {
+      "id": "minecraft:dragon_egg",
+      "damage": 0,
+      "key": "minecraft:dragon_egg",
+      "filename": "minecraft_dragon_egg.png"
+    },
+    {
+      "id": "appliedenergistics2:energy_acceptor",
+      "damage": 0,
+      "key": "appliedenergistics2:energy_acceptor",
+      "filename": "appliedenergistics2_energy_acceptor.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 115,
+      "key": "gregtech:machine@115",
+      "filename": "gregtech_machine_115.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1191,
+      "key": "gregtech:machine@1191",
+      "filename": "gregtech_machine_1191.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1019,
+      "key": "gregtech:machine@1019",
+      "filename": "gregtech_machine_1019.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 1,
+      "key": "nomilabs:meta_ingot@1",
+      "filename": "nomilabs_meta_ingot_1.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 703,
+      "key": "gregtech:meta_item_1@703",
+      "filename": "gregtech_meta_item_1_703.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 704,
+      "key": "gregtech:meta_item_1@704",
+      "filename": "gregtech_meta_item_1_704.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 641,
+      "key": "gregtech:meta_item_1@641",
+      "filename": "gregtech_meta_item_1_641.png"
+    },
+    {
+      "id": "draconicevolution:chaotic_core",
+      "damage": 0,
+      "key": "draconicevolution:chaotic_core",
+      "filename": "draconicevolution_chaotic_core.png"
+    },
+    {
+      "id": "moreplates:empowered_restonia_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_restonia_gear",
+      "filename": "moreplates_empowered_restonia_gear.png"
+    },
+    {
+      "id": "draconicevolution:crafting_injector",
+      "damage": 0,
+      "key": "draconicevolution:crafting_injector",
+      "filename": "draconicevolution_crafting_injector.png"
+    },
+    {
+      "id": "enderio:item_material",
+      "damage": 20,
+      "key": "enderio:item_material@20",
+      "filename": "enderio_item_material_20.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 136,
+      "key": "thermalfoundation:material@136",
+      "filename": "thermalfoundation_material_136.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 1028,
+      "key": "thermalfoundation:material@1028",
+      "filename": "thermalfoundation_material_1028.png"
+    },
+    {
+      "id": "thermalexpansion:frame",
+      "damage": 64,
+      "key": "thermalexpansion:frame@64",
+      "filename": "thermalexpansion_frame_64.png"
+    },
+    {
+      "id": "thermalexpansion:frame",
+      "damage": 0,
+      "key": "thermalexpansion:frame",
+      "filename": "thermalexpansion_frame.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 1025,
+      "key": "thermalfoundation:material@1025",
+      "filename": "thermalfoundation_material_1025.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 1026,
+      "key": "thermalfoundation:material@1026",
+      "filename": "thermalfoundation_material_1026.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 1027,
+      "key": "thermalfoundation:material@1027",
+      "filename": "thermalfoundation_material_1027.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 1024,
+      "key": "thermalfoundation:material@1024",
+      "filename": "thermalfoundation_material_1024.png"
+    },
+    {
+      "id": "minecraft:blaze_powder",
+      "damage": 1,
+      "key": "minecraft:blaze_powder@1",
+      "filename": "minecraft_blaze_powder_1.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 2053,
+      "key": "thermalfoundation:material@2053",
+      "filename": "thermalfoundation_material_2053.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 2051,
+      "key": "thermalfoundation:material@2051",
+      "filename": "thermalfoundation_material_2051.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 2049,
+      "key": "thermalfoundation:material@2049",
+      "filename": "thermalfoundation_material_2049.png"
+    },
+    {
+      "id": "thermalexpansion:machine",
+      "damage": 4,
+      "key": "thermalexpansion:machine@4",
+      "filename": "thermalexpansion_machine_4.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 3,
+      "key": "gregtech:wire_coil@3",
+      "filename": "gregtech_wire_coil_3.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2516,
+      "key": "gregtech:meta_ingot@2516",
+      "filename": "gregtech_meta_ingot_2516.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 4,
+      "key": "gregtech:wire_coil@4",
+      "filename": "gregtech_wire_coil_4.png"
+    },
+    {
+      "id": "nomilabs:quantumfluxedeterniumplating",
+      "damage": 0,
+      "key": "nomilabs:quantumfluxedeterniumplating",
+      "filename": "nomilabs_quantumfluxedeterniumplating.png"
+    },
+    {
+      "id": "minecraft:diamond_hoe",
+      "damage": 0,
+      "key": "minecraft:diamond_hoe",
+      "filename": "minecraft_diamond_hoe.png"
+    },
+    {
+      "id": "moreplates:empowered_void_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_void_gear",
+      "filename": "moreplates_empowered_void_gear.png"
+    },
+    {
+      "id": "moreplates:empowered_palis_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_palis_gear",
+      "filename": "moreplates_empowered_palis_gear.png"
+    },
+    {
+      "id": "moreplates:empowered_emeradic_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_emeradic_gear",
+      "filename": "moreplates_empowered_emeradic_gear.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 124,
+      "key": "gregtech:meta_ingot@124",
+      "filename": "gregtech_meta_ingot_124.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 5,
+      "key": "gregtech:wire_coil@5",
+      "filename": "gregtech_wire_coil_5.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 33,
+      "key": "gregtech:meta_ingot@33",
+      "filename": "gregtech_meta_ingot_33.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 709,
+      "key": "gregtech:meta_item_1@709",
+      "filename": "gregtech_meta_item_1_709.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 13,
+      "key": "gregtech:meta_dust@13",
+      "filename": "gregtech_meta_dust_13.png"
+    },
+    {
+      "id": "draconicevolution:crafting_injector",
+      "damage": 1,
+      "key": "draconicevolution:crafting_injector@1",
+      "filename": "draconicevolution_crafting_injector_1.png"
+    },
+    {
+      "id": "draconicevolution:crafting_injector",
+      "damage": 2,
+      "key": "draconicevolution:crafting_injector@2",
+      "filename": "draconicevolution_crafting_injector_2.png"
+    },
+    {
+      "id": "draconicevolution:crafting_injector",
+      "damage": 3,
+      "key": "draconicevolution:crafting_injector@3",
+      "filename": "draconicevolution_crafting_injector_3.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 644,
+      "key": "gregtech:meta_item_1@644",
+      "filename": "gregtech_meta_item_1_644.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 645,
+      "key": "gregtech:meta_item_1@645",
+      "filename": "gregtech_meta_item_1_645.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 646,
+      "key": "gregtech:meta_item_1@646",
+      "filename": "gregtech_meta_item_1_646.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 647,
+      "key": "gregtech:meta_item_1@647",
+      "filename": "gregtech_meta_item_1_647.png"
+    },
+    {
+      "id": "nomilabs:meta_dust",
+      "damage": 1,
+      "key": "nomilabs:meta_dust@1",
+      "filename": "nomilabs_meta_dust_1.png"
+    },
+    {
+      "id": "draconicevolution:draconic_core",
+      "damage": 0,
+      "key": "draconicevolution:draconic_core",
+      "filename": "draconicevolution_draconic_core.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 741,
+      "key": "gregtech:meta_item_1@741",
+      "filename": "gregtech_meta_item_1_741.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 989,
+      "key": "gregtech:machine@989",
+      "filename": "gregtech_machine_989.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 742,
+      "key": "gregtech:meta_item_1@742",
+      "filename": "gregtech_meta_item_1_742.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 748,
+      "key": "gregtech:meta_item_1@748",
+      "filename": "gregtech_meta_item_1_748.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 749,
+      "key": "gregtech:meta_item_1@749",
+      "filename": "gregtech_meta_item_1_749.png"
+    },
+    {
+      "id": "actuallyadditions:block_empowerer",
+      "damage": 0,
+      "key": "actuallyadditions:block_empowerer",
+      "filename": "actuallyadditions_block_empowerer.png"
+    },
+    {
+      "id": "draconicevolution:wyvern_core",
+      "damage": 0,
+      "key": "draconicevolution:wyvern_core",
+      "filename": "draconicevolution_wyvern_core.png"
+    },
+    {
+      "id": "nuclearcraft:part",
+      "damage": 1,
+      "key": "nuclearcraft:part@1",
+      "filename": "nuclearcraft_part_1.png"
+    },
+    {
+      "id": "nuclearcraft:fission_controller_new_fixed",
+      "damage": 0,
+      "key": "nuclearcraft:fission_controller_new_fixed",
+      "filename": "nuclearcraft_fission_controller_new_fixed.png"
+    },
+    {
+      "id": "armorplus:material",
+      "damage": 4,
+      "key": "armorplus:material@4",
+      "filename": "armorplus_material_4.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 395,
+      "key": "gregtech:machine@395",
+      "filename": "gregtech_machine_395.png"
+    },
+    {
+      "id": "openglider:hang_glider_basic",
+      "damage": 0,
+      "key": "openglider:hang_glider_basic",
+      "filename": "openglider_hang_glider_basic.png"
+    },
+    {
+      "id": "moreplates:empowered_enori_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_enori_gear",
+      "filename": "moreplates_empowered_enori_gear.png"
+    },
+    {
+      "id": "nomilabs:eternalcatalyst",
+      "damage": 0,
+      "key": "nomilabs:eternalcatalyst",
+      "filename": "nomilabs_eternalcatalyst.png"
+    },
+    {
+      "id": "avaritia:resource",
+      "damage": 5,
+      "key": "avaritia:resource@5",
+      "filename": "avaritia_resource_5.png"
+    },
+    {
+      "id": "avaritia:resource",
+      "damage": 6,
+      "key": "avaritia:resource@6",
+      "filename": "avaritia_resource_6.png"
+    },
+    {
+      "id": "avaritia:infinity_helmet",
+      "damage": 0,
+      "key": "avaritia:infinity_helmet",
+      "filename": "avaritia_infinity_helmet.png"
+    },
+    {
+      "id": "avaritia:infinity_chestplate",
+      "damage": 0,
+      "key": "avaritia:infinity_chestplate",
+      "filename": "avaritia_infinity_chestplate.png"
+    },
+    {
+      "id": "avaritia:infinity_pants",
+      "damage": 0,
+      "key": "avaritia:infinity_pants",
+      "filename": "avaritia_infinity_pants.png"
+    },
+    {
+      "id": "avaritia:infinity_boots",
+      "damage": 0,
+      "key": "avaritia:infinity_boots",
+      "filename": "avaritia_infinity_boots.png"
+    },
+    {
+      "id": "armorplus:the_ultimate_helmet",
+      "damage": 0,
+      "key": "armorplus:the_ultimate_helmet",
+      "filename": "armorplus_the_ultimate_helmet.png"
+    },
+    {
+      "id": "armorplus:the_ultimate_chestplate",
+      "damage": 0,
+      "key": "armorplus:the_ultimate_chestplate",
+      "filename": "armorplus_the_ultimate_chestplate.png"
+    },
+    {
+      "id": "armorplus:the_ultimate_boots",
+      "damage": 0,
+      "key": "armorplus:the_ultimate_boots",
+      "filename": "armorplus_the_ultimate_boots.png"
+    },
+    {
+      "id": "armorplus:the_ultimate_leggings",
+      "damage": 0,
+      "key": "armorplus:the_ultimate_leggings",
+      "filename": "armorplus_the_ultimate_leggings.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1668,
+      "key": "gregtech:machine@1668",
+      "filename": "gregtech_machine_1668.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1669,
+      "key": "gregtech:machine@1669",
+      "filename": "gregtech_machine_1669.png"
+    },
+    {
+      "id": "hooked:hook",
+      "damage": 1,
+      "key": "hooked:hook@1",
+      "filename": "hooked_hook_1.png"
+    },
+    {
+      "id": "minecraft:coal",
+      "damage": 1,
+      "key": "minecraft:coal@1",
+      "filename": "minecraft_coal_1.png"
+    },
+    {
+      "id": "gregtech:mallet",
+      "damage": 0,
+      "key": "gregtech:mallet",
+      "filename": "gregtech_mallet.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 16,
+      "key": "extendedcrafting:material@16",
+      "filename": "extendedcrafting_material_16.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 10,
+      "key": "extendedcrafting:material@10",
+      "filename": "extendedcrafting_material_10.png"
+    },
+    {
+      "id": "extendedcrafting:table_elite",
+      "damage": 0,
+      "key": "extendedcrafting:table_elite",
+      "filename": "extendedcrafting_table_elite.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 11,
+      "key": "extendedcrafting:material@11",
+      "filename": "extendedcrafting_material_11.png"
+    },
+    {
+      "id": "extendedcrafting:material",
+      "damage": 17,
+      "key": "extendedcrafting:material@17",
+      "filename": "extendedcrafting_material_17.png"
+    },
+    {
+      "id": "extendedcrafting:table_ultimate",
+      "damage": 0,
+      "key": "extendedcrafting:table_ultimate",
+      "filename": "extendedcrafting_table_ultimate.png"
+    },
+    {
+      "id": "thermalexpansion:machine",
+      "damage": 9,
+      "key": "thermalexpansion:machine@9",
+      "filename": "thermalexpansion_machine_9.png"
+    },
+    {
+      "id": "minecraft:nether_star",
+      "damage": 0,
+      "key": "minecraft:nether_star",
+      "filename": "minecraft_nether_star.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 9,
+      "key": "gregtech:machine_casing@9",
+      "filename": "gregtech_machine_casing_9.png"
+    },
+    {
+      "id": "extrautils2:chunkloader",
+      "damage": 0,
+      "key": "extrautils2:chunkloader",
+      "filename": "extrautils2_chunkloader.png"
+    },
+    {
+      "id": "thermalexpansion:capacitor",
+      "damage": 0,
+      "key": "thermalexpansion:capacitor",
+      "filename": "thermalexpansion_capacitor.png"
+    },
+    {
+      "id": "nomilabs:quantumflux",
+      "damage": 0,
+      "key": "nomilabs:quantumflux",
+      "filename": "nomilabs_quantumflux.png"
+    },
+    {
+      "id": "draconicevolution:creative_rf_source",
+      "damage": 0,
+      "key": "draconicevolution:creative_rf_source",
+      "filename": "draconicevolution_creative_rf_source.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1006,
+      "key": "gregtech:machine@1006",
+      "filename": "gregtech_machine_1006.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1012,
+      "key": "gregtech:machine@1012",
+      "filename": "gregtech_machine_1012.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 1004,
+      "key": "gregtech:meta_item_1@1004",
+      "filename": "gregtech_meta_item_1_1004.png"
+    },
+    {
+      "id": "minecraft:anvil",
+      "damage": 0,
+      "key": "minecraft:anvil",
+      "filename": "minecraft_anvil.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 301,
+      "key": "gregtech:meta_item_1@301",
+      "filename": "gregtech_meta_item_1_301.png"
+    },
+    {
+      "id": "gregtech:screwdriver",
+      "damage": 0,
+      "key": "gregtech:screwdriver",
+      "filename": "gregtech_screwdriver.png"
+    },
+    {
+      "id": "minecraft:book",
+      "damage": 0,
+      "key": "minecraft:book",
+      "filename": "minecraft_book.png"
+    },
+    {
+      "id": "jecalculation:item_calculator",
+      "damage": 0,
+      "key": "jecalculation:item_calculator",
+      "filename": "jecalculation_item_calculator.png"
+    },
+    {
+      "id": "packagedexcrafting:ultimate_crafter",
+      "damage": 0,
+      "key": "packagedexcrafting:ultimate_crafter",
+      "filename": "packagedexcrafting_ultimate_crafter.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 32101,
+      "key": "gregtech:machine@32101",
+      "filename": "gregtech_machine_32101.png"
+    },
+    {
+      "id": "packagedauto:package",
+      "damage": 0,
+      "key": "packagedauto:package",
+      "filename": "packagedauto_package.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 579,
+      "key": "gregtech:meta_item_1@579",
+      "filename": "gregtech_meta_item_1_579.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 32102,
+      "key": "gregtech:machine@32102",
+      "filename": "gregtech_machine_32102.png"
+    },
+    {
+      "id": "thermalinnovation:magnet",
+      "damage": 0,
+      "key": "thermalinnovation:magnet",
+      "filename": "thermalinnovation_magnet.png"
+    },
+    {
+      "id": "minecraft:fish",
+      "damage": 3,
+      "key": "minecraft:fish@3",
+      "filename": "minecraft_fish_3.png"
+    },
+    {
+      "id": "packagedexcrafting:combination_crafter",
+      "damage": 0,
+      "key": "packagedexcrafting:combination_crafter",
+      "filename": "packagedexcrafting_combination_crafter.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 0,
+      "key": "thermalexpansion:satchel",
+      "filename": "thermalexpansion_satchel.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 230,
+      "key": "gregtech:machine@230",
+      "filename": "gregtech_machine_230.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 125,
+      "key": "gregtech:machine@125",
+      "filename": "gregtech_machine_125.png"
+    },
+    {
+      "id": "gregtech:axe",
+      "damage": 0,
+      "key": "gregtech:axe",
+      "filename": "gregtech_axe.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 520,
+      "key": "appliedenergistics2:part@520",
+      "filename": "appliedenergistics2_part_520.png"
+    },
+    {
+      "id": "storagedrawers:controller",
+      "damage": 0,
+      "key": "storagedrawers:controller",
+      "filename": "storagedrawers_controller.png"
+    },
+    {
+      "id": "storagedrawers:framingtable",
+      "damage": 0,
+      "key": "storagedrawers:framingtable",
+      "filename": "storagedrawers_framingtable.png"
+    },
+    {
+      "id": "storagedrawers:compdrawers",
+      "damage": 0,
+      "key": "storagedrawers:compdrawers",
+      "filename": "storagedrawers_compdrawers.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 632,
+      "key": "gregtech:meta_item_1@632",
+      "filename": "gregtech_meta_item_1_632.png"
+    },
+    {
+      "id": "nomilabs:exoticmaterialscatalyst",
+      "damage": 0,
+      "key": "nomilabs:exoticmaterialscatalyst",
+      "filename": "nomilabs_exoticmaterialscatalyst.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 520,
+      "key": "gregtech:meta_item_1@520",
+      "filename": "gregtech_meta_item_1_520.png"
+    },
+    {
+      "id": "simplyjetpacks:metaitemmods",
+      "damage": 3,
+      "key": "simplyjetpacks:metaitemmods@3",
+      "filename": "simplyjetpacks_metaitemmods_3.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 155,
+      "key": "gregtech:machine@155",
+      "filename": "gregtech_machine_155.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 310,
+      "key": "gregtech:meta_ingot@310",
+      "filename": "gregtech_meta_ingot_310.png"
+    },
+    {
+      "id": "nomilabs:wire_octal",
+      "damage": 12,
+      "key": "nomilabs:wire_octal@12",
+      "filename": "nomilabs_wire_octal_12.png"
+    },
+    {
+      "id": "enderio:block_vat",
+      "damage": 0,
+      "key": "enderio:block_vat",
+      "filename": "enderio_block_vat.png"
+    },
+    {
+      "id": "enderio:block_slice_and_splice",
+      "damage": 0,
+      "key": "enderio:block_slice_and_splice",
+      "filename": "enderio_block_slice_and_splice.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2510,
+      "key": "gregtech:meta_ingot@2510",
+      "filename": "gregtech_meta_ingot_2510.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 157,
+      "key": "gregtech:meta_item_1@157",
+      "filename": "gregtech_meta_item_1_157.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 187,
+      "key": "gregtech:meta_item_1@187",
+      "filename": "gregtech_meta_item_1_187.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 32104,
+      "key": "gregtech:machine@32104",
+      "filename": "gregtech_machine_32104.png"
+    },
+    {
+      "id": "thermalfoundation:upgrade",
+      "damage": 3,
+      "key": "thermalfoundation:upgrade@3",
+      "filename": "thermalfoundation_upgrade_3.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 634,
+      "key": "gregtech:meta_item_1@634",
+      "filename": "gregtech_meta_item_1_634.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 635,
+      "key": "gregtech:meta_item_1@635",
+      "filename": "gregtech_meta_item_1_635.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 633,
+      "key": "gregtech:meta_item_1@633",
+      "filename": "gregtech_meta_item_1_633.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 113,
+      "key": "gregtech:machine@113",
+      "filename": "gregtech_machine_113.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 17,
+      "key": "nomilabs:meta_ingot@17",
+      "filename": "nomilabs_meta_ingot_17.png"
+    },
+    {
+      "id": "thermalfoundation:upgrade",
+      "damage": 0,
+      "key": "thermalfoundation:upgrade",
+      "filename": "thermalfoundation_upgrade.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 114,
+      "key": "gregtech:machine@114",
+      "filename": "gregtech_machine_114.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 621,
+      "key": "gregtech:meta_item_1@621",
+      "filename": "gregtech_meta_item_1_621.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 639,
+      "key": "gregtech:meta_item_1@639",
+      "filename": "gregtech_meta_item_1_639.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 112,
+      "key": "gregtech:machine@112",
+      "filename": "gregtech_machine_112.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 116,
+      "key": "gregtech:machine@116",
+      "filename": "gregtech_machine_116.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 642,
+      "key": "gregtech:meta_item_1@642",
+      "filename": "gregtech_meta_item_1_642.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 643,
+      "key": "gregtech:meta_item_1@643",
+      "filename": "gregtech_meta_item_1_643.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 992,
+      "key": "gregtech:machine@992",
+      "filename": "gregtech_machine_992.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 78,
+      "key": "gregtech:meta_dust@78",
+      "filename": "gregtech_meta_dust_78.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 321,
+      "key": "gregtech:machine@321",
+      "filename": "gregtech_machine_321.png"
+    },
+    {
+      "id": "enderio:block_soul_binder",
+      "damage": 0,
+      "key": "enderio:block_soul_binder",
+      "filename": "enderio_block_soul_binder.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2511,
+      "key": "gregtech:meta_ingot@2511",
+      "filename": "gregtech_meta_ingot_2511.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 1,
+      "key": "thermalexpansion:satchel@1",
+      "filename": "thermalexpansion_satchel_1.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 2,
+      "key": "thermalexpansion:satchel@2",
+      "filename": "thermalexpansion_satchel_2.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 261,
+      "key": "gregtech:machine@261",
+      "filename": "gregtech_machine_261.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 13,
+      "key": "gregtech:meta_item_1@13",
+      "filename": "gregtech_meta_item_1_13.png"
+    },
+    {
+      "id": "actuallyadditions:block_phantom_booster",
+      "damage": 0,
+      "key": "actuallyadditions:block_phantom_booster",
+      "filename": "actuallyadditions_block_phantom_booster.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 10,
+      "key": "simplyjetpacks:itemjetpack@10",
+      "filename": "simplyjetpacks_itemjetpack_10.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 11,
+      "key": "simplyjetpacks:itemjetpack@11",
+      "filename": "simplyjetpacks_itemjetpack_11.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 12,
+      "key": "simplyjetpacks:itemjetpack@12",
+      "filename": "simplyjetpacks_itemjetpack_12.png"
+    },
+    {
+      "id": "thermalfoundation:fertilizer",
+      "damage": 2,
+      "key": "thermalfoundation:fertilizer@2",
+      "filename": "thermalfoundation_fertilizer_2.png"
+    },
+    {
+      "id": "bountiful:bountyboarditem",
+      "damage": 0,
+      "key": "bountiful:bountyboarditem",
+      "filename": "bountiful_bountyboarditem.png"
+    },
+    {
+      "id": "thermalexpansion:augment",
+      "damage": 513,
+      "key": "thermalexpansion:augment@513",
+      "filename": "thermalexpansion_augment_513.png"
+    },
+    {
+      "id": "thermalexpansion:augment",
+      "damage": 512,
+      "key": "thermalexpansion:augment@512",
+      "filename": "thermalexpansion_augment_512.png"
+    },
+    {
+      "id": "solarflux:solar_panel_neutronium",
+      "damage": 0,
+      "key": "solarflux:solar_panel_neutronium",
+      "filename": "solarflux_solar_panel_neutronium.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 19,
+      "key": "nomilabs:meta_ingot@19",
+      "filename": "nomilabs_meta_ingot_19.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 10,
+      "key": "nomilabs:meta_ingot@10",
+      "filename": "nomilabs_meta_ingot_10.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 18,
+      "key": "nomilabs:meta_ingot@18",
+      "filename": "nomilabs_meta_ingot_18.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2062,
+      "key": "gregtech:meta_ingot@2062",
+      "filename": "gregtech_meta_ingot_2062.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2519,
+      "key": "gregtech:meta_ingot@2519",
+      "filename": "gregtech_meta_ingot_2519.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2520,
+      "key": "gregtech:meta_ingot@2520",
+      "filename": "gregtech_meta_ingot_2520.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 23,
+      "key": "nomilabs:meta_ingot@23",
+      "filename": "nomilabs_meta_ingot_23.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2036,
+      "key": "gregtech:meta_ingot@2036",
+      "filename": "gregtech_meta_ingot_2036.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 25,
+      "key": "nomilabs:meta_ingot@25",
+      "filename": "nomilabs_meta_ingot_25.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 27,
+      "key": "nomilabs:meta_ingot@27",
+      "filename": "nomilabs_meta_ingot_27.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 24,
+      "key": "nomilabs:meta_ingot@24",
+      "filename": "nomilabs_meta_ingot_24.png"
+    },
+    {
+      "id": "nomilabs:meta_ingot",
+      "damage": 8,
+      "key": "nomilabs:meta_ingot@8",
+      "filename": "nomilabs_meta_ingot_8.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 290,
+      "key": "gregtech:meta_ingot@290",
+      "filename": "gregtech_meta_ingot_290.png"
+    },
+    {
+      "id": "nomilabs:heartofauniverse",
+      "damage": 0,
+      "key": "nomilabs:heartofauniverse",
+      "filename": "nomilabs_heartofauniverse.png"
+    },
+    {
+      "id": "nomilabs:tiertenship",
+      "damage": 0,
+      "key": "nomilabs:tiertenship",
+      "filename": "nomilabs_tiertenship.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 127,
+      "key": "gregtech:meta_ingot@127",
+      "filename": "gregtech_meta_ingot_127.png"
+    },
+    {
+      "id": "nomilabs:wire_single",
+      "damage": 28,
+      "key": "nomilabs:wire_single@28",
+      "filename": "nomilabs_wire_single_28.png"
+    },
+    {
+      "id": "thermalfoundation:upgrade",
+      "damage": 1,
+      "key": "thermalfoundation:upgrade@1",
+      "filename": "thermalfoundation_upgrade_1.png"
+    },
+    {
+      "id": "nuclearcraft:alloy",
+      "damage": 1,
+      "key": "nuclearcraft:alloy@1",
+      "filename": "nuclearcraft_alloy_1.png"
+    },
+    {
+      "id": "nomilabs:solidifiedhydrogen",
+      "damage": 0,
+      "key": "nomilabs:solidifiedhydrogen",
+      "filename": "nomilabs_solidifiedhydrogen.png"
+    },
+    {
+      "id": "nomilabs:solidifiedhelium",
+      "damage": 0,
+      "key": "nomilabs:solidifiedhelium",
+      "filename": "nomilabs_solidifiedhelium.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 56,
+      "key": "gregtech:meta_dust@56",
+      "filename": "gregtech_meta_dust_56.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 10,
+      "key": "gregtech:meta_ingot@10",
+      "filename": "gregtech_meta_ingot_10.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 18,
+      "key": "gregtech:meta_dust@18",
+      "filename": "gregtech_meta_dust_18.png"
+    },
+    {
+      "id": "nomilabs:solidifiednitrogen",
+      "damage": 0,
+      "key": "nomilabs:solidifiednitrogen",
+      "filename": "nomilabs_solidifiednitrogen.png"
+    },
+    {
+      "id": "nomilabs:solidifiedoxygen",
+      "damage": 0,
+      "key": "nomilabs:solidifiedoxygen",
+      "filename": "nomilabs_solidifiedoxygen.png"
+    },
+    {
+      "id": "nomilabs:solidifiedfluorine",
+      "damage": 0,
+      "key": "nomilabs:solidifiedfluorine",
+      "filename": "nomilabs_solidifiedfluorine.png"
+    },
+    {
+      "id": "nomilabs:solidifiedneon",
+      "damage": 0,
+      "key": "nomilabs:solidifiedneon",
+      "filename": "nomilabs_solidifiedneon.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 101,
+      "key": "gregtech:meta_dust@101",
+      "filename": "gregtech_meta_dust_101.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 59,
+      "key": "gregtech:meta_dust@59",
+      "filename": "gregtech_meta_dust_59.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 99,
+      "key": "gregtech:meta_ingot@99",
+      "filename": "gregtech_meta_ingot_99.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 103,
+      "key": "gregtech:meta_dust@103",
+      "filename": "gregtech_meta_dust_103.png"
+    },
+    {
+      "id": "nomilabs:solidifiedchlorine",
+      "damage": 0,
+      "key": "nomilabs:solidifiedchlorine",
+      "filename": "nomilabs_solidifiedchlorine.png"
+    },
+    {
+      "id": "nomilabs:solidifiedargon",
+      "damage": 0,
+      "key": "nomilabs:solidifiedargon",
+      "filename": "nomilabs_solidifiedargon.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 83,
+      "key": "gregtech:meta_dust@83",
+      "filename": "gregtech_meta_dust_83.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 16,
+      "key": "gregtech:meta_dust@16",
+      "filename": "gregtech_meta_dust_16.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 53,
+      "key": "gregtech:meta_dust@53",
+      "filename": "gregtech_meta_dust_53.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 118,
+      "key": "gregtech:meta_ingot@118",
+      "filename": "gregtech_meta_ingot_118.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 22,
+      "key": "gregtech:meta_ingot@22",
+      "filename": "gregtech_meta_ingot_22.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 61,
+      "key": "gregtech:meta_ingot@61",
+      "filename": "gregtech_meta_ingot_61.png"
+    },
+    {
+      "id": "minecraft:iron_ingot",
+      "damage": 0,
+      "key": "minecraft:iron_ingot",
+      "filename": "minecraft_iron_ingot.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 23,
+      "key": "gregtech:meta_ingot@23",
+      "filename": "gregtech_meta_ingot_23.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 25,
+      "key": "gregtech:meta_ingot@25",
+      "filename": "gregtech_meta_ingot_25.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 122,
+      "key": "gregtech:meta_ingot@122",
+      "filename": "gregtech_meta_ingot_122.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 39,
+      "key": "gregtech:meta_ingot@39",
+      "filename": "gregtech_meta_ingot_39.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 6,
+      "key": "gregtech:meta_dust@6",
+      "filename": "gregtech_meta_dust_6.png"
+    },
+    {
+      "id": "nomilabs:solidifiedkrypton",
+      "damage": 0,
+      "key": "nomilabs:solidifiedkrypton",
+      "filename": "nomilabs_solidifiedkrypton.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 121,
+      "key": "gregtech:meta_ingot@121",
+      "filename": "gregtech_meta_ingot_121.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 77,
+      "key": "gregtech:meta_ingot@77",
+      "filename": "gregtech_meta_ingot_77.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 100,
+      "key": "gregtech:meta_ingot@100",
+      "filename": "gregtech_meta_ingot_100.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 48,
+      "key": "gregtech:meta_ingot@48",
+      "filename": "gregtech_meta_ingot_48.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 112,
+      "key": "gregtech:meta_ingot@112",
+      "filename": "gregtech_meta_ingot_112.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 4,
+      "key": "gregtech:meta_ingot@4",
+      "filename": "gregtech_meta_ingot_4.png"
+    },
+    {
+      "id": "nomilabs:solidifiedxenon",
+      "damage": 0,
+      "key": "nomilabs:solidifiedxenon",
+      "filename": "nomilabs_solidifiedxenon.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 75,
+      "key": "gregtech:meta_ingot@75",
+      "filename": "gregtech_meta_ingot_75.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 80,
+      "key": "gregtech:meta_ingot@80",
+      "filename": "gregtech_meta_ingot_80.png"
+    },
+    {
+      "id": "minecraft:gold_ingot",
+      "damage": 0,
+      "key": "minecraft:gold_ingot",
+      "filename": "minecraft_gold_ingot.png"
+    },
+    {
+      "id": "nomilabs:solidifiedmercury",
+      "damage": 0,
+      "key": "nomilabs:solidifiedmercury",
+      "filename": "nomilabs_solidifiedmercury.png"
+    },
+    {
+      "id": "nomilabs:solidifiedradon",
+      "damage": 0,
+      "key": "nomilabs:solidifiedradon",
+      "filename": "nomilabs_solidifiedradon.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 109,
+      "key": "gregtech:meta_ingot@109",
+      "filename": "gregtech_meta_ingot_109.png"
+    },
+    {
+      "id": "nomilabs:stabilizeduranium",
+      "damage": 0,
+      "key": "nomilabs:stabilizeduranium",
+      "filename": "nomilabs_stabilizeduranium.png"
+    },
+    {
+      "id": "nomilabs:stabilizedneptunium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedneptunium",
+      "filename": "nomilabs_stabilizedneptunium.png"
+    },
+    {
+      "id": "nomilabs:stabilizedplutonium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedplutonium",
+      "filename": "nomilabs_stabilizedplutonium.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 3,
+      "key": "gregtech:meta_ingot@3",
+      "filename": "gregtech_meta_ingot_3.png"
+    },
+    {
+      "id": "nomilabs:stabilizedcurium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedcurium",
+      "filename": "nomilabs_stabilizedcurium.png"
+    },
+    {
+      "id": "nomilabs:stabilizedberkelium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedberkelium",
+      "filename": "nomilabs_stabilizedberkelium.png"
+    },
+    {
+      "id": "nomilabs:stabilizedcalifornium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedcalifornium",
+      "filename": "nomilabs_stabilizedcalifornium.png"
+    },
+    {
+      "id": "nomilabs:stabilizedeinsteinium",
+      "damage": 0,
+      "key": "nomilabs:stabilizedeinsteinium",
+      "filename": "nomilabs_stabilizedeinsteinium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_uranium",
+      "damage": 4,
+      "key": "nuclearcraft:fuel_uranium@4",
+      "filename": "nuclearcraft_fuel_uranium_4.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_thorium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_thorium",
+      "filename": "nuclearcraft_fuel_thorium.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 116,
+      "key": "gregtech:meta_ingot@116",
+      "filename": "gregtech_meta_ingot_116.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_neptunium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_neptunium",
+      "filename": "nuclearcraft_fuel_neptunium.png"
+    },
+    {
+      "id": "nuclearcraft:uranium",
+      "damage": 0,
+      "key": "nuclearcraft:uranium",
+      "filename": "nuclearcraft_uranium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_plutonium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_plutonium",
+      "filename": "nuclearcraft_fuel_plutonium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_curium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_curium",
+      "filename": "nuclearcraft_fuel_curium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_americium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_americium",
+      "filename": "nuclearcraft_fuel_americium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_berkelium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_berkelium",
+      "filename": "nuclearcraft_fuel_berkelium.png"
+    },
+    {
+      "id": "nuclearcraft:fuel_californium",
+      "damage": 0,
+      "key": "nuclearcraft:fuel_californium",
+      "filename": "nuclearcraft_fuel_californium.png"
+    },
+    {
+      "id": "gregtech:warning_sign",
+      "damage": 2,
+      "key": "gregtech:warning_sign@2",
+      "filename": "gregtech_warning_sign_2.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1003,
+      "key": "gregtech:machine@1003",
+      "filename": "gregtech_machine_1003.png"
+    },
+    {
+      "id": "deepmoblearning:simulation_chamber",
+      "damage": 0,
+      "key": "deepmoblearning:simulation_chamber",
+      "filename": "deepmoblearning_simulation_chamber.png"
+    },
+    {
+      "id": "deepmoblearning:living_matter_overworldian",
+      "damage": 0,
+      "key": "deepmoblearning:living_matter_overworldian",
+      "filename": "deepmoblearning_living_matter_overworldian.png"
+    },
+    {
+      "id": "nomilabs:pulsatingmesh",
+      "damage": 0,
+      "key": "nomilabs:pulsatingmesh",
+      "filename": "nomilabs_pulsatingmesh.png"
+    },
+    {
+      "id": "deepmoblearning:extraction_chamber",
+      "damage": 0,
+      "key": "deepmoblearning:extraction_chamber",
+      "filename": "deepmoblearning_extraction_chamber.png"
+    },
+    {
+      "id": "deepmoblearning:data_model_zombie",
+      "damage": 0,
+      "key": "deepmoblearning:data_model_zombie",
+      "filename": "deepmoblearning_data_model_zombie.png"
+    },
+    {
+      "id": "nuclearcraft:water_source",
+      "damage": 0,
+      "key": "nuclearcraft:water_source",
+      "filename": "nuclearcraft_water_source.png"
+    },
+    {
+      "id": "deepmoblearning:living_matter_hellish",
+      "damage": 0,
+      "key": "deepmoblearning:living_matter_hellish",
+      "filename": "deepmoblearning_living_matter_hellish.png"
+    },
+    {
+      "id": "deepmoblearning:data_model_blaze",
+      "damage": 0,
+      "key": "deepmoblearning:data_model_blaze",
+      "filename": "deepmoblearning_data_model_blaze.png"
+    },
+    {
+      "id": "deepmoblearning:living_matter_extraterrestrial",
+      "damage": 0,
+      "key": "deepmoblearning:living_matter_extraterrestrial",
+      "filename": "deepmoblearning_living_matter_extraterrestrial.png"
+    },
+    {
+      "id": "deepmoblearning:data_model_enderman",
+      "damage": 0,
+      "key": "deepmoblearning:data_model_enderman",
+      "filename": "deepmoblearning_data_model_enderman.png"
+    },
+    {
+      "id": "enderio:item_yeta_wrench",
+      "damage": 0,
+      "key": "enderio:item_yeta_wrench",
+      "filename": "enderio_item_yeta_wrench.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 4,
+      "key": "simplyjetpacks:itemjetpack@4",
+      "filename": "simplyjetpacks_itemjetpack_4.png"
+    },
+    {
+      "id": "extrautils2:angelring",
+      "damage": 1,
+      "key": "extrautils2:angelring@1",
+      "filename": "extrautils2_angelring_1.png"
+    },
+    {
+      "id": "simplyjetpacks:itemjetpack",
+      "damage": 9,
+      "key": "simplyjetpacks:itemjetpack@9",
+      "filename": "simplyjetpacks_itemjetpack_9.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 39,
+      "key": "gregtech:meta_dust@39",
+      "filename": "gregtech_meta_dust_39.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 895,
+      "key": "thermalfoundation:material@895",
+      "filename": "thermalfoundation_material_895.png"
+    },
+    {
+      "id": "appliedenergistics2:fluid_interface",
+      "damage": 0,
+      "key": "appliedenergistics2:fluid_interface",
+      "filename": "appliedenergistics2_fluid_interface.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 143,
+      "key": "gregtech:meta_item_1@143",
+      "filename": "gregtech_meta_item_1_143.png"
+    },
+    {
+      "id": "nuclearcraft:alloy",
+      "damage": 2,
+      "key": "nuclearcraft:alloy@2",
+      "filename": "nuclearcraft_alloy_2.png"
+    },
+    {
+      "id": "draconicevolution:info_tablet",
+      "damage": 0,
+      "key": "draconicevolution:info_tablet",
+      "filename": "draconicevolution_info_tablet.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 406,
+      "key": "gregtech:meta_item_1@406",
+      "filename": "gregtech_meta_item_1_406.png"
+    },
+    {
+      "id": "thermalexpansion:machine",
+      "damage": 5,
+      "key": "thermalexpansion:machine@5",
+      "filename": "thermalexpansion_machine_5.png"
+    },
+    {
+      "id": "enderio:block_enchanter",
+      "damage": 0,
+      "key": "enderio:block_enchanter",
+      "filename": "enderio_block_enchanter.png"
+    },
+    {
+      "id": "thermalexpansion:augment",
+      "damage": 337,
+      "key": "thermalexpansion:augment@337",
+      "filename": "thermalexpansion_augment_337.png"
+    },
+    {
+      "id": "thermalexpansion:device",
+      "damage": 0,
+      "key": "thermalexpansion:device",
+      "filename": "thermalexpansion_device.png"
+    },
+    {
+      "id": "thermalexpansion:augment",
+      "damage": 640,
+      "key": "thermalexpansion:augment@640",
+      "filename": "thermalexpansion_augment_640.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 4,
+      "key": "thermalexpansion:satchel@4",
+      "filename": "thermalexpansion_satchel_4.png"
+    },
+    {
+      "id": "enderio:block_tele_pad",
+      "damage": 0,
+      "key": "enderio:block_tele_pad",
+      "filename": "enderio_block_tele_pad.png"
+    },
+    {
+      "id": "buildinggadgets:buildingtool",
+      "damage": 0,
+      "key": "buildinggadgets:buildingtool",
+      "filename": "buildinggadgets_buildingtool.png"
+    },
+    {
+      "id": "thermalfoundation:material",
+      "damage": 2048,
+      "key": "thermalfoundation:material@2048",
+      "filename": "thermalfoundation_material_2048.png"
+    },
+    {
+      "id": "minecraft:skull",
+      "damage": 5,
+      "key": "minecraft:skull@5",
+      "filename": "minecraft_skull_5.png"
+    },
+    {
+      "id": "minecraft:chorus_flower",
+      "damage": 0,
+      "key": "minecraft:chorus_flower",
+      "filename": "minecraft_chorus_flower.png"
+    },
+    {
+      "id": "draconicevolution:dislocator",
+      "damage": 0,
+      "key": "draconicevolution:dislocator",
+      "filename": "draconicevolution_dislocator.png"
+    },
+    {
+      "id": "minecraft:ender_pearl",
+      "damage": 0,
+      "key": "minecraft:ender_pearl",
+      "filename": "minecraft_ender_pearl.png"
+    },
+    {
+      "id": "enderio:item_rod_of_return",
+      "damage": 0,
+      "key": "enderio:item_rod_of_return",
+      "filename": "enderio_item_rod_of_return.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 986,
+      "key": "gregtech:machine@986",
+      "filename": "gregtech_machine_986.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 2,
+      "key": "gregtech:machine_casing@2",
+      "filename": "gregtech_machine_casing_2.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 3,
+      "key": "gregtech:machine_casing@3",
+      "filename": "gregtech_machine_casing_3.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 4,
+      "key": "gregtech:machine_casing@4",
+      "filename": "gregtech_machine_casing_4.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 5,
+      "key": "gregtech:machine_casing@5",
+      "filename": "gregtech_machine_casing_5.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 6,
+      "key": "gregtech:machine_casing@6",
+      "filename": "gregtech_machine_casing_6.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 7,
+      "key": "gregtech:machine_casing@7",
+      "filename": "gregtech_machine_casing_7.png"
+    },
+    {
+      "id": "gregtech:machine_casing",
+      "damage": 8,
+      "key": "gregtech:machine_casing@8",
+      "filename": "gregtech_machine_casing_8.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 440,
+      "key": "gregtech:machine@440",
+      "filename": "gregtech_machine_440.png"
+    },
+    {
+      "id": "draconicevolution:awakened_core",
+      "damage": 0,
+      "key": "draconicevolution:awakened_core",
+      "filename": "draconicevolution_awakened_core.png"
+    },
+    {
+      "id": "moreplates:empowered_diamatine_gear",
+      "damage": 0,
+      "key": "moreplates:empowered_diamatine_gear",
+      "filename": "moreplates_empowered_diamatine_gear.png"
+    },
+    {
+      "id": "draconicevolution:energy_storage_core",
+      "damage": 0,
+      "key": "draconicevolution:energy_storage_core",
+      "filename": "draconicevolution_energy_storage_core.png"
+    },
+    {
+      "id": "nuclearcraft:cobblestone_generator",
+      "damage": 0,
+      "key": "nuclearcraft:cobblestone_generator",
+      "filename": "nuclearcraft_cobblestone_generator.png"
+    },
+    {
+      "id": "dimensionaledibles:nether_cake",
+      "damage": 0,
+      "key": "dimensionaledibles:nether_cake",
+      "filename": "dimensionaledibles_nether_cake.png"
+    },
+    {
+      "id": "thermalexpansion:dynamo",
+      "damage": 5,
+      "key": "thermalexpansion:dynamo@5",
+      "filename": "thermalexpansion_dynamo_5.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1399,
+      "key": "gregtech:machine@1399",
+      "filename": "gregtech_machine_1399.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 711,
+      "key": "gregtech:meta_item_1@711",
+      "filename": "gregtech_meta_item_1_711.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 16,
+      "key": "appliedenergistics2:part@16",
+      "filename": "appliedenergistics2_part_16.png"
+    },
+    {
+      "id": "effortlessbuilding:reach_upgrade1",
+      "damage": 0,
+      "key": "effortlessbuilding:reach_upgrade1",
+      "filename": "effortlessbuilding_reach_upgrade1.png"
+    },
+    {
+      "id": "enderio:block_farm_station",
+      "damage": 0,
+      "key": "enderio:block_farm_station",
+      "filename": "enderio_block_farm_station.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 293,
+      "key": "gregtech:meta_item_1@293",
+      "filename": "gregtech_meta_item_1_293.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 291,
+      "key": "gregtech:meta_item_1@291",
+      "filename": "gregtech_meta_item_1_291.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1030,
+      "key": "gregtech:machine@1030",
+      "filename": "gregtech_machine_1030.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 460,
+      "key": "gregtech:meta_item_1@460",
+      "filename": "gregtech_meta_item_1_460.png"
+    },
+    {
+      "id": "minecraft:tnt",
+      "damage": 0,
+      "key": "minecraft:tnt",
+      "filename": "minecraft_tnt.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 573,
+      "key": "gregtech:meta_item_1@573",
+      "filename": "gregtech_meta_item_1_573.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 363,
+      "key": "gregtech:meta_item_1@363",
+      "filename": "gregtech_meta_item_1_363.png"
+    },
+    {
+      "id": "advsolars:sunnarium",
+      "damage": 0,
+      "key": "advsolars:sunnarium",
+      "filename": "advsolars_sunnarium.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 3,
+      "key": "thermalexpansion:satchel@3",
+      "filename": "thermalexpansion_satchel_3.png"
+    },
+    {
+      "id": "gregtech:fusion_casing",
+      "damage": 1,
+      "key": "gregtech:fusion_casing@1",
+      "filename": "gregtech_fusion_casing_1.png"
+    },
+    {
+      "id": "minecraft:bed",
+      "damage": 10,
+      "key": "minecraft:bed@10",
+      "filename": "minecraft_bed_10.png"
+    },
+    {
+      "id": "actuallyadditions:block_laser_relay_item",
+      "damage": 0,
+      "key": "actuallyadditions:block_laser_relay_item",
+      "filename": "actuallyadditions_block_laser_relay_item.png"
+    },
+    {
+      "id": "naturescompass:naturescompass",
+      "damage": 0,
+      "key": "naturescompass:naturescompass",
+      "filename": "naturescompass_naturescompass.png"
+    },
+    {
+      "id": "minecraft:wheat_seeds",
+      "damage": 0,
+      "key": "minecraft:wheat_seeds",
+      "filename": "minecraft_wheat_seeds.png"
+    },
+    {
+      "id": "minecraft:knowledge_book",
+      "damage": 0,
+      "key": "minecraft:knowledge_book",
+      "filename": "minecraft_knowledge_book.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 32108,
+      "key": "gregtech:machine@32108",
+      "filename": "gregtech_machine_32108.png"
+    },
+    {
+      "id": "gregtech:ore_sulfur_0",
+      "damage": 0,
+      "key": "gregtech:ore_sulfur_0",
+      "filename": "gregtech_ore_sulfur_0.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 95,
+      "key": "gregtech:machine@95",
+      "filename": "gregtech_machine_95.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 140,
+      "key": "gregtech:machine@140",
+      "filename": "gregtech_machine_140.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 635,
+      "key": "gregtech:machine@635",
+      "filename": "gregtech_machine_635.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1025,
+      "key": "gregtech:machine@1025",
+      "filename": "gregtech_machine_1025.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 217,
+      "key": "gregtech:meta_item_1@217",
+      "filename": "gregtech_meta_item_1_217.png"
+    },
+    {
+      "id": "gregtech:drill_mv",
+      "damage": 0,
+      "key": "gregtech:drill_mv",
+      "filename": "gregtech_drill_mv.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 521,
+      "key": "gregtech:meta_item_1@521",
+      "filename": "gregtech_meta_item_1_521.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 402,
+      "key": "gregtech:meta_item_1@402",
+      "filename": "gregtech_meta_item_1_402.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 575,
+      "key": "gregtech:machine@575",
+      "filename": "gregtech_machine_575.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 522,
+      "key": "gregtech:meta_item_1@522",
+      "filename": "gregtech_meta_item_1_522.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1023,
+      "key": "gregtech:machine@1023",
+      "filename": "gregtech_machine_1023.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 299,
+      "key": "gregtech:meta_dust@299",
+      "filename": "gregtech_meta_dust_299.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 410,
+      "key": "gregtech:machine@410",
+      "filename": "gregtech_machine_410.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 310,
+      "key": "gregtech:meta_item_1@310",
+      "filename": "gregtech_meta_item_1_310.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 311,
+      "key": "gregtech:meta_item_1@311",
+      "filename": "gregtech_meta_item_1_311.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1029,
+      "key": "gregtech:machine@1029",
+      "filename": "gregtech_machine_1029.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1575,
+      "key": "gregtech:machine@1575",
+      "filename": "gregtech_machine_1575.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1009,
+      "key": "gregtech:machine@1009",
+      "filename": "gregtech_machine_1009.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 471,
+      "key": "gregtech:machine@471",
+      "filename": "gregtech_machine_471.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 597,
+      "key": "gregtech:meta_item_1@597",
+      "filename": "gregtech_meta_item_1_597.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 702,
+      "key": "gregtech:meta_item_1@702",
+      "filename": "gregtech_meta_item_1_702.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1031,
+      "key": "gregtech:machine@1031",
+      "filename": "gregtech_machine_1031.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 708,
+      "key": "gregtech:meta_item_1@708",
+      "filename": "gregtech_meta_item_1_708.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 6,
+      "key": "gregtech:wire_coil@6",
+      "filename": "gregtech_wire_coil_6.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 125,
+      "key": "gregtech:meta_ingot@125",
+      "filename": "gregtech_meta_ingot_125.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 126,
+      "key": "gregtech:meta_ingot@126",
+      "filename": "gregtech_meta_ingot_126.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 130,
+      "key": "gregtech:meta_ingot@130",
+      "filename": "gregtech_meta_ingot_130.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2042,
+      "key": "gregtech:meta_ingot@2042",
+      "filename": "gregtech_meta_ingot_2042.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 528,
+      "key": "gregtech:meta_item_1@528",
+      "filename": "gregtech_meta_item_1_528.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 7,
+      "key": "gregtech:wire_coil@7",
+      "filename": "gregtech_wire_coil_7.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 364,
+      "key": "gregtech:meta_item_1@364",
+      "filename": "gregtech_meta_item_1_364.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 574,
+      "key": "gregtech:meta_item_1@574",
+      "filename": "gregtech_meta_item_1_574.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 3008,
+      "key": "gregtech:meta_ingot@3008",
+      "filename": "gregtech_meta_ingot_3008.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 2001,
+      "key": "gregtech:machine@2001",
+      "filename": "gregtech_machine_2001.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 2028,
+      "key": "gregtech:machine@2028",
+      "filename": "gregtech_machine_2028.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 2025,
+      "key": "gregtech:machine@2025",
+      "filename": "gregtech_machine_2025.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 71,
+      "key": "gregtech:meta_ingot@71",
+      "filename": "gregtech_meta_ingot_71.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 64,
+      "key": "gregtech:meta_ingot@64",
+      "filename": "gregtech_meta_ingot_64.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 93,
+      "key": "gregtech:meta_ingot@93",
+      "filename": "gregtech_meta_ingot_93.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 90,
+      "key": "gregtech:meta_ingot@90",
+      "filename": "gregtech_meta_ingot_90.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 19,
+      "key": "gregtech:meta_dust@19",
+      "filename": "gregtech_meta_dust_19.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 15,
+      "key": "gregtech:meta_dust@15",
+      "filename": "gregtech_meta_dust_15.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 20,
+      "key": "gregtech:meta_dust@20",
+      "filename": "gregtech_meta_dust_20.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 66,
+      "key": "gregtech:meta_ingot@66",
+      "filename": "gregtech_meta_ingot_66.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 95,
+      "key": "gregtech:meta_ingot@95",
+      "filename": "gregtech_meta_ingot_95.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 58,
+      "key": "gregtech:meta_ingot@58",
+      "filename": "gregtech_meta_ingot_58.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 104,
+      "key": "gregtech:meta_ingot@104",
+      "filename": "gregtech_meta_ingot_104.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 55,
+      "key": "gregtech:meta_ingot@55",
+      "filename": "gregtech_meta_ingot_55.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 129,
+      "key": "gregtech:meta_ingot@129",
+      "filename": "gregtech_meta_ingot_129.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1650,
+      "key": "gregtech:machine@1650",
+      "filename": "gregtech_machine_1650.png"
+    },
+    {
+      "id": "gregtech:meta_foil",
+      "damage": 1008,
+      "key": "gregtech:meta_foil@1008",
+      "filename": "gregtech_meta_foil_1008.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 27,
+      "key": "gregtech:meta_ingot@27",
+      "filename": "gregtech_meta_ingot_27.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 470,
+      "key": "gregtech:meta_item_1@470",
+      "filename": "gregtech_meta_item_1_470.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1272,
+      "key": "gregtech:machine@1272",
+      "filename": "gregtech_machine_1272.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 422,
+      "key": "gregtech:meta_item_1@422",
+      "filename": "gregtech_meta_item_1_422.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1026,
+      "key": "gregtech:machine@1026",
+      "filename": "gregtech_machine_1026.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1654,
+      "key": "gregtech:machine@1654",
+      "filename": "gregtech_machine_1654.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1212,
+      "key": "gregtech:machine@1212",
+      "filename": "gregtech_machine_1212.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1213,
+      "key": "gregtech:machine@1213",
+      "filename": "gregtech_machine_1213.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 465,
+      "key": "gregtech:meta_item_1@465",
+      "filename": "gregtech_meta_item_1_465.png"
+    },
+    {
+      "id": "gregtech:wire_coil",
+      "damage": 0,
+      "key": "gregtech:wire_coil",
+      "filename": "gregtech_wire_coil.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1000,
+      "key": "gregtech:machine@1000",
+      "filename": "gregtech_machine_1000.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1316,
+      "key": "gregtech:machine@1316",
+      "filename": "gregtech_machine_1316.png"
+    },
+    {
+      "id": "minecraft:name_tag",
+      "damage": 0,
+      "key": "minecraft:name_tag",
+      "filename": "minecraft_name_tag.png"
+    },
+    {
+      "id": "gregtech:cleanroom_casing",
+      "damage": 2,
+      "key": "gregtech:cleanroom_casing@2",
+      "filename": "gregtech_cleanroom_casing_2.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 522,
+      "key": "appliedenergistics2:part@522",
+      "filename": "appliedenergistics2_part_522.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 521,
+      "key": "appliedenergistics2:part@521",
+      "filename": "appliedenergistics2_part_521.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 993,
+      "key": "gregtech:machine@993",
+      "filename": "gregtech_machine_993.png"
+    },
+    {
+      "id": "deepmoblearning:polymer_clay",
+      "damage": 0,
+      "key": "deepmoblearning:polymer_clay",
+      "filename": "deepmoblearning_polymer_clay.png"
+    },
+    {
+      "id": "minecraft:clay",
+      "damage": 0,
+      "key": "minecraft:clay",
+      "filename": "minecraft_clay.png"
+    },
+    {
+      "id": "nomilabs:block_dust",
+      "damage": 0,
+      "key": "nomilabs:block_dust",
+      "filename": "nomilabs_block_dust.png"
+    },
+    {
+      "id": "minecraft:sand",
+      "damage": 0,
+      "key": "minecraft:sand",
+      "filename": "minecraft_sand.png"
+    },
+    {
+      "id": "minecraft:gravel",
+      "damage": 0,
+      "key": "minecraft:gravel",
+      "filename": "minecraft_gravel.png"
+    },
+    {
+      "id": "minecraft:water_bucket",
+      "damage": 0,
+      "key": "minecraft:water_bucket",
+      "filename": "minecraft_water_bucket.png"
+    },
+    {
+      "id": "minecraft:cobblestone",
+      "damage": 0,
+      "key": "minecraft:cobblestone",
+      "filename": "minecraft_cobblestone.png"
+    },
+    {
+      "id": "minecraft:glass",
+      "damage": 0,
+      "key": "minecraft:glass",
+      "filename": "minecraft_glass.png"
+    },
+    {
+      "id": "minecraft:quartz",
+      "damage": 0,
+      "key": "minecraft:quartz",
+      "filename": "minecraft_quartz.png"
+    },
+    {
+      "id": "minecraft:lava_bucket",
+      "damage": 0,
+      "key": "minecraft:lava_bucket",
+      "filename": "minecraft_lava_bucket.png"
+    },
+    {
+      "id": "minecraft:netherrack",
+      "damage": 0,
+      "key": "minecraft:netherrack",
+      "filename": "minecraft_netherrack.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 1604,
+      "key": "gregtech:meta_dust@1604",
+      "filename": "gregtech_meta_dust_1604.png"
+    },
+    {
+      "id": "minecraft:clay_ball",
+      "damage": 0,
+      "key": "minecraft:clay_ball",
+      "filename": "minecraft_clay_ball.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2063,
+      "key": "gregtech:meta_dust@2063",
+      "filename": "gregtech_meta_dust_2063.png"
+    },
+    {
+      "id": "minecraft:stone",
+      "damage": 0,
+      "key": "minecraft:stone",
+      "filename": "minecraft_stone.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2000,
+      "key": "gregtech:meta_dust@2000",
+      "filename": "gregtech_meta_dust_2000.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 356,
+      "key": "gregtech:meta_dust@356",
+      "filename": "gregtech_meta_dust_356.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2023,
+      "key": "gregtech:meta_dust@2023",
+      "filename": "gregtech_meta_dust_2023.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 340,
+      "key": "gregtech:meta_dust@340",
+      "filename": "gregtech_meta_dust_340.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 99,
+      "key": "gregtech:meta_dust@99",
+      "filename": "gregtech_meta_dust_99.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 297,
+      "key": "gregtech:meta_dust@297",
+      "filename": "gregtech_meta_dust_297.png"
+    },
+    {
+      "id": "minecraft:sandstone",
+      "damage": 0,
+      "key": "minecraft:sandstone",
+      "filename": "minecraft_sandstone.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 313,
+      "key": "gregtech:meta_dust@313",
+      "filename": "gregtech_meta_dust_313.png"
+    },
+    {
+      "id": "appliedenergistics2:crafting_monitor",
+      "damage": 0,
+      "key": "appliedenergistics2:crafting_monitor",
+      "filename": "appliedenergistics2_crafting_monitor.png"
+    },
+    {
+      "id": "minecraft:flint",
+      "damage": 0,
+      "key": "minecraft:flint",
+      "filename": "minecraft_flint.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 1599,
+      "key": "gregtech:meta_dust@1599",
+      "filename": "gregtech_meta_dust_1599.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 341,
+      "key": "appliedenergistics2:part@341",
+      "filename": "appliedenergistics2_part_341.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 58,
+      "key": "appliedenergistics2:material@58",
+      "filename": "appliedenergistics2_material_58.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 667,
+      "key": "gregtech:machine@667",
+      "filename": "gregtech_machine_667.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 2019,
+      "key": "gregtech:meta_dust@2019",
+      "filename": "gregtech_meta_dust_2019.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 467,
+      "key": "gregtech:meta_item_1@467",
+      "filename": "gregtech_meta_item_1_467.png"
+    },
+    {
+      "id": "appliedenergistics2:wireless_terminal",
+      "damage": 0,
+      "key": "appliedenergistics2:wireless_terminal",
+      "filename": "appliedenergistics2_wireless_terminal.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 59,
+      "key": "appliedenergistics2:material@59",
+      "filename": "appliedenergistics2_material_59.png"
+    },
+    {
+      "id": "chisel:futura",
+      "damage": 2,
+      "key": "chisel:futura@2",
+      "filename": "chisel_futura_2.png"
+    },
+    {
+      "id": "packageddraconic:fusion_crafter",
+      "damage": 0,
+      "key": "packageddraconic:fusion_crafter",
+      "filename": "packageddraconic_fusion_crafter.png"
+    },
+    {
+      "id": "chisel:auto_chisel",
+      "damage": 0,
+      "key": "chisel:auto_chisel",
+      "filename": "chisel_auto_chisel.png"
+    },
+    {
+      "id": "toolbelt:belt",
+      "damage": 0,
+      "key": "toolbelt:belt",
+      "filename": "toolbelt_belt.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 460,
+      "key": "appliedenergistics2:part@460",
+      "filename": "appliedenergistics2_part_460.png"
+    },
+    {
+      "id": "minecraft:rabbit_hide",
+      "damage": 0,
+      "key": "minecraft:rabbit_hide",
+      "filename": "minecraft_rabbit_hide.png"
+    },
+    {
+      "id": "minecraft:chest",
+      "damage": 0,
+      "key": "minecraft:chest",
+      "filename": "minecraft_chest.png"
+    },
+    {
+      "id": "enderio:block_powered_spawner",
+      "damage": 0,
+      "key": "enderio:block_powered_spawner",
+      "filename": "enderio_block_powered_spawner.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 461,
+      "key": "gregtech:meta_item_1@461",
+      "filename": "gregtech_meta_item_1_461.png"
+    },
+    {
+      "id": "nae2:pattern_multiplier",
+      "damage": 0,
+      "key": "nae2:pattern_multiplier",
+      "filename": "nae2_pattern_multiplier.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 261,
+      "key": "gregtech:meta_item_1@261",
+      "filename": "gregtech_meta_item_1_261.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1041,
+      "key": "gregtech:machine@1041",
+      "filename": "gregtech_machine_1041.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1392,
+      "key": "gregtech:machine@1392",
+      "filename": "gregtech_machine_1392.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1748,
+      "key": "gregtech:machine@1748",
+      "filename": "gregtech_machine_1748.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1037,
+      "key": "gregtech:machine@1037",
+      "filename": "gregtech_machine_1037.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1038,
+      "key": "gregtech:machine@1038",
+      "filename": "gregtech_machine_1038.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1039,
+      "key": "gregtech:machine@1039",
+      "filename": "gregtech_machine_1039.png"
+    },
+    {
+      "id": "gregtech:optical_pipe_normal",
+      "damage": 0,
+      "key": "gregtech:optical_pipe_normal",
+      "filename": "gregtech_optical_pipe_normal.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1040,
+      "key": "gregtech:machine@1040",
+      "filename": "gregtech_machine_1040.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1414,
+      "key": "gregtech:machine@1414",
+      "filename": "gregtech_machine_1414.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 201,
+      "key": "gregtech:machine@201",
+      "filename": "gregtech_machine_201.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1042,
+      "key": "gregtech:machine@1042",
+      "filename": "gregtech_machine_1042.png"
+    },
+    {
+      "id": "solarflux:solar_panel_8",
+      "damage": 0,
+      "key": "solarflux:solar_panel_8",
+      "filename": "solarflux_solar_panel_8.png"
+    },
+    {
+      "id": "gregtech:warning_sign_1",
+      "damage": 2,
+      "key": "gregtech:warning_sign_1@2",
+      "filename": "gregtech_warning_sign_1_2.png"
+    },
+    {
+      "id": "actuallyadditions:block_giant_chest",
+      "damage": 0,
+      "key": "actuallyadditions:block_giant_chest",
+      "filename": "actuallyadditions_block_giant_chest.png"
+    },
+    {
+      "id": "gregtech:warning_sign",
+      "damage": 10,
+      "key": "gregtech:warning_sign@10",
+      "filename": "gregtech_warning_sign_10.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 1418,
+      "key": "gregtech:machine@1418",
+      "filename": "gregtech_machine_1418.png"
+    },
+    {
+      "id": "minecraft:filled_map",
+      "damage": 0,
+      "key": "minecraft:filled_map",
+      "filename": "minecraft_filled_map.png"
+    },
+    {
+      "id": "redstonearsenal:tool.wrench_flux",
+      "damage": 0,
+      "key": "redstonearsenal:tool.wrench_flux",
+      "filename": "redstonearsenal_tool.wrench_flux.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 920,
+      "key": "gregtech:machine@920",
+      "filename": "gregtech_machine_920.png"
+    },
+    {
+      "id": "gregtech:meta_ingot",
+      "damage": 2013,
+      "key": "gregtech:meta_ingot@2013",
+      "filename": "gregtech_meta_ingot_2013.png"
+    },
+    {
+      "id": "appliedenergistics2:part",
+      "damage": 469,
+      "key": "appliedenergistics2:part@469",
+      "filename": "appliedenergistics2_part_469.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 28,
+      "key": "appliedenergistics2:material@28",
+      "filename": "appliedenergistics2_material_28.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 1,
+      "key": "nae2:material@1",
+      "filename": "nae2_material_1.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 2,
+      "key": "nae2:material@2",
+      "filename": "nae2_material_2.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 3,
+      "key": "nae2:material@3",
+      "filename": "nae2_material_3.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 4,
+      "key": "nae2:material@4",
+      "filename": "nae2_material_4.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 5,
+      "key": "nae2:material@5",
+      "filename": "nae2_material_5.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 6,
+      "key": "nae2:material@6",
+      "filename": "nae2_material_6.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 7,
+      "key": "nae2:material@7",
+      "filename": "nae2_material_7.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 8,
+      "key": "nae2:material@8",
+      "filename": "nae2_material_8.png"
+    },
+    {
+      "id": "nae2:upgrade",
+      "damage": 1,
+      "key": "nae2:upgrade@1",
+      "filename": "nae2_upgrade_1.png"
+    },
+    {
+      "id": "nae2:upgrade",
+      "damage": 2,
+      "key": "nae2:upgrade@2",
+      "filename": "nae2_upgrade_2.png"
+    },
+    {
+      "id": "appliedenergistics2:material",
+      "damage": 53,
+      "key": "appliedenergistics2:material@53",
+      "filename": "appliedenergistics2_material_53.png"
+    },
+    {
+      "id": "betterp2p:advanced_memory_card",
+      "damage": 0,
+      "key": "betterp2p:advanced_memory_card",
+      "filename": "betterp2p_advanced_memory_card.png"
+    },
+    {
+      "id": "nae2:part",
+      "damage": 1,
+      "key": "nae2:part@1",
+      "filename": "nae2_part_1.png"
+    },
+    {
+      "id": "nae2:part",
+      "damage": 0,
+      "key": "nae2:part",
+      "filename": "nae2_part.png"
+    },
+    {
+      "id": "nae2:reconstruction_chamber",
+      "damage": 0,
+      "key": "nae2:reconstruction_chamber",
+      "filename": "nae2_reconstruction_chamber.png"
+    },
+    {
+      "id": "appliedenergistics2:condenser",
+      "damage": 0,
+      "key": "appliedenergistics2:condenser",
+      "filename": "appliedenergistics2_condenser.png"
+    },
+    {
+      "id": "nae2:exposer",
+      "damage": 0,
+      "key": "nae2:exposer",
+      "filename": "nae2_exposer.png"
+    },
+    {
+      "id": "nae2:material",
+      "damage": 0,
+      "key": "nae2:material",
+      "filename": "nae2_material.png"
+    },
+    {
+      "id": "minecraft:grass",
+      "damage": 0,
+      "key": "minecraft:grass",
+      "filename": "minecraft_grass.png"
+    },
+    {
+      "id": "nomilabs:moondust",
+      "damage": 0,
+      "key": "nomilabs:moondust",
+      "filename": "nomilabs_moondust.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 503,
+      "key": "gregtech:meta_item_1@503",
+      "filename": "gregtech_meta_item_1_503.png"
+    },
+    {
+      "id": "thermalexpansion:satchel",
+      "damage": 100,
+      "key": "thermalexpansion:satchel@100",
+      "filename": "thermalexpansion_satchel_100.png"
+    },
+    {
+      "id": "gregtech:machine",
+      "damage": 2050,
+      "key": "gregtech:machine@2050",
+      "filename": "gregtech_machine_2050.png"
+    },
+    {
+      "id": "appliedenergistics2:quantum_link",
+      "damage": 0,
+      "key": "appliedenergistics2:quantum_link",
+      "filename": "appliedenergistics2_quantum_link.png"
+    },
+    {
+      "id": "gregtech:meta_dust_tiny",
+      "damage": 39,
+      "key": "gregtech:meta_dust_tiny@39",
+      "filename": "gregtech_meta_dust_tiny_39.png"
+    },
+    {
+      "id": "advancedrocketry:beaconfinder",
+      "damage": 0,
+      "key": "advancedrocketry:beaconfinder",
+      "filename": "advancedrocketry_beaconfinder.png"
+    },
+    {
+      "id": "uberconduitprobe:uber_conduit_probe_item",
+      "damage": 0,
+      "key": "uberconduitprobe:uber_conduit_probe_item",
+      "filename": "uberconduitprobe_uber_conduit_probe_item.png"
+    },
+    {
+      "id": "nomilabs:excitationcoil",
+      "damage": 0,
+      "key": "nomilabs:excitationcoil",
+      "filename": "nomilabs_excitationcoil.png"
+    },
+    {
+      "id": "ulv_covers:ulv_cover_meta_item",
+      "damage": 0,
+      "key": "ulv_covers:ulv_cover_meta_item",
+      "filename": "ulv_covers_ulv_cover_meta_item.png"
+    },
+    {
+      "id": "gregtech:meta_item_1",
+      "damage": 78,
+      "key": "gregtech:meta_item_1@78",
+      "filename": "gregtech_meta_item_1_78.png"
+    },
+    {
+      "id": "appliedenergistics2:certus_quartz_cutting_knife",
+      "damage": 0,
+      "key": "appliedenergistics2:certus_quartz_cutting_knife",
+      "filename": "appliedenergistics2_certus_quartz_cutting_knife.png"
+    },
+    {
+      "id": "thermalexpansion:augment",
+      "damage": 402,
+      "key": "thermalexpansion:augment@402",
+      "filename": "thermalexpansion_augment_402.png"
+    },
+    {
+      "id": "minecraft:item_frame",
+      "damage": 0,
+      "key": "minecraft:item_frame",
+      "filename": "minecraft_item_frame.png"
+    },
+    {
+      "id": "gregtech:meta_dust",
+      "damage": 1616,
+      "key": "gregtech:meta_dust@1616",
+      "filename": "gregtech_meta_dust_1616.png"
+    },
+    {
+      "id": "extrautils2:crafter",
+      "damage": 0,
+      "key": "extrautils2:crafter",
+      "filename": "extrautils2_crafter.png"
+    },
+    {
+      "id": "nuclearcraft:cell_block",
+      "damage": 0,
+      "key": "nuclearcraft:cell_block",
+      "filename": "nuclearcraft_cell_block.png"
+    },
+    {
+      "id": "nuclearcraft:active_cooler",
+      "damage": 0,
+      "key": "nuclearcraft:active_cooler",
+      "filename": "nuclearcraft_active_cooler.png"
+    },
+    {
+      "id": "nuclearcraft:cooler",
+      "damage": 10,
+      "key": "nuclearcraft:cooler@10",
+      "filename": "nuclearcraft_cooler_10.png"
+    },
+    {
+      "id": "buildinggadgets:template",
+      "damage": 0,
+      "key": "buildinggadgets:template",
+      "filename": "buildinggadgets_template.png"
+    },
+    {
+      "id": "extrautils2:playerchest",
+      "damage": 0,
+      "key": "extrautils2:playerchest",
+      "filename": "extrautils2_playerchest.png"
+    }
+  ],
+  "filenames": [
+    "appliedenergistics2_charger.png",
+    "ae2stuff_grower.png",
+    "gregtech_machine_170.png",
+    "minecraft_crafting_table.png",
+    "gregtech_meta_ingot_335.png",
+    "gregtech_spade.png",
+    "minecraft_redstone.png",
+    "gregtech_cable_single_2517.png",
+    "minecraft_air.png",
+    "gregtech_meta_crushed_2064.png",
+    "nomilabs_tiertwoship.png",
+    "gregtech_meta_item_1_519.png",
+    "gregtech_wrench.png",
+    "gregtech_machine_1647.png",
+    "morefurnaces_furnaceblock.png",
+    "morefurnaces_furnaceblock_5.png",
+    "morefurnaces_furnaceblock_6.png",
+    "morefurnaces_furnaceblock_1.png",
+    "morefurnaces_furnaceblock_3.png",
+    "gregtech_machine_80.png",
+    "morefurnaces_furnaceblock_2.png",
+    "gregtech_machine_1004.png",
+    "minecraft_obsidian.png",
+    "thermalexpansion_dynamo.png",
+    "dimensionaledibles_overworld_cake.png",
+    "nomilabs_meta_ingot_3.png",
+    "gregtech_machine_215.png",
+    "nomilabs_pulsatingdust.png",
+    "nomilabs_meta_ingot_14.png",
+    "nomilabs_meta_ingot_15.png",
+    "enderio_block_cap_bank_3.png",
+    "enderio_block_cap_bank_2.png",
+    "enderio_block_cap_bank_1.png",
+    "nomilabs_meta_ingot_12.png",
+    "nomilabs_meta_ingot_13.png",
+    "gregtech_meta_plate_1068.png",
+    "gregtech_machine_1675.png",
+    "enderio_item_item_conduit.png",
+    "enderio_item_power_conduit.png",
+    "enderio_item_power_conduit_1.png",
+    "enderio_item_power_conduit_2.png",
+    "enderio_item_basic_capacitor_1.png",
+    "simplyjetpacks_itemjetpack_1.png",
+    "simplyjetpacks_itemjetpack_3.png",
+    "simplyjetpacks_itemjetpack_2.png",
+    "enderio_item_liquid_conduit_1.png",
+    "appliedenergistics2_inscriber.png",
+    "gregtech_machine_1035.png",
+    "gregtech_machine_620.png",
+    "gregtech_meta_item_1_281.png",
+    "gregtech_machine_185.png",
+    "gregtech_meta_item_1_580.png",
+    "enderio_item_liquid_conduit_2.png",
+    "gregtech_meta_item_1_732.png",
+    "gregtech_meta_ingot_69.png",
+    "gregtech_machine_1001.png",
+    "nomilabs_gemsensor.png",
+    "appliedenergistics2_part_380.png",
+    "appliedenergistics2_chest.png",
+    "appliedenergistics2_material_35.png",
+    "nomilabs_tierthreeship.png",
+    "gregtech_meta_dust_2517.png",
+    "enderio_item_basic_capacitor_2.png",
+    "enderio_block_experience_obelisk.png",
+    "gregtech_meta_ingot_2.png",
+    "gregtech_meta_item_1_736.png",
+    "gregtech_machine_276.png",
+    "gregtech_machine_110.png",
+    "enderio_item_me_conduit.png",
+    "actuallyadditions_block_misc_9.png",
+    "extrautils2_machine.png",
+    "gregtech_meta_item_1_622.png",
+    "gregtech_meta_gem_perfect_276.png",
+    "gregtech_meta_dust_351.png",
+    "gregtech_machine_246.png",
+    "gregtech_meta_item_1_361.png",
+    "gregtech_meta_item_1_371.png",
+    "gregtech_meta_item_1_382.png",
+    "gregtech_machine_561.png",
+    "gregtech_meta_item_1_568.png",
+    "gregtech_meta_item_1_623.png",
+    "gregtech_meta_item_1_624.png",
+    "gregtech_meta_lens_311.png",
+    "gregtech_meta_item_1_625.png",
+    "gregtech_machine_111.png",
+    "gregtech_meta_dust_22.png",
+    "actuallyadditions_block_farmer.png",
+    "gregtech_machine_988.png",
+    "forge_bucketfilled.png",
+    "gregtech_meta_plate_1012.png",
+    "gregtech_meta_plate_323.png",
+    "extendedcrafting_singularity_ultimate.png",
+    "appliedenergistics2_material_24.png",
+    "appliedenergistics2_drive.png",
+    "appliedenergistics2_material_22.png",
+    "appliedenergistics2_material_13.png",
+    "appliedenergistics2_material_52.png",
+    "appliedenergistics2_material_23.png",
+    "appliedenergistics2_part_340.png",
+    "actuallyadditions_block_atomic_reconstructor.png",
+    "appliedenergistics2_part_480.png",
+    "appliedenergistics2_interface.png",
+    "appliedenergistics2_crafting_unit.png",
+    "appliedenergistics2_part_360.png",
+    "actuallyadditions_item_crystal_3.png",
+    "extrautils2_resonator.png",
+    "extrautils2_passivegenerator_7.png",
+    "extrautils2_ingredients_4.png",
+    "gregtech_meta_dust_2011.png",
+    "appliedenergistics2_material_54.png",
+    "appliedenergistics2_material_36.png",
+    "appliedenergistics2_material_37.png",
+    "appliedenergistics2_material_38.png",
+    "appliedenergistics2_material_55.png",
+    "appliedenergistics2_material_56.png",
+    "appliedenergistics2_material_57.png",
+    "extrautils2_passivegenerator_5.png",
+    "gregtech_meta_item_1_523.png",
+    "gregtech_meta_item_1_218.png",
+    "gregtech_meta_ingot_252.png",
+    "gregtech_meta_plate_1007.png",
+    "gregtech_meta_item_1_630.png",
+    "gregtech_meta_item_1_627.png",
+    "gregtech_meta_item_1_403.png",
+    "gregtech_meta_item_1_628.png",
+    "gregtech_machine_991.png",
+    "gregtech_meta_dust_1598.png",
+    "ae2stuff_inscriber.png",
+    "nomilabs_nomicoin.png",
+    "gregtech_meta_dust_121.png",
+    "gregtech_meta_item_1_172.png",
+    "gregtech_meta_item_1_142.png",
+    "gregtech_machine_545.png",
+    "gregtech_meta_ingot_113.png",
+    "gregtech_machine_1002.png",
+    "gregtech_meta_dust_285.png",
+    "gregtech_machine_217.png",
+    "gregtech_machine_1005.png",
+    "gregtech_meta_item_1_640.png",
+    "gregtech_meta_ingot_288.png",
+    "gregtech_wire_coil_1.png",
+    "gregtech_meta_ingot_294.png",
+    "gregtech_wire_coil_2.png",
+    "actuallyadditions_block_canola_press.png",
+    "gregtech_meta_dust_377.png",
+    "gregtech_machine_530.png",
+    "gregtech_meta_item_1_405.png",
+    "gregtech_meta_plate_1013.png",
+    "gregtech_meta_item_1_499.png",
+    "gregtech_machine_1679.png",
+    "gregtech_meta_item_1_404.png",
+    "gregtech_meta_item_1_594.png",
+    "gregtech_meta_item_1_631.png",
+    "gregtech_meta_item_1_362.png",
+    "gregtech_machine_1020.png",
+    "gregtech_meta_ingot_128.png",
+    "gregtech_meta_ingot_451.png",
+    "gregtech_machine_990.png",
+    "gregtech_meta_ingot_338.png",
+    "gregtech_meta_ingot_115.png",
+    "advancedrocketry_rocketmotor.png",
+    "gregtech_meta_item_1_629.png",
+    "advancedrocketry_spacehelmet.png",
+    "advancedrocketry_suitworkstation.png",
+    "extendedcrafting_material_15.png",
+    "extendedcrafting_material_9.png",
+    "advancedrocketry_rocketbuilder.png",
+    "extendedcrafting_table_advanced.png",
+    "advancedrocketry_planetidchip.png",
+    "advancedrocketry_fuelingstation.png",
+    "enderio_item_travel_staff.png",
+    "gregtech_machine_1530.png",
+    "gregtech_machine_32100.png",
+    "nomilabs_tieroneship.png",
+    "enderio_block_travel_anchor.png",
+    "gregtech_machine_216.png",
+    "snad_snad.png",
+    "extrautils2_angelring_4.png",
+    "appliedenergistics2_energy_cell.png",
+    "enderio_block_reservoir.png",
+    "armorplus_btm_moon.png",
+    "actuallyadditions_block_phantomface.png",
+    "gregtech_meta_dust_8.png",
+    "gregtech_meta_item_1_518.png",
+    "appliedenergistics2_sky_compass.png",
+    "nomilabs_tiereightship.png",
+    "draconicevolution_chaos_shard.png",
+    "nomilabs_tiernineship.png",
+    "nomilabs_meta_plate_double_23.png",
+    "gregtech_meta_item_1_407.png",
+    "draconicevolution_reactor_core.png",
+    "advancedrocketry_stationbuilder.png",
+    "advancedrocketry_warpcore.png",
+    "libvulpes_productgem.png",
+    "nomilabs_tierfourship.png",
+    "nomilabs_tierfiveship.png",
+    "gregtech_meta_ingot_50.png",
+    "nomilabs_tiersixship.png",
+    "gregtech_meta_ingot_396.png",
+    "nomilabs_tiersevenship.png",
+    "nomilabs_meta_plate_double_1.png",
+    "nomilabs_meta_block_compressed_0_2.png",
+    "gregtech_machine_987.png",
+    "gregtech_machine_275.png",
+    "thermalfoundation_upgrade_2.png",
+    "extendedcrafting_material_13.png",
+    "gregtech_meta_dust_48.png",
+    "gregtech_meta_item_1_636.png",
+    "gregtech_meta_item_1_595.png",
+    "gregtech_item_pipe_small_112.png",
+    "gregtech_meta_item_1_637.png",
+    "gregtech_meta_item_1_638.png",
+    "gregtech_machine_65.png",
+    "draconicevolution_reactor_component.png",
+    "enderio_item_basic_capacitor.png",
+    "gregtech_machine_470.png",
+    "draconicevolution_dragon_heart.png",
+    "extendedcrafting_material_7.png",
+    "deepmoblearning_data_model_blank.png",
+    "minecraft_dragon_egg.png",
+    "appliedenergistics2_energy_acceptor.png",
+    "gregtech_machine_115.png",
+    "gregtech_machine_1191.png",
+    "gregtech_machine_1019.png",
+    "nomilabs_meta_ingot_1.png",
+    "gregtech_meta_item_1_703.png",
+    "gregtech_meta_item_1_704.png",
+    "gregtech_meta_item_1_641.png",
+    "draconicevolution_chaotic_core.png",
+    "moreplates_empowered_restonia_gear.png",
+    "draconicevolution_crafting_injector.png",
+    "enderio_item_material_20.png",
+    "thermalfoundation_material_136.png",
+    "thermalfoundation_material_1028.png",
+    "thermalexpansion_frame_64.png",
+    "thermalexpansion_frame.png",
+    "thermalfoundation_material_1025.png",
+    "thermalfoundation_material_1026.png",
+    "thermalfoundation_material_1027.png",
+    "thermalfoundation_material_1024.png",
+    "minecraft_blaze_powder_1.png",
+    "thermalfoundation_material_2053.png",
+    "thermalfoundation_material_2051.png",
+    "thermalfoundation_material_2049.png",
+    "thermalexpansion_machine_4.png",
+    "gregtech_wire_coil_3.png",
+    "gregtech_meta_ingot_2516.png",
+    "gregtech_wire_coil_4.png",
+    "nomilabs_quantumfluxedeterniumplating.png",
+    "minecraft_diamond_hoe.png",
+    "moreplates_empowered_void_gear.png",
+    "moreplates_empowered_palis_gear.png",
+    "moreplates_empowered_emeradic_gear.png",
+    "gregtech_meta_ingot_124.png",
+    "gregtech_wire_coil_5.png",
+    "gregtech_meta_ingot_33.png",
+    "gregtech_meta_item_1_709.png",
+    "gregtech_meta_dust_13.png",
+    "draconicevolution_crafting_injector_1.png",
+    "draconicevolution_crafting_injector_2.png",
+    "draconicevolution_crafting_injector_3.png",
+    "gregtech_meta_item_1_644.png",
+    "gregtech_meta_item_1_645.png",
+    "gregtech_meta_item_1_646.png",
+    "gregtech_meta_item_1_647.png",
+    "nomilabs_meta_dust_1.png",
+    "draconicevolution_draconic_core.png",
+    "gregtech_meta_item_1_741.png",
+    "gregtech_machine_989.png",
+    "gregtech_meta_item_1_742.png",
+    "gregtech_meta_item_1_748.png",
+    "gregtech_meta_item_1_749.png",
+    "actuallyadditions_block_empowerer.png",
+    "draconicevolution_wyvern_core.png",
+    "nuclearcraft_part_1.png",
+    "nuclearcraft_fission_controller_new_fixed.png",
+    "armorplus_material_4.png",
+    "gregtech_machine_395.png",
+    "openglider_hang_glider_basic.png",
+    "moreplates_empowered_enori_gear.png",
+    "nomilabs_eternalcatalyst.png",
+    "avaritia_resource_5.png",
+    "avaritia_resource_6.png",
+    "avaritia_infinity_helmet.png",
+    "avaritia_infinity_chestplate.png",
+    "avaritia_infinity_pants.png",
+    "avaritia_infinity_boots.png",
+    "armorplus_the_ultimate_helmet.png",
+    "armorplus_the_ultimate_chestplate.png",
+    "armorplus_the_ultimate_boots.png",
+    "armorplus_the_ultimate_leggings.png",
+    "gregtech_machine_1668.png",
+    "gregtech_machine_1669.png",
+    "hooked_hook_1.png",
+    "minecraft_coal_1.png",
+    "gregtech_mallet.png",
+    "extendedcrafting_material_16.png",
+    "extendedcrafting_material_10.png",
+    "extendedcrafting_table_elite.png",
+    "extendedcrafting_material_11.png",
+    "extendedcrafting_material_17.png",
+    "extendedcrafting_table_ultimate.png",
+    "thermalexpansion_machine_9.png",
+    "minecraft_nether_star.png",
+    "gregtech_machine_casing_9.png",
+    "extrautils2_chunkloader.png",
+    "thermalexpansion_capacitor.png",
+    "nomilabs_quantumflux.png",
+    "draconicevolution_creative_rf_source.png",
+    "gregtech_machine_1006.png",
+    "gregtech_machine_1012.png",
+    "gregtech_meta_item_1_1004.png",
+    "minecraft_anvil.png",
+    "gregtech_meta_item_1_301.png",
+    "gregtech_screwdriver.png",
+    "minecraft_book.png",
+    "jecalculation_item_calculator.png",
+    "packagedexcrafting_ultimate_crafter.png",
+    "gregtech_machine_32101.png",
+    "packagedauto_package.png",
+    "gregtech_meta_item_1_579.png",
+    "gregtech_machine_32102.png",
+    "thermalinnovation_magnet.png",
+    "minecraft_fish_3.png",
+    "packagedexcrafting_combination_crafter.png",
+    "thermalexpansion_satchel.png",
+    "gregtech_machine_230.png",
+    "gregtech_machine_125.png",
+    "gregtech_axe.png",
+    "appliedenergistics2_part_520.png",
+    "storagedrawers_controller.png",
+    "storagedrawers_framingtable.png",
+    "storagedrawers_compdrawers.png",
+    "gregtech_meta_item_1_632.png",
+    "nomilabs_exoticmaterialscatalyst.png",
+    "gregtech_meta_item_1_520.png",
+    "simplyjetpacks_metaitemmods_3.png",
+    "gregtech_machine_155.png",
+    "gregtech_meta_ingot_310.png",
+    "nomilabs_wire_octal_12.png",
+    "enderio_block_vat.png",
+    "enderio_block_slice_and_splice.png",
+    "gregtech_meta_ingot_2510.png",
+    "gregtech_meta_item_1_157.png",
+    "gregtech_meta_item_1_187.png",
+    "gregtech_machine_32104.png",
+    "thermalfoundation_upgrade_3.png",
+    "gregtech_meta_item_1_634.png",
+    "gregtech_meta_item_1_635.png",
+    "gregtech_meta_item_1_633.png",
+    "gregtech_machine_113.png",
+    "nomilabs_meta_ingot_17.png",
+    "thermalfoundation_upgrade.png",
+    "gregtech_machine_114.png",
+    "gregtech_meta_item_1_621.png",
+    "gregtech_meta_item_1_639.png",
+    "gregtech_machine_112.png",
+    "gregtech_machine_116.png",
+    "gregtech_meta_item_1_642.png",
+    "gregtech_meta_item_1_643.png",
+    "gregtech_machine_992.png",
+    "gregtech_meta_dust_78.png",
+    "gregtech_machine_321.png",
+    "enderio_block_soul_binder.png",
+    "gregtech_meta_ingot_2511.png",
+    "thermalexpansion_satchel_1.png",
+    "thermalexpansion_satchel_2.png",
+    "gregtech_machine_261.png",
+    "gregtech_meta_item_1_13.png",
+    "actuallyadditions_block_phantom_booster.png",
+    "simplyjetpacks_itemjetpack_10.png",
+    "simplyjetpacks_itemjetpack_11.png",
+    "simplyjetpacks_itemjetpack_12.png",
+    "thermalfoundation_fertilizer_2.png",
+    "bountiful_bountyboarditem.png",
+    "thermalexpansion_augment_513.png",
+    "thermalexpansion_augment_512.png",
+    "solarflux_solar_panel_neutronium.png",
+    "nomilabs_meta_ingot_19.png",
+    "nomilabs_meta_ingot_10.png",
+    "nomilabs_meta_ingot_18.png",
+    "gregtech_meta_ingot_2062.png",
+    "gregtech_meta_ingot_2519.png",
+    "gregtech_meta_ingot_2520.png",
+    "nomilabs_meta_ingot_23.png",
+    "gregtech_meta_ingot_2036.png",
+    "nomilabs_meta_ingot_25.png",
+    "nomilabs_meta_ingot_27.png",
+    "nomilabs_meta_ingot_24.png",
+    "nomilabs_meta_ingot_8.png",
+    "gregtech_meta_ingot_290.png",
+    "nomilabs_heartofauniverse.png",
+    "nomilabs_tiertenship.png",
+    "gregtech_meta_ingot_127.png",
+    "nomilabs_wire_single_28.png",
+    "thermalfoundation_upgrade_1.png",
+    "nuclearcraft_alloy_1.png",
+    "nomilabs_solidifiedhydrogen.png",
+    "nomilabs_solidifiedhelium.png",
+    "gregtech_meta_dust_56.png",
+    "gregtech_meta_ingot_10.png",
+    "gregtech_meta_dust_18.png",
+    "nomilabs_solidifiednitrogen.png",
+    "nomilabs_solidifiedoxygen.png",
+    "nomilabs_solidifiedfluorine.png",
+    "nomilabs_solidifiedneon.png",
+    "gregtech_meta_dust_101.png",
+    "gregtech_meta_dust_59.png",
+    "gregtech_meta_ingot_99.png",
+    "gregtech_meta_dust_103.png",
+    "nomilabs_solidifiedchlorine.png",
+    "nomilabs_solidifiedargon.png",
+    "gregtech_meta_dust_83.png",
+    "gregtech_meta_dust_16.png",
+    "gregtech_meta_dust_53.png",
+    "gregtech_meta_ingot_118.png",
+    "gregtech_meta_ingot_22.png",
+    "gregtech_meta_ingot_61.png",
+    "minecraft_iron_ingot.png",
+    "gregtech_meta_ingot_23.png",
+    "gregtech_meta_ingot_25.png",
+    "gregtech_meta_ingot_122.png",
+    "gregtech_meta_ingot_39.png",
+    "gregtech_meta_dust_6.png",
+    "nomilabs_solidifiedkrypton.png",
+    "gregtech_meta_ingot_121.png",
+    "gregtech_meta_ingot_77.png",
+    "gregtech_meta_ingot_100.png",
+    "gregtech_meta_ingot_48.png",
+    "gregtech_meta_ingot_112.png",
+    "gregtech_meta_ingot_4.png",
+    "nomilabs_solidifiedxenon.png",
+    "gregtech_meta_ingot_75.png",
+    "gregtech_meta_ingot_80.png",
+    "minecraft_gold_ingot.png",
+    "nomilabs_solidifiedmercury.png",
+    "nomilabs_solidifiedradon.png",
+    "gregtech_meta_ingot_109.png",
+    "nomilabs_stabilizeduranium.png",
+    "nomilabs_stabilizedneptunium.png",
+    "nomilabs_stabilizedplutonium.png",
+    "gregtech_meta_ingot_3.png",
+    "nomilabs_stabilizedcurium.png",
+    "nomilabs_stabilizedberkelium.png",
+    "nomilabs_stabilizedcalifornium.png",
+    "nomilabs_stabilizedeinsteinium.png",
+    "nuclearcraft_fuel_uranium_4.png",
+    "nuclearcraft_fuel_thorium.png",
+    "gregtech_meta_ingot_116.png",
+    "nuclearcraft_fuel_neptunium.png",
+    "nuclearcraft_uranium.png",
+    "nuclearcraft_fuel_plutonium.png",
+    "nuclearcraft_fuel_curium.png",
+    "nuclearcraft_fuel_americium.png",
+    "nuclearcraft_fuel_berkelium.png",
+    "nuclearcraft_fuel_californium.png",
+    "gregtech_warning_sign_2.png",
+    "gregtech_machine_1003.png",
+    "deepmoblearning_simulation_chamber.png",
+    "deepmoblearning_living_matter_overworldian.png",
+    "nomilabs_pulsatingmesh.png",
+    "deepmoblearning_extraction_chamber.png",
+    "deepmoblearning_data_model_zombie.png",
+    "nuclearcraft_water_source.png",
+    "deepmoblearning_living_matter_hellish.png",
+    "deepmoblearning_data_model_blaze.png",
+    "deepmoblearning_living_matter_extraterrestrial.png",
+    "deepmoblearning_data_model_enderman.png",
+    "enderio_item_yeta_wrench.png",
+    "simplyjetpacks_itemjetpack_4.png",
+    "extrautils2_angelring_1.png",
+    "simplyjetpacks_itemjetpack_9.png",
+    "gregtech_meta_dust_39.png",
+    "thermalfoundation_material_895.png",
+    "appliedenergistics2_fluid_interface.png",
+    "gregtech_meta_item_1_143.png",
+    "nuclearcraft_alloy_2.png",
+    "draconicevolution_info_tablet.png",
+    "gregtech_meta_item_1_406.png",
+    "thermalexpansion_machine_5.png",
+    "enderio_block_enchanter.png",
+    "thermalexpansion_augment_337.png",
+    "thermalexpansion_device.png",
+    "thermalexpansion_augment_640.png",
+    "thermalexpansion_satchel_4.png",
+    "enderio_block_tele_pad.png",
+    "buildinggadgets_buildingtool.png",
+    "thermalfoundation_material_2048.png",
+    "minecraft_skull_5.png",
+    "minecraft_chorus_flower.png",
+    "draconicevolution_dislocator.png",
+    "minecraft_ender_pearl.png",
+    "enderio_item_rod_of_return.png",
+    "gregtech_machine_986.png",
+    "gregtech_machine_casing_2.png",
+    "gregtech_machine_casing_3.png",
+    "gregtech_machine_casing_4.png",
+    "gregtech_machine_casing_5.png",
+    "gregtech_machine_casing_6.png",
+    "gregtech_machine_casing_7.png",
+    "gregtech_machine_casing_8.png",
+    "gregtech_machine_440.png",
+    "draconicevolution_awakened_core.png",
+    "moreplates_empowered_diamatine_gear.png",
+    "draconicevolution_energy_storage_core.png",
+    "nuclearcraft_cobblestone_generator.png",
+    "dimensionaledibles_nether_cake.png",
+    "thermalexpansion_dynamo_5.png",
+    "gregtech_machine_1399.png",
+    "gregtech_meta_item_1_711.png",
+    "appliedenergistics2_part_16.png",
+    "effortlessbuilding_reach_upgrade1.png",
+    "enderio_block_farm_station.png",
+    "gregtech_meta_item_1_293.png",
+    "gregtech_meta_item_1_291.png",
+    "gregtech_machine_1030.png",
+    "gregtech_meta_item_1_460.png",
+    "minecraft_tnt.png",
+    "gregtech_meta_item_1_573.png",
+    "gregtech_meta_item_1_363.png",
+    "advsolars_sunnarium.png",
+    "thermalexpansion_satchel_3.png",
+    "gregtech_fusion_casing_1.png",
+    "minecraft_bed_10.png",
+    "actuallyadditions_block_laser_relay_item.png",
+    "naturescompass_naturescompass.png",
+    "minecraft_wheat_seeds.png",
+    "minecraft_knowledge_book.png",
+    "gregtech_machine_32108.png",
+    "gregtech_ore_sulfur_0.png",
+    "gregtech_machine_95.png",
+    "gregtech_machine_140.png",
+    "gregtech_machine_635.png",
+    "gregtech_machine_1025.png",
+    "gregtech_meta_item_1_217.png",
+    "gregtech_drill_mv.png",
+    "gregtech_meta_item_1_521.png",
+    "gregtech_meta_item_1_402.png",
+    "gregtech_machine_575.png",
+    "gregtech_meta_item_1_522.png",
+    "gregtech_machine_1023.png",
+    "gregtech_meta_dust_299.png",
+    "gregtech_machine_410.png",
+    "gregtech_meta_item_1_310.png",
+    "gregtech_meta_item_1_311.png",
+    "gregtech_machine_1029.png",
+    "gregtech_machine_1575.png",
+    "gregtech_machine_1009.png",
+    "gregtech_machine_471.png",
+    "gregtech_meta_item_1_597.png",
+    "gregtech_meta_item_1_702.png",
+    "gregtech_machine_1031.png",
+    "gregtech_meta_item_1_708.png",
+    "gregtech_wire_coil_6.png",
+    "gregtech_meta_ingot_125.png",
+    "gregtech_meta_ingot_126.png",
+    "gregtech_meta_ingot_130.png",
+    "gregtech_meta_ingot_2042.png",
+    "gregtech_meta_item_1_528.png",
+    "gregtech_wire_coil_7.png",
+    "gregtech_meta_item_1_364.png",
+    "gregtech_meta_item_1_574.png",
+    "gregtech_meta_ingot_3008.png",
+    "gregtech_machine_2001.png",
+    "gregtech_machine_2028.png",
+    "gregtech_machine_2025.png",
+    "gregtech_meta_ingot_71.png",
+    "gregtech_meta_ingot_64.png",
+    "gregtech_meta_ingot_93.png",
+    "gregtech_meta_ingot_90.png",
+    "gregtech_meta_dust_19.png",
+    "gregtech_meta_dust_15.png",
+    "gregtech_meta_dust_20.png",
+    "gregtech_meta_ingot_66.png",
+    "gregtech_meta_ingot_95.png",
+    "gregtech_meta_ingot_58.png",
+    "gregtech_meta_ingot_104.png",
+    "gregtech_meta_ingot_55.png",
+    "gregtech_meta_ingot_129.png",
+    "gregtech_machine_1650.png",
+    "gregtech_meta_foil_1008.png",
+    "gregtech_meta_ingot_27.png",
+    "gregtech_meta_item_1_470.png",
+    "gregtech_machine_1272.png",
+    "gregtech_meta_item_1_422.png",
+    "gregtech_machine_1026.png",
+    "gregtech_machine_1654.png",
+    "gregtech_machine_1212.png",
+    "gregtech_machine_1213.png",
+    "gregtech_meta_item_1_465.png",
+    "gregtech_wire_coil.png",
+    "gregtech_machine_1000.png",
+    "gregtech_machine_1316.png",
+    "minecraft_name_tag.png",
+    "gregtech_cleanroom_casing_2.png",
+    "appliedenergistics2_part_522.png",
+    "appliedenergistics2_part_521.png",
+    "gregtech_machine_993.png",
+    "deepmoblearning_polymer_clay.png",
+    "minecraft_clay.png",
+    "nomilabs_block_dust.png",
+    "minecraft_sand.png",
+    "minecraft_gravel.png",
+    "minecraft_water_bucket.png",
+    "minecraft_cobblestone.png",
+    "minecraft_glass.png",
+    "minecraft_quartz.png",
+    "minecraft_lava_bucket.png",
+    "minecraft_netherrack.png",
+    "gregtech_meta_dust_1604.png",
+    "minecraft_clay_ball.png",
+    "gregtech_meta_dust_2063.png",
+    "minecraft_stone.png",
+    "gregtech_meta_dust_2000.png",
+    "gregtech_meta_dust_356.png",
+    "gregtech_meta_dust_2023.png",
+    "gregtech_meta_dust_340.png",
+    "gregtech_meta_dust_99.png",
+    "gregtech_meta_dust_297.png",
+    "minecraft_sandstone.png",
+    "gregtech_meta_dust_313.png",
+    "appliedenergistics2_crafting_monitor.png",
+    "minecraft_flint.png",
+    "gregtech_meta_dust_1599.png",
+    "appliedenergistics2_part_341.png",
+    "appliedenergistics2_material_58.png",
+    "gregtech_machine_667.png",
+    "gregtech_meta_dust_2019.png",
+    "gregtech_meta_item_1_467.png",
+    "appliedenergistics2_wireless_terminal.png",
+    "appliedenergistics2_material_59.png",
+    "chisel_futura_2.png",
+    "packageddraconic_fusion_crafter.png",
+    "chisel_auto_chisel.png",
+    "toolbelt_belt.png",
+    "appliedenergistics2_part_460.png",
+    "minecraft_rabbit_hide.png",
+    "minecraft_chest.png",
+    "enderio_block_powered_spawner.png",
+    "gregtech_meta_item_1_461.png",
+    "nae2_pattern_multiplier.png",
+    "gregtech_meta_item_1_261.png",
+    "gregtech_machine_1041.png",
+    "gregtech_machine_1392.png",
+    "gregtech_machine_1748.png",
+    "gregtech_machine_1037.png",
+    "gregtech_machine_1038.png",
+    "gregtech_machine_1039.png",
+    "gregtech_optical_pipe_normal.png",
+    "gregtech_machine_1040.png",
+    "gregtech_machine_1414.png",
+    "gregtech_machine_201.png",
+    "gregtech_machine_1042.png",
+    "solarflux_solar_panel_8.png",
+    "gregtech_warning_sign_1_2.png",
+    "actuallyadditions_block_giant_chest.png",
+    "gregtech_warning_sign_10.png",
+    "gregtech_machine_1418.png",
+    "minecraft_filled_map.png",
+    "redstonearsenal_tool.wrench_flux.png",
+    "gregtech_machine_920.png",
+    "gregtech_meta_ingot_2013.png",
+    "appliedenergistics2_part_469.png",
+    "appliedenergistics2_material_28.png",
+    "nae2_material_1.png",
+    "nae2_material_2.png",
+    "nae2_material_3.png",
+    "nae2_material_4.png",
+    "nae2_material_5.png",
+    "nae2_material_6.png",
+    "nae2_material_7.png",
+    "nae2_material_8.png",
+    "nae2_upgrade_1.png",
+    "nae2_upgrade_2.png",
+    "appliedenergistics2_material_53.png",
+    "betterp2p_advanced_memory_card.png",
+    "nae2_part_1.png",
+    "nae2_part.png",
+    "nae2_reconstruction_chamber.png",
+    "appliedenergistics2_condenser.png",
+    "nae2_exposer.png",
+    "nae2_material.png",
+    "minecraft_grass.png",
+    "nomilabs_moondust.png",
+    "gregtech_meta_item_1_503.png",
+    "thermalexpansion_satchel_100.png",
+    "gregtech_machine_2050.png",
+    "appliedenergistics2_quantum_link.png",
+    "gregtech_meta_dust_tiny_39.png",
+    "advancedrocketry_beaconfinder.png",
+    "uberconduitprobe_uber_conduit_probe_item.png",
+    "nomilabs_excitationcoil.png",
+    "ulv_covers_ulv_cover_meta_item.png",
+    "gregtech_meta_item_1_78.png",
+    "appliedenergistics2_certus_quartz_cutting_knife.png",
+    "thermalexpansion_augment_402.png",
+    "minecraft_item_frame.png",
+    "gregtech_meta_dust_1616.png",
+    "extrautils2_crafter.png",
+    "nuclearcraft_cell_block.png",
+    "nuclearcraft_active_cooler.png",
+    "nuclearcraft_cooler_10.png",
+    "buildinggadgets_template.png",
+    "extrautils2_playerchest.png"
+  ],
+  "count": 704
+}

@@ -4,20 +4,56 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>All the Mods 10 Quest Tracker</title>
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="tracker.css">
 </head>
-<body>
-  <div class="home-page">
-    <header class="home-header">
-      <h1>All the Mods 10</h1>
-      <p>Quest tracker coming soon</p>
-    </header>
-    <main class="home-main">
-      <div style="text-align:center; margin-top: 40px;">
-        <p style="color:#aaa; font-size:1.1rem; margin-bottom:30px;">This modpack tracker is not yet available.</p>
-        <a href="index.html" class="home-back-btn">← Back to Home</a>
+<body data-pack-id="allthemods10" data-pack-name="All the Mods 10">
+  <!-- Header with title and file inputs -->
+  <header>
+    <a href="index.html" class="header-back-link">← All Modpacks</a>
+    <!-- Player name display (top-right corner) -->
+    <div id="playerNameDisplay" class="player-name-display" style="display:none;">
+      <img id="playerHead" class="player-head" src="" alt="">
+      <span id="playerNameText"></span>
+    </div>
+    <h1>All the Mods 10 Quest Tracker</h1>
+    <p style="color:#aaa; font-size:0.9rem; margin-bottom:10px;">
+      This pack uses <strong>FTB Quests</strong>. The tracker UI is ready, but to fully enable it
+      the site needs an exported FTB quests file (quest definitions) from the modpack.
+    </p>
+    <div id="ftbInfoBanner" class="error-banner" style="display:none; max-width:900px; margin:10px auto 0;"></div>
+    <div class="file-inputs" style="margin-top:15px;">
+      <div class="file-input-group">
+        <label for="playerFile">FTB Quests player progress (JSON):</label>
+        <input type="file" id="playerFile" accept=".json,.dat">
       </div>
+    </div>
+    <!-- Progress bar -->
+    <div class="progress-container" id="progressContainer" style="display: none;">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-text" id="progressText">0%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Left sidebar for chapters (placeholder for future FTB mapping) -->
+    <aside id="chapterList">
+      <h2>Chapters</h2>
+      <ul id="chapterNav"></ul>
+    </aside>
+
+    <!-- Main panel for quest list -->
+    <main id="questList">
+      <p class="placeholder">
+        Upload your FTB Quests <strong>player progress JSON</strong> to begin. Full quest and chapter
+        support will be enabled once an exported FTB quests definition file is added for All the Mods 10.
+      </p>
     </main>
   </div>
+
+  <!-- NBT / FTB Quests handling scaffold -->
+  <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
+  <script src="appFTB.js"></script>
 </body>
 </html>

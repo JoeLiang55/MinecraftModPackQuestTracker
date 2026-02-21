@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Icon Test</title>
+    <style>
+        body { background: #1a1a1a; color: white; padding: 20px; }
+        .icon-test { display: inline-block; margin: 10px; text-align: center; }
+        .icon-test img { 
+            width: 64px; 
+            height: 64px; 
+            border: 2px solid #444;
+            background: white;
+            image-rendering: pixelated;
+        }
+        .icon-test p { margin: 5px 0; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Icon Test Page</h1>
+    <p>Testing if icons load correctly...</p>
+    
+    <div class="icon-test">
+        <img src="icons_nomi/morefurnaces__furnaceblock__0.png" alt="Iron Furnace">
+        <p>Iron Furnace (:0)</p>
+    </div>
+    
+    <div class="icon-test">
+        <img src="icons_nomi/morefurnaces__furnaceblock__2.png" alt="Diamond Furnace">
+        <p>Diamond Furnace (:2)</p>
+    </div>
+    
+    <div class="icon-test">
+        <img src="icons_nomi/enderio__item_endergy_conduit__2.png" alt="Vibrant Conduit">
+        <p>Vibrant Conduit (:2)</p>
+    </div>
+    
+    <div class="icon-test">
+        <img src="icons_nomi/enderio__item_power_conduit__0.png" alt="Basic Conduit">
+        <p>Basic Power Conduit (:0)</p>
+    </div>
+    
+    <div class="icon-test">
+        <img src="icons_nomi/fluid__ammonia.png" alt="Ammonia">
+        <p>Ammonia (fluid)</p>
+    </div>
+    
+    <script>
+        // Log any image load errors
+        document.querySelectorAll('img').forEach(img => {
+            img.onload = () => console.log('✓ Loaded:', img.src);
+            img.onerror = () => console.error('✗ Failed:', img.src);
+        });
+    </script>
+</body>
+</html>

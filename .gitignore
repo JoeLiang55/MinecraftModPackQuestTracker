@@ -4,6 +4,9 @@ node_modules/
 .DS_Store
 *.log
 
+# Generated icon exports (very long filenames, not needed in git)
+icon-exports-x64/
+
 # IDE files
 .vscode/
 .idea/

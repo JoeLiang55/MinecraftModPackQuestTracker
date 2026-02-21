@@ -265,6 +265,12 @@ function processQuest(quest, completedIds) {
   var rawName = bqProps.name || bqProps['name:8'] || quest.name || '';
   var displayName = rawName || ('Quest ' + questId);
   var rawDesc = bqProps.desc || bqProps['desc:8'] || quest.description || '';
+
+  // Filter out quests that have no name and no description
+  if ((!rawName || rawName.trim() === '') && (!rawDesc || rawDesc.trim() === '')) {
+    return;
+  }
+
   mergedQuests.push({
     id: questId,
     name: displayName,

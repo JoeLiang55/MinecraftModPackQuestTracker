@@ -266,6 +266,13 @@ function renderQuestLine(questLineName) {
   
   // Render each quest
   lineData.data.forEach(quest => {
+    // Filter out quests that have no title/name and no description
+    const title = quest.title || quest.name || '';
+    const desc = quest.description || '';
+    if (title.trim() === '' && desc.trim() === '') {
+      return;
+    }
+
     const questNode = createQuestNode(quest);
     grid.appendChild(questNode);
   });

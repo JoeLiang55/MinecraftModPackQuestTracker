@@ -42,8 +42,8 @@ const NOMI_ICON_MAPPING_URL = 'nomi/quests_icons.json';
 const NOMI_ICON_ATLAS_BASE_URL = 'nomi/quests_icons/QuestIcon';
 
 // ========== Pre-built icon map (nomi-icon-map.json) ==========
-// Maps icon IDs ("modid:itemname") → relative path in filtered-textures/
-let nomiIconMap = null; // { "modid:itemname": "filtered-textures/assets/..." }
+// Maps icon IDs ("modid:itemname") → relative path in icons_nomi/
+let nomiIconMap = null; // { "modid:itemname": "icons_nomi/..." }
 let nomiIconMapPromise = null;
 
 function initNomiIconMap() {
@@ -51,8 +51,9 @@ function initNomiIconMap() {
     nomiIconMapPromise = fetch('nomi-icon-map.json')
       .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
       .then(data => {
-        nomiIconMap = data.icons || {};
-        console.log('[NOMI] Loaded icon map with', Object.keys(nomiIconMap).length, 'entries');
+        nomiIconMap = data.iconMap || data.icons || {};
+        console.log('[NOMI] Loaded icon map with', Object.keys(nomiIconMap).length, 'entries from', data.source || 'unknown source');
+        console.log('[NOMI] Icon stats: matched', data.matched || 0, '/', data.totalUniqueIcons || 0, 'icons');
         return nomiIconMap;
       })
       .catch(err => {
@@ -874,6 +875,11 @@ function processQuest(quest, completedIds) {
   var rawDesc = betterQuestingProps.desc || betterQuestingProps['desc:8'] || quest.description || '';
   var displayDesc = (typeof rawDesc === 'string' && rawDesc.indexOf('.') !== -1 && rawDesc.indexOf(' ') === -1) ? translationKeyToDisplayName(rawDesc) : (rawDesc || '');
 
+  // Filter out quests that have no name and no description
+  if ((!rawName || rawName.trim() === '') && (!rawDesc || rawDesc.trim() === '')) {
+    return;
+  }
+
   const mergedQuest = {
     id: questId,
     name: displayName,
@@ -894,10 +900,30 @@ function extractIcon(quest) {
   const bqProps = properties.betterquesting || properties['betterquesting:10'] || {};
   const questIcon = bqProps.icon || bqProps['icon:10'] || icon;
   
+  const itemId = questIcon.id || questIcon['id:8'] || 'minecraft:book';
+  const damage = questIcon.Damage || questIcon['Damage:2'] || 0;
+  const count = questIcon.Count || questIcon['Count:3'] || 1;
+  
+  // Special handling for fluids (forge:bucketfilled with NBT FluidName)
+  if (itemId === 'forge:bucketfilled') {
+    const tag = questIcon.tag || questIcon['tag:10'] || {};
+    const fluidName = tag.FluidName || tag['FluidName:8'];
+    if (fluidName) {
+      // Return special fluid icon ID format
+      return {
+        id: `fluid:${fluidName}`,
+        damage: 0,
+        count: count,
+        isFluid: true,
+        fluidName: fluidName
+      };
+    }
+  }
+  
   return {
-    id: questIcon.id || questIcon['id:8'] || 'minecraft:book',
-    damage: questIcon.Damage || questIcon['Damage:2'] || 0,
-    count: questIcon.Count || questIcon['Count:3'] || 1
+    id: itemId,
+    damage: damage,
+    count: count
   };
 }
 
@@ -1263,28 +1289,9 @@ function createQuestCard(quest) {
   const iconDiv = document.createElement('div');
   iconDiv.className = 'quest-icon';
 
-  // Add tier badge only for EnderIO conduit items where damage value indicates tier variant
-  // (e.g. item_power_conduit damage 0=Conductive Iron, 1=Energetic Alloy, 2=Vibrant Alloy)
-  const TIERED_ICON_ITEMS = [
-    'enderio:item_power_conduit',
-    'enderio:item_liquid_conduit',
-    'enderio:item_item_conduit',
-    'enderio:item_me_conduit',
-    'enderio:item_redstone_conduit'
-  ];
-  const iconDamage = quest.icon && quest.icon.damage ? quest.icon.damage : 0;
-  const iconItemId = quest.icon && quest.icon.id ? quest.icon.id : '';
-  if (iconDamage > 0 && TIERED_ICON_ITEMS.indexOf(iconItemId) !== -1) {
-    const tierBadge = document.createElement('span');
-    tierBadge.className = 'quest-icon-tier-badge';
-    const romanNumerals = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
-    // tier = damage + 1, show Roman numeral (e.g. damage 1 → II, damage 2 → III)
-    const tierNum = iconDamage + 1;
-    tierBadge.textContent = tierNum <= romanNumerals.length ? romanNumerals[tierNum - 1] : String(tierNum);
-    tierBadge.title = 'Tier ' + tierBadge.textContent;
-    iconDiv.appendChild(tierBadge);
-  }
-
+  // Tier badges disabled - icons now have specific textures for each variant
+  // (e.g. Vibrant Alloy Conduit uses enderio__item_endergy_conduit__2.png)
+  
   const iconImg = document.createElement('img');
   iconImg.alt = quest.icon && quest.icon.id ? quest.icon.id : 'quest icon';
 
@@ -1327,7 +1334,20 @@ function createQuestCard(quest) {
 
       // 2. Check pre-built icon map (filtered-textures/ exact match)
       await initNomiIconMap();
-      const mappedPath = nomiIconMap ? nomiIconMap[quest.icon.id] : null;
+      // Build full icon ID with metadata for items like gregtech:machine:80
+      // For fluids (fluid:name), don't append damage
+      const iconDamageForLookup = quest.icon.damage || 0;
+      const isFluid = quest.icon.id && quest.icon.id.startsWith('fluid:');
+      const iconIdWithDamage = (!isFluid && iconDamageForLookup !== 0)
+        ? `${quest.icon.id}:${iconDamageForLookup}` 
+        : quest.icon.id;
+      let mappedPath = nomiIconMap ? nomiIconMap[iconIdWithDamage] : null;
+      
+      // Fallback: if no metadata-specific match, try without metadata (skip for fluids)
+      if (!mappedPath && !isFluid && iconDamageForLookup !== 0) {
+        mappedPath = nomiIconMap ? nomiIconMap[quest.icon.id] : null;
+      }
+      
       if (mappedPath) {
         iconImg.style.display = '';
         iconImg.src = mappedPath;

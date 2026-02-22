@@ -314,12 +314,8 @@ function initVisitorCounter() {
   console.log('🌟 Site visits:', visitCount);
 }
 
-// Initialize visitor counter when page loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initVisitorCounter);
-} else {
-  initVisitorCounter();
-}
+// Initialize visitor counter immediately
+initVisitorCounter();
 
 // DefaultQuests is bundled in the repo — fetch it automatically.
 function loadQuestFileFromUrl() {

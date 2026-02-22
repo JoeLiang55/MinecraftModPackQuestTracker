@@ -5,7 +5,6 @@ https://joeliang55.github.io/MinecraftModPackQuestTracker/
 ^^^ Visit Link to test. will be adding more modpacks
 
 Progess
-v1 Nomifactory ModTracker with icons
-<video controls src="2026-02-19 00-41-47.mp4" title="v1 Test"></video>
-v1.1 Added Sharing Option with Username embedded via minecraft username API
-<video controls src="2026-02-19 12-44-37.mp4" title="v1.1 Test"></video>
+v1 Nomifactory ModTracker with icons + LeaderBoard
+<img width="1897" height="877" alt="image" src="https://github.com/user-attachments/assets/3883376a-13be-478f-991b-3a16f775bb91" />
+Credit to https://github.com/MCTBL/Better_Online_QuestBook for Gtnh Icons

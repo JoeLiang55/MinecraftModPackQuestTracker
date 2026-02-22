@@ -304,6 +304,23 @@ loadLangFileFromUrl();
 // Try to initialize icon mapping early (non-blocking).
 initNomiIconSystem();
 
+// Simple visitor counter for site statistics
+function initVisitorCounter() {
+  const storageKey = 'questTracker_visitCount';
+  let visitCount = localStorage.getItem(storageKey);
+  visitCount = visitCount ? parseInt(visitCount) + 1 : 1;
+  localStorage.setItem(storageKey, visitCount.toString());
+  
+  console.log('🌟 Site visits:', visitCount);
+}
+
+// Initialize visitor counter when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initVisitorCounter);
+} else {
+  initVisitorCounter();
+}
+
 // DefaultQuests is bundled in the repo — fetch it automatically.
 function loadQuestFileFromUrl() {
   fetch('defaultquests/DefaultQuestsNomifactory.json')

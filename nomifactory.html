@@ -24,6 +24,7 @@
       </div>
       <div class="file-input-group">
         <button id="shareBtn" class="share-btn" style="display:none;">Share Progress</button>
+        <button id="leaderboardSubmitBtn" class="leaderboard-submit-btn" style="display:none;">Submit to Leaderboard</button>
       </div>
     </div>
     <!-- Share link banner -->
@@ -82,6 +83,31 @@
         <p class="placeholder">Loading quest data...</p>
       </div>
     </main>
+    
+    <!-- Leaderboard panel -->
+    <section id="leaderboardPanel" class="leaderboard-panel" aria-label="Nomifactory Leaderboard">
+      <h2>Nomifactory Leaderboard</h2>
+      <p id="leaderboardStatus" class="leaderboard-status">Loading leaderboard...</p>
+      <div class="leaderboard-table-wrapper">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Completed</th>
+              <th>Total</th>
+              <th>%</th>
+              <th>Last Updated</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr class="leaderboard-empty-row">
+              <td colspan="6">No entries yet. Be the first to submit!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
   <!-- Quest description modal (shown on quest card click) -->

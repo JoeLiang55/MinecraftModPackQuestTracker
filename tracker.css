@@ -105,6 +105,28 @@ header h1 {
   border-color: #00e08a;
 }
 
+/* Leaderboard submit button */
+.leaderboard-submit-btn {
+  background-color: #2e3a4e;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+
+.leaderboard-submit-btn:hover:not(:disabled) {
+  background-color: rgba(255, 215, 0, 0.12);
+}
+
+.leaderboard-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Progress bar */
 .progress-container {
   margin-top: 20px;
@@ -367,6 +389,81 @@ header h1 {
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, #1e2430 0%, #1a1f2b 100%);
+}
+
+/* Layout: quest list + leaderboard side-by-side on wide screens */
+.container {
+  gap: 16px;
+}
+
+.leaderboard-panel {
+  width: 360px;
+  max-width: 380px;
+  background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
+  border-left: 2px solid #2e3a4e;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.leaderboard-panel h2 {
+  font-size: 1.2rem;
+  color: #ffd700;
+  margin-bottom: 8px;
+}
+
+.leaderboard-status {
+  font-size: 0.8rem;
+  color: #9aa0aa;
+  margin-bottom: 10px;
+}
+
+.leaderboard-table-wrapper {
+  flex: 1;
+  overflow: auto;
+  border-radius: 8px;
+  border: 1px solid #2e3a4e;
+  background-color: #1e2430;
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.leaderboard-table thead {
+  background-color: #252d3d;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 6px 8px;
+  text-align: left;
+  border-bottom: 1px solid #2e3a4e;
+}
+
+.leaderboard-table th {
+  font-weight: 600;
+  color: #cfd3df;
+}
+
+.leaderboard-table tbody tr:nth-child(even) {
+  background-color: rgba(46, 58, 78, 0.3);
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: rgba(0, 224, 138, 0.06);
+}
+
+.leaderboard-empty-row td {
+  text-align: center;
+  color: #7a8090;
+}
+
+.leaderboard-row-self {
+  background-color: rgba(0, 224, 138, 0.1) !important;
 }
 
 .quest-header {
@@ -865,6 +962,7 @@ header h1 {
 @media (max-width: 900px) {
   .container {
     flex-direction: column;
+    gap: 0;
   }
 
   #chapterList {
@@ -885,6 +983,13 @@ header h1 {
 
   .quest-card {
     width: 100%;
+  }
+
+  .leaderboard-panel {
+    width: 100%;
+    max-width: none;
+    border-left: none;
+    border-top: 2px solid #2e3a4e;
   }
 }
 

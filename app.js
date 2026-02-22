@@ -223,6 +223,24 @@ const completedCount = document.getElementById('completedCount');
 const totalCount = document.getElementById('totalCount');
 const questContent = document.querySelector('.quest-content');
 
+// Leaderboard elements
+const leaderboardPanel = document.getElementById('leaderboardPanel');
+const leaderboardBody = document.getElementById('leaderboardBody');
+const leaderboardStatus = document.getElementById('leaderboardStatus');
+const leaderboardSubmitBtn = document.getElementById('leaderboardSubmitBtn');
+
+// Leaderboard configuration (fill in URL/key to enable backend)
+const LEADERBOARD_ENABLED = true;
+const LEADERBOARD_PACK_ID = 'nomifactory';
+// Your Supabase project URL
+const LEADERBOARD_SUPABASE_URL = 'https://fyiiopwyjzedunkettqo.supabase.co';
+// TODO: paste your Supabase anon public key here (from Settings → API → anon public)
+const LEADERBOARD_SUPABASE_KEY = 'sb_publishable_vThV3j_ZQV0pF6qn8p4e7w_bXaVhdE8';
+const LEADERBOARD_MAX_ROWS = 50;
+
+// Cached overall progress for leaderboard submissions
+let _leaderboardProgress = { total: 0, completed: 0, percent: 0 };
+
 // Event listeners for file inputs
 playerFileInput.addEventListener('change', handlePlayerFile);
 initQuestModal();
@@ -385,11 +403,11 @@ function handleQuestFile(event) {
 // ========== PLAYER NAME RESOLUTION ==========
 // Extract UUID from filename and look up Minecraft username
 function tryResolvePlayerName(filename) {
-  if (!filename) return;
+  if (!filename) return false;
   // Match UUID pattern: 8-4-4-4-12 hex chars (with or without dashes)
   var uuidRegex = /([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i;
   var match = filename.match(uuidRegex);
-  if (!match) return;
+  if (!match) return false;
   var uuid = match[1].replace(/-/g, ''); // strip dashes for API call
 
   // Show UUID immediately while we look up the name
@@ -407,6 +425,47 @@ function tryResolvePlayerName(filename) {
       // API failed — UUID is already shown as fallback
       console.log('Could not resolve username for UUID:', uuid);
     });
+    
+  return true;
+}
+
+// Try to extract UUID from the parsed NBT/JSON data if filename didn't have it
+function tryExtractUuidFromData(data) {
+  if (!data || typeof data !== 'object') return;
+  
+  // Helper to recursively search for a UUID string
+  function findUuid(obj, depth) {
+    if (depth > 10 || !obj || typeof obj !== 'object') return null;
+    
+    // Check keys and values at this level
+    for (const key in obj) {
+      const val = obj[key];
+      
+      // Sometimes the key itself is the UUID (e.g., in PartyProgress or UserProgress)
+      if (typeof key === 'string' && /^[0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12}$/i.test(key)) {
+        return key;
+      }
+      
+      // Sometimes there's a 'uuid' field
+      if ((key === 'uuid' || key === 'uuid:8') && typeof val === 'string' && val.length >= 32) {
+        return val;
+      }
+      
+      // Recurse
+      if (typeof val === 'object') {
+        const found = findUuid(val, depth + 1);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+  
+  const foundUuid = findUuid(data, 0);
+  if (foundUuid) {
+    console.log('Found UUID inside player data:', foundUuid);
+    // We found a UUID inside the file! Let's resolve it.
+    tryResolvePlayerName(foundUuid);
+  }
 }
 
 function showPlayerName(name, uuid) {
@@ -426,8 +485,11 @@ function showPlayerName(name, uuid) {
     headImg.style.display = 'block';
   }
 
-  // Store for sharing
+  // Store for sharing / leaderboard
   window._playerDisplayName = name;
+  if (uuid) {
+    window._playerUuid = uuid;
+  }
 }
 
 // Handle PlayerData.dat file upload (NBT format)
@@ -436,7 +498,7 @@ function handlePlayerFile(event) {
   if (!file) return;
 
   // Try to extract UUID from filename (e.g. "60586fce-7db5-486f-b7fc-20965f503990.json")
-  tryResolvePlayerName(file.name);
+  const nameResolvedFromFilename = tryResolvePlayerName(file.name);
 
   const reader = new FileReader();
   reader.onload = async function(e) {
@@ -449,6 +511,12 @@ function handlePlayerFile(event) {
         if (text.trim().startsWith('{')) {
           playerData = JSON.parse(text);
           console.log('Player data loaded as JSON:', playerData);
+          
+          // If filename didn't have UUID, try to find it in the JSON data
+          if (!nameResolvedFromFilename && !window._playerDisplayName) {
+            tryExtractUuidFromData(playerData);
+          }
+          
           tryMergeAndRender();
           return;
         }
@@ -459,6 +527,12 @@ function handlePlayerFile(event) {
       // Parse as NBT (binary format)
       playerData = await parseNBT(arrayBuffer);
       console.log('Player data loaded from NBT:', playerData);
+      
+      // If filename didn't have UUID, try to find it in the NBT data
+      if (!nameResolvedFromFilename && !window._playerDisplayName) {
+        tryExtractUuidFromData(playerData);
+      }
+      
       tryMergeAndRender();
     } catch (error) {
       showError('Error parsing PlayerData.dat: ' + error.message);
@@ -1398,7 +1472,13 @@ function updateProgressBar() {
     return;
   }
   
-  const percentage = Math.round((completedQuests / totalQuests) * 100);
+  const rawPercent = totalQuests > 0 ? (completedQuests / totalQuests) * 100 : 0;
+  const percentage = Math.round(rawPercent);
+  if (_leaderboardProgress) {
+    _leaderboardProgress.total = totalQuests;
+    _leaderboardProgress.completed = completedQuests;
+    _leaderboardProgress.percent = rawPercent;
+  }
   
   progressContainer.style.display = 'flex';
   progressFill.style.width = `${percentage}%`;
@@ -1552,4 +1632,247 @@ function checkForSharedProgress() {
   if (isShared) {
     tryMergeAndRender();
   }
+})();
+
+// ========== LEADERBOARD FEATURE (Supabase-backed) ==========
+
+function buildLeaderboardPayload() {
+  const total = _leaderboardProgress.total || mergedQuests.length;
+  const completed = _leaderboardProgress.completed || mergedQuests.filter(q => q.completed).length;
+  const percent = total > 0 ? (_leaderboardProgress.percent || (completed / total * 100)) : 0;
+  const playerName = window._playerDisplayName || null;
+  const playerUuid = window._playerUuid || null;
+
+  return {
+    pack_id: LEADERBOARD_PACK_ID,
+    player_name: playerName,
+    player_uuid: playerUuid,
+    completed_count: completed,
+    total_quests: total,
+    percent_complete: percent,
+    submitted_at: new Date().toISOString()
+  };
+}
+
+async function submitLeaderboardEntry() {
+  if (!LEADERBOARD_ENABLED) return;
+  if (!leaderboardStatus) return;
+
+  if (!LEADERBOARD_SUPABASE_URL || !LEADERBOARD_SUPABASE_KEY) {
+    leaderboardStatus.textContent = 'Leaderboard backend not configured yet.';
+    return;
+  }
+
+  if (!mergedQuests.length || !_leaderboardProgress.total) {
+    leaderboardStatus.textContent = 'Load your progress first, then submit.';
+    return;
+  }
+
+  if (window._sharedCompletedIds) {
+    leaderboardStatus.textContent = 'Cannot submit while viewing a shared read-only link.';
+    return;
+  }
+
+  const payload = buildLeaderboardPayload();
+  if (!payload.player_name) {
+    // Fallback if name couldn't be resolved from filename
+    const fallbackName = prompt("[v2] We couldn't detect your player name from the file. Please enter your exact Minecraft username to verify:");
+    if (!fallbackName || !fallbackName.trim()) {
+      leaderboardStatus.textContent = 'Cannot submit: player name is required.';
+      return;
+    }
+    
+    leaderboardStatus.textContent = 'Verifying Minecraft username...';
+    if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = true;
+    
+    try {
+      // Verify the username against Ashcon/Mojang API
+      const verifyRes = await fetch('https://api.ashcon.app/mojang/v2/user/' + encodeURIComponent(fallbackName.trim()));
+      if (!verifyRes.ok) {
+        throw new Error('Username not found');
+      }
+      const verifyData = await verifyRes.json();
+      
+      // Use the properly capitalized name and UUID from the API
+      payload.player_name = verifyData.username;
+      payload.player_uuid = verifyData.uuid.replace(/-/g, '');
+      
+      // Save for next time and update UI
+      window._playerDisplayName = payload.player_name;
+      window._playerUuid = payload.player_uuid;
+      showPlayerName(payload.player_name, payload.player_uuid);
+      
+    } catch (err) {
+      leaderboardStatus.textContent = 'Cannot submit: Invalid Minecraft username.';
+      if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = false;
+      return;
+    }
+  }
+
+  try {
+    if (leaderboardSubmitBtn) {
+      leaderboardSubmitBtn.disabled = true;
+    }
+    leaderboardStatus.textContent = 'Submitting to leaderboard...';
+
+    const res = await fetch(LEADERBOARD_SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/leaderboard_entries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': LEADERBOARD_SUPABASE_KEY,
+        'Prefer': 'return=representation,resolution=merge-duplicates',
+        'on_conflict': 'pack_id,player_name'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(function () { return ''; });
+      throw new Error('HTTP ' + res.status + (text ? ': ' + text : ''));
+    }
+
+    leaderboardStatus.textContent = 'Submission saved! Refreshing leaderboard...';
+    await loadLeaderboard();
+    leaderboardStatus.textContent = 'Submission saved successfully.';
+  } catch (err) {
+    console.error('Failed to submit leaderboard entry:', err);
+    leaderboardStatus.textContent = 'Failed to submit leaderboard entry: ' + (err && err.message ? err.message : err);
+  } finally {
+    if (leaderboardSubmitBtn) {
+      leaderboardSubmitBtn.disabled = false;
+    }
+  }
+}
+
+async function loadLeaderboard() {
+  if (!LEADERBOARD_ENABLED) return;
+  if (!leaderboardBody || !leaderboardStatus) return;
+
+  if (!LEADERBOARD_SUPABASE_URL || !LEADERBOARD_SUPABASE_KEY) {
+    leaderboardStatus.textContent = 'Leaderboard backend not configured yet.';
+    return;
+  }
+
+  try {
+    leaderboardStatus.textContent = 'Loading leaderboard...';
+
+    const baseUrl = LEADERBOARD_SUPABASE_URL.replace(/\/$/, '');
+    const params = new URLSearchParams();
+    params.set('select', 'pack_id,player_name,player_uuid,completed_count,total_quests,percent_complete,submitted_at');
+    params.set('pack_id', 'eq.' + LEADERBOARD_PACK_ID);
+    params.set('order', 'percent_complete.desc');
+    params.set('limit', String(LEADERBOARD_MAX_ROWS));
+
+    const res = await fetch(baseUrl + '/rest/v1/leaderboard_entries?' + params.toString(), {
+      headers: {
+        'apikey': LEADERBOARD_SUPABASE_KEY
+      }
+    });
+
+    if (!res.ok) {
+      const text = await res.text().catch(function () { return ''; });
+      throw new Error('HTTP ' + res.status + (text ? ': ' + text : ''));
+    }
+
+    const entries = await res.json();
+
+    leaderboardBody.innerHTML = '';
+
+    if (!entries || !entries.length) {
+      const row = document.createElement('tr');
+      row.className = 'leaderboard-empty-row';
+      const cell = document.createElement('td');
+      cell.colSpan = 6;
+      cell.textContent = 'No entries yet. Be the first to submit!';
+      row.appendChild(cell);
+      leaderboardBody.appendChild(row);
+      leaderboardStatus.textContent = 'No leaderboard entries yet.';
+      return;
+    }
+
+    entries.forEach(function (entry, index) {
+      const tr = document.createElement('tr');
+      const rankTd = document.createElement('td');
+      rankTd.textContent = String(index + 1);
+      tr.appendChild(rankTd);
+
+      const nameTd = document.createElement('td');
+      nameTd.textContent = entry.player_name || '(unknown)';
+      tr.appendChild(nameTd);
+
+      const completedTd = document.createElement('td');
+      completedTd.textContent = String(entry.completed_count || 0);
+      tr.appendChild(completedTd);
+
+      const totalTd = document.createElement('td');
+      totalTd.textContent = String(entry.total_quests || 0);
+      tr.appendChild(totalTd);
+
+      const pctTd = document.createElement('td');
+      const pctVal = typeof entry.percent_complete === 'number' ? entry.percent_complete : (entry.total_quests ? (entry.completed_count / entry.total_quests * 100) : 0);
+      pctTd.textContent = Math.round(pctVal) + '%';
+      tr.appendChild(pctTd);
+
+      const dateTd = document.createElement('td');
+      if (entry.submitted_at) {
+        var d = new Date(entry.submitted_at);
+        if (!isNaN(d.getTime())) {
+          dateTd.textContent = d.toLocaleString();
+        } else {
+          dateTd.textContent = entry.submitted_at;
+        }
+      } else {
+        dateTd.textContent = '-';
+      }
+      tr.appendChild(dateTd);
+
+      if (window._playerDisplayName && entry.player_name === window._playerDisplayName) {
+        tr.className += (tr.className ? ' ' : '') + 'leaderboard-row-self';
+      }
+
+      leaderboardBody.appendChild(tr);
+    });
+
+    leaderboardStatus.textContent = 'Leaderboard loaded.';
+  } catch (err) {
+    console.error('Failed to load leaderboard:', err);
+    leaderboardStatus.textContent = 'Failed to load leaderboard: ' + (err && err.message ? err.message : err);
+  }
+}
+
+(function initLeaderboard() {
+  if (!LEADERBOARD_ENABLED) return;
+  if (!leaderboardPanel || !leaderboardBody || !leaderboardStatus) return;
+
+  // If backend URL/key are not configured yet, show a helpful message and stop.
+  if (!LEADERBOARD_SUPABASE_URL || !LEADERBOARD_SUPABASE_KEY) {
+    leaderboardStatus.textContent = 'Leaderboard backend not configured yet.';
+    if (leaderboardSubmitBtn) {
+      leaderboardSubmitBtn.disabled = true;
+      leaderboardSubmitBtn.title = 'Leaderboard backend is not configured yet.';
+    }
+    return;
+  }
+
+  if (leaderboardSubmitBtn) {
+    leaderboardSubmitBtn.addEventListener('click', function () {
+      submitLeaderboardEntry();
+    });
+  }
+
+  // Wrap updateProgressBar so we can show/hide the submit button when progress exists
+  var origUpdate = updateProgressBar;
+  updateProgressBar = function () {
+    origUpdate();
+    if (!leaderboardSubmitBtn) return;
+    if (mergedQuests.length > 0 && !window._sharedCompletedIds) {
+      leaderboardSubmitBtn.style.display = 'inline-block';
+      leaderboardSubmitBtn.disabled = false;
+    } else {
+      leaderboardSubmitBtn.style.display = 'none';
+    }
+  };
+
+  // Initial load of leaderboard data
+  loadLeaderboard();
 })();

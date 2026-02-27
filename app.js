@@ -237,6 +237,9 @@ const LEADERBOARD_SUPABASE_URL = 'https://fyiiopwyjzedunkettqo.supabase.co';
 // TODO: paste your Supabase anon public key here (from Settings → API → anon public)
 const LEADERBOARD_SUPABASE_KEY = 'sb_publishable_vThV3j_ZQV0pF6qn8p4e7w_bXaVhdE8';
 const LEADERBOARD_MAX_ROWS = 50;
+// if true, submission uses the `upsert_leaderboard_entry` RPC which accumulates
+// completed_count; set to false to do the simpler table upsert/replace.
+const LEADERBOARD_USE_RPC = false;
 
 // Cached overall progress for leaderboard submissions
 let _leaderboardProgress = { total: 0, completed: 0, percent: 0 };
@@ -674,7 +677,7 @@ async function parseNBT(arrayBuffer) {
         return compound;
       }
       case 11: return readIntArray(); // TAG_Int_Array
-      case 12: return readLongArray(); // TAG_Long_Array
+      case 12: return readLongArray(); // TAG_Long_ARRAY
       default:
         throw new Error(`Unknown NBT tag type: ${tagType}`);
     }
@@ -974,10 +977,42 @@ function processQuest(quest, completedIds) {
     icon: extractIcon(quest),
     rewards: extractRewards(quest),
     chapterId: quest.chapterId || quest.lineId || null,
+    // Raw BetterQuesting prerequisites for dependency graphs (e.g. Genesis chapter)
+    preRequisites: extractPreRequisites(quest),
+    // Exact coordinates for graph layout
+    x: quest.x ?? quest['x:3'] ?? 0,
+    y: quest.y ?? quest['y:3'] ?? 0,
+    sizeX: quest.sizeX ?? quest['sizeX:3'] ?? 24,
+    sizeY: quest.sizeY ?? quest['sizeY:3'] ?? 24,
     completed: completedIds.has(questId)
   };
 
   mergedQuests.push(mergedQuest);
+}
+
+// Extract prerequisite quest IDs from a BetterQuesting quest entry
+function extractPreRequisites(quest) {
+  if (!quest || typeof quest !== 'object') return [];
+  var raw = quest.preRequisites || quest['preRequisites:11'] || quest['preRequisites:9'] || [];
+  var out = [];
+
+  if (Array.isArray(raw)) {
+    raw.forEach(function (id) {
+      if (id === undefined || id === null) return;
+      out.push(String(id));
+    });
+  } else if (typeof raw === 'object') {
+    Object.values(raw).forEach(function (id) {
+      if (id === undefined || id === null) return;
+      if (typeof id === 'object' && id.value !== undefined) {
+        out.push(String(id.value));
+      } else {
+        out.push(String(id));
+      }
+    });
+  }
+
+  return out;
 }
 
 // Extract icon information from quest
@@ -1111,7 +1146,7 @@ function extractChapters(root) {
       chapters.push({
         id: lineId,
         name: chapterName(line, `Chapter ${index + 1}`, lineId),
-        quests: getQuestsForChapter(line)
+        quests: getQuestsForChapter(line, lineId)
       });
     });
   } else if (typeof questLines === 'object') {
@@ -1120,18 +1155,10 @@ function extractChapters(root) {
       chapters.push({
         id: id,
         name: chapterName(line, `Chapter ${id}`, id),
-        quests: getQuestsForChapter(line)
+        quests: getQuestsForChapter(line, id)
       });
     });
   }
-
-  // Always add "All Quests" first so user can see every quest (even if chapter IDs don't match)
-  const allQuestIds = mergedQuests.map(q => q.id);
-  chapters.unshift({
-    id: 'all',
-    name: 'All Quests',
-    quests: allQuestIds
-  });
 
   // Reorder chapters to match ORDERED_CHAPTER_NAMES (case-insensitive; use aliases so "Simulation Resources" matches)
   function normalizeName(n) { return (n || '').trim().toLowerCase(); }
@@ -1139,11 +1166,11 @@ function extractChapters(root) {
     var n = normalizeName(name);
     return CHAPTER_NAME_ALIASES[n] || n;
   }
-  var ordered = [{ id: 'all', name: 'All Quests', quests: allQuestIds }];
+  var ordered = [];
   var used = new Set();
   ORDERED_CHAPTER_NAMES.forEach(function (want) {
     var wantNorm = normalizeName(want);
-    for (var i = 1; i < chapters.length; i++) {
+    for (var i = 0; i < chapters.length; i++) {
       if (used.has(i)) continue;
       var cNorm = chapterNormForMatch(chapters[i].name);
       if (cNorm === wantNorm) {
@@ -1154,7 +1181,7 @@ function extractChapters(root) {
     }
   });
   // Append any remaining chapters not in the ordered list
-  for (var j = 1; j < chapters.length; j++) {
+  for (var j = 0; j < chapters.length; j++) {
     if (!used.has(j)) ordered.push(chapters[j]);
   }
   chapters = ordered;
@@ -1163,19 +1190,54 @@ function extractChapters(root) {
 }
 
 // Get quest IDs for a chapter/quest line (must match merged quest IDs for filtering)
-function getQuestsForChapter(line) {
+// externalKey: the chapter ID used in the chapters array (e.g. "0:10" from Object.entries key)
+function getQuestsForChapter(line, externalKey) {
+  if (!line || typeof line !== 'object') return [];
   const questIds = [];
-  const raw = line.quests || line['quests:9'] || [];
-  const quests = Array.isArray(raw) ? raw : (typeof raw === 'object' ? Object.values(raw) : []);
+  const raw = line.quests || line['quests:9'] || {}; // Should be an object or array
 
-  function pushQuestId(ref) {
-    if (!ref || typeof ref !== 'object') return;
-    var inner = ref.value && typeof ref.value === 'object' ? ref.value : ref;
-    var id = inner.id ?? inner['id:3'] ?? inner.questID ?? ref.key;
-    if (id !== undefined && id !== null) questIds.push(String(id));
+  // Use the external key passed from extractChapters so the coord map key
+  // matches chapter.id used later in renderGenesisGraph
+  var lineID = externalKey != null ? String(externalKey) : String(line.lineID ?? line['lineID:3'] ?? 'unknown');
+
+  if (!window._chapterCoords) window._chapterCoords = {};
+  window._chapterCoords[lineID] = {};
+
+  const processEntry = (val) => {
+    if (!val || typeof val !== 'object') return;
+    
+    // val is like { "id:3": 0, "x:3": -536, ... }
+    var qId = val.id ?? val['id:3'];
+    
+    if (qId !== undefined && qId !== null) {
+      try {
+        var coords = {
+          x: val.x ?? val['x:3'] ?? 0,
+          y: val.y ?? val['y:3'] ?? 0,
+          sizeX: val.sizeX ?? val['sizeX:3'] ?? 24,
+          sizeY: val.sizeY ?? val['sizeY:3'] ?? 24
+        };
+        
+        // Store in chapter-specific map
+        window._chapterCoords[lineID][String(qId)] = coords;
+        
+        // Fallback global for backward compat (though we should deprecate this usage)
+        if (!window._questCoords) window._questCoords = {};
+        window._questCoords[String(qId)] = coords;
+
+        questIds.push(String(qId));
+      } catch (e) {
+        console.error('Error processing quest coord entry:', val, e);
+      }
+    }
+  };
+
+  if (Array.isArray(raw)) {
+    raw.forEach(processEntry);
+  } else if (raw && typeof raw === 'object') {
+    Object.values(raw).forEach(processEntry);
   }
 
-  quests.forEach(pushQuestId);
   return questIds;
 }
 
@@ -1296,8 +1358,14 @@ function selectChapter(chapterId) {
       if (completedCount) completedCount.textContent = completedQuests.length;
       if (totalCount) totalCount.textContent = chapterQuests.length;
     }
-    
-    renderQuests(chapterQuests);
+
+    // For Genesis, render a dependency graph instead of a simple grid
+    var chapterNameLower = (chapter.name || '').trim().toLowerCase();
+    if (chapterNameLower === 'genesis') {
+      renderGenesisGraph(chapter, chapterQuests);
+    } else {
+      renderQuests(chapterQuests);
+    }
   }
 }
 
@@ -1321,6 +1389,340 @@ function renderQuests(quests) {
     grid.appendChild(createQuestCard(quest));
   });
   questContentContainer.appendChild(grid);
+}
+
+// Render a graph-style layout for the Genesis chapter, using prerequisites as edges
+function renderGenesisGraph(chapter, chapterQuests) {
+  const questContentContainer = questContent || document.querySelector('.quest-content');
+  if (!questContentContainer) {
+    console.error('Quest content container not found for Genesis graph');
+    return;
+  }
+
+  questContentContainer.innerHTML = '';
+  if (!chapterQuests || !chapterQuests.length) {
+    questContentContainer.innerHTML = '<p class="placeholder">No quests found in Genesis</p>';
+    return;
+  }
+
+  // Build quick lookup map and dependency edges within this chapter
+  var questMap = {};
+  chapterQuests.forEach(function (q) { questMap[q.id] = q; });
+
+  var edges = [];
+  chapterQuests.forEach(function (q) {
+    var pre = Array.isArray(q.preRequisites) ? q.preRequisites : [];
+    pre.forEach(function (pid) {
+      if (questMap[pid]) {
+        edges.push({ from: pid, to: q.id });
+      }
+    });
+  });
+
+  // Calculate bounding box of all quests to center the graph
+  var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+  var positions = {};
+  
+  // Use _chapterCoords if available, otherwise fallback to global
+  // Note: 'chapter' object here has an ID which corresponds to the lineID we used in getQuestsForChapter
+  var chapterCoords = null;
+  if (window._chapterCoords) {
+    chapterCoords = window._chapterCoords[chapter.id];
+    // Fallback: try numeric lineID if the key format didn't match
+    if (!chapterCoords) {
+      var numericId = String(chapter.id).replace(/:.*$/, '');
+      chapterCoords = window._chapterCoords[numericId];
+    }
+  }
+  if (!chapterCoords) chapterCoords = window._questCoords || {};
+  
+  chapterQuests.forEach(function (q) {
+    var coords = chapterCoords[q.id] || { x: 0, y: 0, sizeX: 24, sizeY: 24 };
+    
+    // BetterQuesting coordinates are often scaled differently, we'll try 1.0 first but double check
+    // The reference image shows a large spread, so let's stick to 1.5 or adjust if needed.
+    // Actually, usually 1 unit = 1 pixel at 100% zoom in BQ, but let's see.
+    // Smaller scale to keep genesis graph compact
+    var scale = 2.0; 
+    var x = coords.x * scale;
+    var y = coords.y * scale;
+    var w = coords.sizeX * scale;
+    var h = coords.sizeY * scale;
+    
+    positions[q.id] = { x: x, y: y, w: w, h: h };
+    
+    if (x < minX) minX = x;
+    if (y < minY) minY = y;
+    if (x + w > maxX) maxX = x + w;
+    if (y + h > maxY) maxY = y + h;
+  });
+
+  // Safety check if no coordinates found
+  if (minX === Infinity) {
+    renderQuests(chapterQuests); // Fallback to grid
+    return;
+  }
+
+  // Add padding to accommodate nodes
+  var padding = 130;
+  var totalWidth = (maxX - minX) + padding * 2;
+  var totalHeight = (maxY - minY) + padding * 2;
+
+  // Adjust all positions to be positive relative to the bounding box
+  Object.keys(positions).forEach(function(id) {
+    positions[id].x = positions[id].x - minX + padding;
+    positions[id].y = positions[id].y - minY + padding;
+  });
+
+  var wrapper = document.createElement('div');
+  wrapper.className = 'genesis-graph-wrapper';
+  wrapper.style.width = totalWidth + 'px';
+  wrapper.style.height = totalHeight + 'px';
+
+  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'genesis-graph-edges');
+  svg.setAttribute('width', String(totalWidth));
+  svg.setAttribute('height', String(totalHeight));
+
+  var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+  var marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+  marker.setAttribute('id', 'genesis-arrow');
+  marker.setAttribute('markerWidth', '10');
+  marker.setAttribute('markerHeight', '7');
+  marker.setAttribute('refX', '10');
+  marker.setAttribute('refY', '3.5');
+  marker.setAttribute('orient', 'auto');
+  marker.setAttribute('markerUnits', 'strokeWidth');
+  var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  poly.setAttribute('points', '0 0, 10 3.5, 0 7');
+  marker.appendChild(poly);
+  defs.appendChild(marker);
+  svg.appendChild(defs);
+
+  var nodesLayer = document.createElement('div');
+  nodesLayer.className = 'genesis-graph-nodes';
+
+  chapterQuests.forEach(function (q) {
+    var pos = positions[q.id];
+    var node = document.createElement('div');
+    node.className = 'genesis-node ' + (q.completed ? 'completed' : 'incomplete');
+    
+    // Node size is now controlled by CSS (64x64)
+    // Position top-left
+    node.style.left = pos.x + 'px';
+    node.style.top = pos.y + 'px';
+    
+    node.addEventListener('click', function () { showQuestModal(q); });
+
+    var iconDiv = document.createElement('div');
+    iconDiv.className = 'genesis-node-icon';
+
+    var img = document.createElement('img');
+    img.alt = q.icon && q.icon.id ? q.icon.id : 'quest icon';
+    img.style.imageRendering = 'pixelated';
+
+    if (q.icon && q.icon.id) {
+      const iconId = q.icon.id.replace(':', '_');
+
+      function showFallbackEmoji() {
+        img.onerror = null;
+        img.style.display = 'none';
+        var fallback = document.createElement('span');
+        fallback.className = 'fallback-icon';
+        fallback.textContent = q.completed ? '✅' : '📋';
+        iconDiv.appendChild(fallback);
+      }
+
+      function applyPngFallback() {
+        img.style.display = '';
+        img.src = 'icons_nomi/' + iconId + '.png';
+        img.onerror = function () {
+          img.onerror = null;
+          showFallbackEmoji();
+        };
+      }
+
+      img.style.display = 'none';
+      (async function () {
+        var atlasFound = await setNomiQuestIcon(img, q.id);
+        if (atlasFound) return;
+
+        await initNomiIconMap();
+        var dmg = q.icon.damage || 0;
+        var isFluid = q.icon.id && q.icon.id.indexOf('fluid:') === 0;
+        var fullId = (!isFluid && dmg !== 0) ? (q.icon.id + ':' + dmg) : q.icon.id;
+        var mappedPath = nomiIconMap ? nomiIconMap[fullId] : null;
+        if (!mappedPath && !isFluid && dmg !== 0) {
+          mappedPath = nomiIconMap ? nomiIconMap[q.icon.id] : null;
+        }
+
+        if (mappedPath) {
+          img.style.display = '';
+          img.src = mappedPath;
+          img.onerror = function () {
+            img.onerror = null;
+            applyPngFallback();
+          };
+          return;
+        }
+
+        applyPngFallback();
+      })();
+    } else {
+      img.style.display = 'none';
+      var fb = document.createElement('span');
+      fb.className = 'fallback-icon';
+      fb.textContent = q.completed ? '✅' : '📋';
+      iconDiv.appendChild(fb);
+    }
+
+    iconDiv.appendChild(img);
+
+    // Only show label if the node is large enough, or show it on hover
+    // We already have CSS for hover zoom so skipping inline styles here
+    // But let's add the label div
+    var label = document.createElement('div');
+    label.className = 'genesis-node-label';
+    var displayName = q.langTitle != null ? q.langTitle : q.name;
+    // Just grab first few words if too long
+    // label.textContent = displayName || ('Quest ' + q.id);
+    if (displayName && displayName.indexOf('§') !== -1) label.innerHTML = mcColorToHtml(displayName);
+    else label.textContent = displayName || ('Quest ' + q.id);
+
+    if (q.completed) {
+      var badge = document.createElement('div');
+      badge.className = 'genesis-node-badge';
+      badge.textContent = '✓';
+      node.appendChild(badge);
+    }
+
+    node.appendChild(iconDiv);
+    node.appendChild(label);
+    nodesLayer.appendChild(node);
+  });
+
+  // Draw edges after positions are known
+  edges.forEach(function (e) {
+    var fromPos = positions[e.from];
+    var toPos = positions[e.to];
+    if (!fromPos || !toPos) return;
+    var fromQuest = questMap[e.from];
+    var toQuest = questMap[e.to];
+
+    var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    
+    // Connect centers of the nodes, accounting for margins and padding
+    // The visual center is offset by margins (8px) and internal padding (12px)
+    var marginOffset = 8;
+    var actualNodeWidth = Math.max(64, fromPos.w);
+    var actualNodeHeight = Math.max(64, fromPos.h);
+    
+    var x1 = fromPos.x + marginOffset + actualNodeWidth / 2;
+    var y1 = fromPos.y + marginOffset + actualNodeHeight / 2;
+    
+    var actualNodeWidth2 = Math.max(64, toPos.w);
+    var actualNodeHeight2 = Math.max(64, toPos.h);
+    
+    var x2 = toPos.x + marginOffset + actualNodeWidth2 / 2;
+    var y2 = toPos.y + marginOffset + actualNodeHeight2 / 2;
+    
+    // Filter out left-pointing edges (problematic connections)
+    if (x2 < x1) return;
+    
+    line.setAttribute('x1', String(x1));
+    line.setAttribute('y1', String(y1));
+    line.setAttribute('x2', String(x2));
+    line.setAttribute('y2', String(y2));
+    
+    // No marker-end to avoid clutter
+    
+    var allCompleted = fromQuest && toQuest && fromQuest.completed && toQuest.completed;
+    line.setAttribute('class', 'genesis-edge ' + (allCompleted ? 'completed' : 'incomplete'));
+    svg.appendChild(line);
+  });
+
+  wrapper.appendChild(svg);
+  wrapper.appendChild(nodesLayer);
+  
+  // Add a pan/zoom container that respects the flex layout
+  var panZoomContainer = document.createElement('div');
+  panZoomContainer.className = 'genesis-pan-zoom-container';
+  panZoomContainer.style.position = 'relative';
+  panZoomContainer.style.flex = '1';
+  panZoomContainer.style.minHeight = '0'; // Allow flex item to shrink
+  panZoomContainer.style.backgroundColor = '#1e2430';
+  
+  panZoomContainer.appendChild(wrapper);
+  questContentContainer.appendChild(panZoomContainer);
+  
+  // Add pan and zoom functionality
+  var scale = 0.4; // Start zoomed out so all content is visible and chapters can be seen
+  var panX = 0;
+  var panY = 0;
+  var isDragging = false;
+  var lastMouseX = 0;
+  var lastMouseY = 0;
+  
+  function updateTransform() {
+    wrapper.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+  }
+  
+  // Mouse wheel zoom
+  panZoomContainer.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var rect = panZoomContainer.getBoundingClientRect();
+    var mouseX = e.clientX - rect.left;
+    var mouseY = e.clientY - rect.top;
+    
+    var delta = e.deltaY > 0 ? 0.9 : 1.1;
+    var newScale = Math.min(Math.max(scale * delta, 0.1), 3);
+    
+    if (newScale !== scale) {
+      // Zoom towards mouse position
+      panX = mouseX - (mouseX - panX) * (newScale / scale);
+      panY = mouseY - (mouseY - panY) * (newScale / scale);
+      scale = newScale;
+      updateTransform();
+    }
+  });
+  
+  // Mouse drag pan
+  panZoomContainer.addEventListener('mousedown', function(e) {
+    if (e.button === 0) { // Left mouse button
+      isDragging = true;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      panZoomContainer.classList.add('panning');
+      e.preventDefault();
+    }
+  });
+  
+  document.addEventListener('mousemove', function(e) {
+    if (isDragging) {
+      var deltaX = e.clientX - lastMouseX;
+      var deltaY = e.clientY - lastMouseY;
+      panX += deltaX;
+      panY += deltaY;
+      lastMouseX = e.clientX;
+      lastMouseY = e.clientY;
+      updateTransform();
+    }
+  });
+  
+  document.addEventListener('mouseup', function(e) {
+    if (isDragging) {
+      isDragging = false;
+      panZoomContainer.classList.remove('panning');
+    }
+  });
+  
+  // Center view on start
+  setTimeout(() => {
+    var containerRect = panZoomContainer.getBoundingClientRect();
+    panX = (containerRect.width - totalWidth * scale) / 2;
+    panY = (containerRect.height - totalHeight * scale) / 2;
+    updateTransform();
+  }, 100);
 }
 
 // Show quest description modal
@@ -1688,33 +2090,22 @@ async function submitLeaderboardEntry() {
 
   const payload = buildLeaderboardPayload();
   if (!payload.player_name) {
-    // Fallback if name couldn't be resolved from filename
     const fallbackName = prompt("[v2] We couldn't detect your player name from the file. Please enter your exact Minecraft username to verify:");
     if (!fallbackName || !fallbackName.trim()) {
       leaderboardStatus.textContent = 'Cannot submit: player name is required.';
       return;
     }
-    
     leaderboardStatus.textContent = 'Verifying Minecraft username...';
     if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = true;
-    
     try {
-      // Verify the username against Ashcon/Mojang API
       const verifyRes = await fetch('https://api.ashcon.app/mojang/v2/user/' + encodeURIComponent(fallbackName.trim()));
-      if (!verifyRes.ok) {
-        throw new Error('Username not found');
-      }
+      if (!verifyRes.ok) throw new Error('Username not found');
       const verifyData = await verifyRes.json();
-      
-      // Use the properly capitalized name and UUID from the API
       payload.player_name = verifyData.username;
       payload.player_uuid = verifyData.uuid.replace(/-/g, '');
-      
-      // Save for next time and update UI
       window._playerDisplayName = payload.player_name;
       window._playerUuid = payload.player_uuid;
       showPlayerName(payload.player_name, payload.player_uuid);
-      
     } catch (err) {
       leaderboardStatus.textContent = 'Cannot submit: Invalid Minecraft username.';
       if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = false;
@@ -1723,37 +2114,110 @@ async function submitLeaderboardEntry() {
   }
 
   try {
-    if (leaderboardSubmitBtn) {
-      leaderboardSubmitBtn.disabled = true;
-    }
+    if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = true;
     leaderboardStatus.textContent = 'Submitting to leaderboard...';
 
-    const res = await fetch(LEADERBOARD_SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/leaderboard_entries', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': LEADERBOARD_SUPABASE_KEY,
-        'Prefer': 'return=representation,resolution=merge-duplicates',
-        'on_conflict': 'pack_id,player_name'
-      },
-      body: JSON.stringify(payload)
-    });
+    // delete any stale null-UUID row for this player; prevents duplicates
+    if (payload.player_uuid) {
+      try {
+        const baseUrl = LEADERBOARD_SUPABASE_URL.replace(/\/$/, '');
+        const delUrl = baseUrl + '/rest/v1/leaderboard_entries' +
+                       '?pack_id=eq.' + encodeURIComponent(payload.pack_id) +
+                       '&player_name=eq.' + encodeURIComponent(payload.player_name) +
+                       '&player_uuid=is.null';
+        await fetch(delUrl, {
+          method: 'DELETE',
+          headers: { 'apikey': LEADERBOARD_SUPABASE_KEY }
+        });
+      } catch (cleanupErr) {
+        console.warn('Failed to clean up old null-UUID row', cleanupErr);
+      }
+    }
+
+    let res;
+    if (LEADERBOARD_USE_RPC) {
+      const rpcUrl = LEADERBOARD_SUPABASE_URL.replace(/\/$/, '') +
+                     '/rest/v1/rpc/upsert_leaderboard_entry';
+      res = await fetch(rpcUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': LEADERBOARD_SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          p_pack_id: payload.pack_id,
+          p_player_name: payload.player_name,
+          p_player_uuid: payload.player_uuid,
+          p_completed_count: payload.completed_count,
+          p_total_quests: payload.total_quests
+        })
+      });
+    } else {
+      res = await fetch(
+        LEADERBOARD_SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/leaderboard_entries', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': LEADERBOARD_SUPABASE_KEY,
+            'Prefer': 'return=representation,resolution=merge-duplicates'
+          },
+          body: JSON.stringify(payload)
+        }
+      );
+    }
 
     if (!res.ok) {
-      const text = await res.text().catch(function () { return ''; });
+      const text = await res.text().catch(() => '');
+      console.log('Upsert failed with body:', text);
+      if (res.status === 409) {
+        // Conflict on the unique key – try to recover by patching the existing row
+        // instead of giving up.  Supabase should handle this automatically when
+        // `Prefer: resolution=merge-duplicates` is sent, but some configurations
+        // (missing header, RPC using the wrong conflict target, etc.) can still
+        // result in a 409.  The fallback here keeps the leaderboard usable.
+        if (!LEADERBOARD_USE_RPC && payload.player_uuid) {
+          try {
+            const baseUrl = LEADERBOARD_SUPABASE_URL.replace(/\/$/, '');
+            const updUrl = baseUrl +
+              '/rest/v1/leaderboard_entries' +
+              '?pack_id=eq.' + encodeURIComponent(payload.pack_id) +
+              '&player_uuid=eq.' + encodeURIComponent(payload.player_uuid);
+            const patchRes = await fetch(updUrl, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                'apikey': LEADERBOARD_SUPABASE_KEY
+              },
+              body: JSON.stringify(payload)
+            });
+            if (patchRes.ok) {
+              leaderboardStatus.textContent =
+                'Existing entry updated (resolved conflict). Refreshing leaderboard...';
+              await loadLeaderboard();
+              leaderboardStatus.textContent = 'Progress submitted successfully!';
+              return;
+            }
+            console.warn('Patch after conflict also failed', patchRes.status, await patchRes.text());
+          } catch (patchErr) {
+            console.error('Patch-after-conflict failed', patchErr);
+          }
+        }
+
+        leaderboardStatus.textContent =
+          'Database constraint issue detected. Check that the unique index on (pack_id, player_uuid) exists and that the upsert header is being sent.';
+        return;
+      }
       throw new Error('HTTP ' + res.status + (text ? ': ' + text : ''));
     }
 
     leaderboardStatus.textContent = 'Submission saved! Refreshing leaderboard...';
     await loadLeaderboard();
-    leaderboardStatus.textContent = 'Submission saved successfully.';
+    leaderboardStatus.textContent = 'Progress submitted successfully!';
   } catch (err) {
     console.error('Failed to submit leaderboard entry:', err);
     leaderboardStatus.textContent = 'Failed to submit leaderboard entry: ' + (err && err.message ? err.message : err);
   } finally {
-    if (leaderboardSubmitBtn) {
-      leaderboardSubmitBtn.disabled = false;
-    }
+    if (leaderboardSubmitBtn) leaderboardSubmitBtn.disabled = false;
   }
 }
 

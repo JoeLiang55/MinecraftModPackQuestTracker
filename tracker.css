@@ -165,12 +165,12 @@ header h1 {
   position: relative;
 }
 
-/* Sidebar toggle button */
+/* Sidebar toggle button (hamburger menu) - high Z-index to stay above content */
 .sidebar-toggle {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 1001;
+  z-index: 2000; /* Ensure this is above everything including modal backdrops if needed, though modals serve a different purpose */
   background: linear-gradient(135deg, #00e08a, #00b86b);
   border: none;
   border-radius: 12px;
@@ -213,21 +213,33 @@ header h1 {
 
 /* Sidebar */
 .sidebar {
-  width: 420px;
+  width: 480px;
   background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
   border-right: 2px solid #2e3a4e;
-  overflow: hidden;
+  overflow-y: auto;
   height: 100%;
   display: flex;
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 100; /* Ensure sidebar stays above content if overlap occurs */
 }
 
-.sidebar.hidden {
-  width: 0;
-  border-right: none;
-  box-shadow: none;
+.quest-content {
+  flex: 1;
+  padding: 0; /* Remove padding for graph view to allow full edge-to-edge panning */
+  overflow: hidden; /* Let the inner container handle scrolling */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add padding back for normal grid layout */
+.quest-grid {
+  padding: 24px 32px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .sidebar-header {
@@ -258,6 +270,109 @@ header h1 {
 .sidebar-close:hover {
   background-color: rgba(154, 160, 170, 0.1);
   color: #fff;
+}
+
+/* Genesis graph layout (chapter "Genesis" only) */
+.genesis-graph-wrapper {
+  position: relative;
+  margin: 20px auto;
+  background-color: #252b36;
+  border-radius: 12px;
+  border: 2px solid #2e3a4e;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: visible;
+}
+
+.genesis-graph-edges {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.genesis-graph-nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.genesis-node {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 3px solid #00e08a;
+  background-color: #1f2a22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 6px 6px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.genesis-node.incomplete {
+  border-color: #666f80;
+  background-color: #222733;
+}
+
+.genesis-node.completed {
+  border-color: #00e08a;
+  background-color: #123726;
+}
+
+.genesis-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+.genesis-node-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.genesis-node-icon img {
+  max-width: 48px;
+  max-height: 48px;
+  image-rendering: pixelated;
+}
+
+.genesis-node-label {
+  font-size: 11px;
+  text-align: center;
+  color: #e0e0e0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.genesis-node-badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 13px;
+  background-color: #00e08a;
+  color: #122018;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+.genesis-edge {
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+.genesis-edge.completed {
+  stroke: #18e38f;
+}
+
+.genesis-edge.incomplete {
+  stroke: #c33; /* Restore red color for incomplete edges */
 }
 
 .sidebar-content {
@@ -956,6 +1071,150 @@ header h1 {
   color: #9aa0aa;
   font-size: 0.9rem;
   text-align: center;
+}
+
+/* Genesis Graph Layout */
+.genesis-pan-zoom-container {
+  flex: 1;
+  min-height: 0; /* Allow flex shrinking */
+  overflow: hidden; /* Remove scrollbar, will handle panning with JS */
+  position: relative;
+  background-color: #1e2430;
+  cursor: grab;
+  user-select: none; /* Prevent text selection while dragging */
+}
+
+.genesis-pan-zoom-container.panning {
+  cursor: grabbing;
+}
+
+.genesis-graph-wrapper {
+  position: relative;
+  margin: auto; 
+  background-color: #1e2430;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease-out;
+}
+
+.genesis-graph-edges {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.genesis-edge {
+  stroke: #555;
+  stroke-width: 2;
+  fill: none;
+}
+
+.genesis-edge.completed {
+  stroke: #4caf50;
+}
+
+.genesis-graph-nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.genesis-node {
+  position: absolute;
+  background-color: #2d2d2d;
+  border: 5px solid #555;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  padding: 6px;
+  box-sizing: border-box;
+  margin: 16px;
+  width: 64px;
+  height: 64px;
+}
+
+.genesis-node:hover {
+  transform: scale(1.08);
+  border-color: #aaa;
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.genesis-node:hover .genesis-node-label {
+  display: block;
+}
+
+.genesis-node.completed {
+  border-color: #5caf60;
+  background-color: #1e3d23;
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+.genesis-node-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.genesis-node-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.genesis-node-label {
+  font-size: 12px;
+  text-align: center;
+  color: #ddd;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: none; /* Hidden by default */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 15;
+  min-width: 80px;
+  max-width: 200px;
+  white-space: normal;
+}
+
+.genesis-node-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 /* Responsive */

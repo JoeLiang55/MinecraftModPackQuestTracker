@@ -165,6 +165,13 @@ header h1 {
   position: relative;
 }
 
+/* central content spacing remains, allow panels beside it */
+.quest-content,
+.quest-grid {
+  max-width: none;
+  margin: 0;
+}
+
 /* Sidebar toggle button (hamburger menu) - high Z-index to stay above content */
 .sidebar-toggle {
   position: fixed;
@@ -213,26 +220,32 @@ header h1 {
 
 /* Sidebar */
 .sidebar {
+  /* restore sensible width; 2000px was accidentally added and crushed the
+     central content area.  Keep narrow so the middle pane can grow. */
   width: 480px;
+  min-width: 480px;
+  flex-shrink: 0;
   background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
   border-right: 2px solid #2e3a4e;
   overflow-y: auto;
   height: 100%;
   display: flex;
+  position: relative;
+  z-index: 1000;
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 100; /* Ensure sidebar stays above content if overlap occurs */
 }
 
 .quest-content {
   flex: 1;
   padding: 0; /* Remove padding for graph view to allow full edge-to-edge panning */
-  overflow: hidden; /* Let the inner container handle scrolling */
+  /* allow horizontal/vertical scroll so a large graph doesn't push the sidebar */
+  overflow: auto;
   position: relative;
   display: flex;
   flex-direction: column;
+  z-index: 10; /* above graph wrapper but below sidebar/leaderboard */
 }
 
 /* Add padding back for normal grid layout */
@@ -325,20 +338,13 @@ header h1 {
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
 }
 
-.genesis-node-icon {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
-}
+/* genesis icons are handled like normal quest nodes so that once we
+   roll the layout into other packs the look/feel stays consistent.  the
+   duplication earlier in the file was confusing and produced two different
+   sizes depending on which rule happened to win.  we now define the rules
+   only once (later in the stylesheet) and reuse the generic styling. */
 
-.genesis-node-icon img {
-  max-width: 48px;
-  max-height: 48px;
-  image-rendering: pixelated;
-}
+/* -- (the later rules at the bottom of this file will override these) -- */
 
 .genesis-node-label {
   font-size: 11px;
@@ -439,6 +445,8 @@ header h1 {
   transition: opacity 0.3s ease;
 }
 
+/* when a chapter has a style image, make the entry larger and overlay the text */
+
 #chapterNav li .chapter-icon {
   width: 44px;
   height: 44px;
@@ -474,6 +482,17 @@ header h1 {
 
 #chapterNav li:hover .chapter-label {
   color: #fff;
+}
+
+.graph-controls {
+  margin-top: 8px;
+  color: #9aa0aa;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.graph-controls input[type=range] {
+  vertical-align: middle;
+  margin-left: 4px;
 }
 
 #chapterNav li.active {
@@ -512,20 +531,57 @@ header h1 {
 }
 
 .leaderboard-panel {
-  width: 360px;
-  max-width: 380px;
+  width: 400px; /* narrower now that last-updated column removed */
+  min-width: 400px;
+  flex-shrink: 0;
+  max-width: 420px;
+  position: relative;
+  z-index: 1000;
   background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
   border-left: 2px solid #2e3a4e;
   padding: 20px 18px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: width 0.3s ease, min-width 0.3s ease, padding 0.3s ease;
+}
+
+.leaderboard-panel.collapsed {
+  width: 44px;
+  min-width: 44px;
+  padding: 20px 5px;
+}
+
+.leaderboard-panel.collapsed h2,
+.leaderboard-panel.collapsed .leaderboard-status,
+.leaderboard-panel.collapsed .leaderboard-table-wrapper {
+  display: none;
 }
 
 .leaderboard-panel h2 {
   font-size: 1.2rem;
   color: #ffd700;
   margin-bottom: 8px;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leaderboard-toggle-btn {
+  background: none;
+  border: none;
+  color: #ffd700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  transition: transform 0.2s;
+}
+
+.leaderboard-toggle-btn:hover {
+  transform: scale(1.2);
 }
 
 .leaderboard-status {
@@ -558,6 +614,8 @@ header h1 {
   text-align: left;
   border-bottom: 1px solid #2e3a4e;
 }
+
+/* ensure percent column has enough space */
 
 .leaderboard-table th {
   font-weight: 600;
@@ -1077,7 +1135,7 @@ header h1 {
 .genesis-pan-zoom-container {
   flex: 1;
   min-height: 0; /* Allow flex shrinking */
-  overflow: hidden; /* Remove scrollbar, will handle panning with JS */
+  overflow: auto; /* show scrollbar if graph is wider/taller than container */
   position: relative;
   background-color: #1e2430;
   cursor: grab;
@@ -1094,6 +1152,8 @@ header h1 {
   background-color: #1e2430;
   transform-origin: 0 0;
   transition: transform 0.1s ease-out;
+  max-width: 100%; /* never force container wider than available space */
+  z-index: 1; /* keep under side panels */
 }
 
 .genesis-graph-edges {
@@ -1159,19 +1219,34 @@ header h1 {
   box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
 }
 
+/* icon container – mimic the generic quest-node-icon style */
 .genesis-node-icon {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 4px;
+  background-color: #2e3a4e;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.genesis-node.completed .genesis-node-icon {
+  border-color: #00c878;
+  background-color: rgba(0, 200, 120, 0.12);
+  box-shadow: 0 0 10px rgba(0, 224, 138, 0.25);
 }
 
 .genesis-node-icon img {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
 }
 
 .genesis-node-label {
@@ -1226,6 +1301,7 @@ header h1 {
 
   #chapterList {
     width: 100%;
+    min-width: 100%;
     border-right: none;
     border-bottom: 2px solid #2e3a4e;
   }
@@ -1246,6 +1322,7 @@ header h1 {
 
   .leaderboard-panel {
     width: 100%;
+    min-width: 100%;
     max-width: none;
     border-left: none;
     border-top: 2px solid #2e3a4e;

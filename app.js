@@ -1197,7 +1197,7 @@ function getQuestsForChapter(line, externalKey) {
   const raw = line.quests || line['quests:9'] || {}; // Should be an object or array
 
   // Use the external key passed from extractChapters so the coord map key
-  // matches chapter.id used later in renderGenesisGraph
+  // matches chapter.id used later in renderChapterGraph
   var lineID = externalKey != null ? String(externalKey) : String(line.lineID ?? line['lineID:3'] ?? 'unknown');
 
   if (!window._chapterCoords) window._chapterCoords = {};
@@ -1242,11 +1242,9 @@ function getQuestsForChapter(line, externalKey) {
 }
 
 // Chapter icon filename from display name (e.g. "Early Game" -> "Early_Game.png")
+// This is still used for the little square icons in the sidebar.
 function chapterIconPath(name) {
   if (!name || name === 'All Quests') return '';
-  
-  // Try to match ORDERED_CHAPTER_NAMES for Screenshot_X.png
-  // Case-insensitive match just in case
   var idx = -1;
   var normName = (name || '').trim().toLowerCase();
   for (var i = 0; i < ORDERED_CHAPTER_NAMES.length; i++) {
@@ -1256,19 +1254,24 @@ function chapterIconPath(name) {
       break;
     }
   }
-  
   if (idx !== -1) {
-    // Found in ordered list! Map to Screenshot_{idx+1}.png
     return 'icons/Screenshot_' + (idx + 1) + '.png';
   }
-
-  // Fallback: Sanitize name: replace spaces with underscores, remove special chars
-  // Handle "Fusion & Research" -> "Fusion_Research" or similar
   var safeName = (name || '').trim()
-    .replace(/&/g, '') // Remove ampersand
-    .replace(/[<>:"/\\|?*]/g, '') // Remove invalid chars
-    .replace(/\s+/g, '_'); // Spaces to underscores
+    .replace(/&/g, '')
+    .replace(/[<>:"/\\|?*]/g, '')
+    .replace(/\s+/g, '_');
   return 'icons/' + safeName + '.png';
+}
+
+// OPTIONAL: path to chapterstyle image used by graph renderer
+function chapterStylePath(name) {
+  if (!name || name === 'All Quests') return '';
+  var safeName = (name || '').trim()
+    .replace(/&/g, '')
+    .replace(/[<>:"/\\|?*]/g, '')
+    .replace(/\s+/g, '_');
+  return 'chapterstyle/' + safeName + '.png';
 }
 
 // Render chapter list in sidebar
@@ -1302,7 +1305,7 @@ function renderChapters() {
       const progressSpan = document.createElement('div');
       progressSpan.className = 'chapter-progress';
       const percentage = Math.round((completedCount / totalCount) * 100);
-      progressSpan.textContent = completedCount + '/' + totalCount + ' completed (' + percentage + '%)';
+      progressSpan.textContent = completedCount + '/' + totalCount + ' completed';
       if (completedCount === totalCount) {
         progressSpan.style.color = '#00e08a';
         progressSpan.innerHTML = '✓ ' + progressSpan.textContent;
@@ -1359,12 +1362,29 @@ function selectChapter(chapterId) {
       if (totalCount) totalCount.textContent = chapterQuests.length;
     }
 
-    // For Genesis, render a dependency graph instead of a simple grid
-    var chapterNameLower = (chapter.name || '').trim().toLowerCase();
-    if (chapterNameLower === 'genesis') {
-      renderGenesisGraph(chapter, chapterQuests);
-    } else {
-      renderQuests(chapterQuests);
+    // render a graph-style layout for every chapter; the helper will fall
+    // back to the normal grid if no coordinates are available.
+    renderChapterGraph(chapter, chapterQuests);
+    
+    // Auto-collapse leaderboard for non-Genesis chapters to make more room
+    if (leaderboardPanel && document.getElementById('leaderboardToggle')) {
+      const isGenesis = chapter.name === 'Genesis' || chapter.name === 'The Beginning';
+      const toggleBtn = document.getElementById('leaderboardToggle');
+      if (isGenesis) {
+        // Expand on Genesis
+        if (leaderboardPanel.classList.contains('collapsed')) {
+          leaderboardPanel.classList.remove('collapsed');
+          toggleBtn.innerHTML = '\u25C0'; // Left arrow
+          toggleBtn.setAttribute('aria-label', 'Hide leaderboard');
+        }
+      } else {
+        // Collapse on other chapters
+        if (!leaderboardPanel.classList.contains('collapsed')) {
+          leaderboardPanel.classList.add('collapsed');
+          toggleBtn.innerHTML = '\u25B6'; // Right arrow
+          toggleBtn.setAttribute('aria-label', 'Show leaderboard');
+        }
+      }
     }
   }
 }
@@ -1391,17 +1411,20 @@ function renderQuests(quests) {
   questContentContainer.appendChild(grid);
 }
 
-// Render a graph-style layout for the Genesis chapter, using prerequisites as edges
-function renderGenesisGraph(chapter, chapterQuests) {
+// Render a graph-style layout for any chapter that has coordinate data.
+// Quest nodes are placed according to _chapterCoords; dependencies become
+// edges. If no coordinates exist, the function gracefully falls back to a
+// grid.  The optional chapterstyle PNG (if present) is used as a background.
+function renderChapterGraph(chapter, chapterQuests) {
   const questContentContainer = questContent || document.querySelector('.quest-content');
   if (!questContentContainer) {
-    console.error('Quest content container not found for Genesis graph');
+    console.error('Quest content container not found for chapter graph');
     return;
   }
 
   questContentContainer.innerHTML = '';
   if (!chapterQuests || !chapterQuests.length) {
-    questContentContainer.innerHTML = '<p class="placeholder">No quests found in Genesis</p>';
+    questContentContainer.innerHTML = '<p class="placeholder">No quests found in this chapter</p>';
     return;
   }
 
@@ -1436,26 +1459,26 @@ function renderGenesisGraph(chapter, chapterQuests) {
   }
   if (!chapterCoords) chapterCoords = window._questCoords || {};
   
+  // build positions at the base scale first
+  // Fixed base scale so layout doesn't warp/rerender; CSS zoom handles scaling
+  var baseScale = 2.0;
   chapterQuests.forEach(function (q) {
     var coords = chapterCoords[q.id] || { x: 0, y: 0, sizeX: 24, sizeY: 24 };
-    
-    // BetterQuesting coordinates are often scaled differently, we'll try 1.0 first but double check
-    // The reference image shows a large spread, so let's stick to 1.5 or adjust if needed.
-    // Actually, usually 1 unit = 1 pixel at 100% zoom in BQ, but let's see.
-    // Smaller scale to keep genesis graph compact
-    var scale = 2.0; 
-    var x = coords.x * scale;
-    var y = coords.y * scale;
-    var w = coords.sizeX * scale;
-    var h = coords.sizeY * scale;
-    
+    var x = coords.x * baseScale;
+    var y = coords.y * baseScale;
+    var w = coords.sizeX * baseScale;
+    var h = coords.sizeY * baseScale;
+
     positions[q.id] = { x: x, y: y, w: w, h: h };
-    
+
     if (x < minX) minX = x;
     if (y < minY) minY = y;
     if (x + w > maxX) maxX = x + w;
     if (y + h > maxY) maxY = y + h;
   });
+
+  // Add padding to accommodate nodes
+  var padding = 130;
 
   // Safety check if no coordinates found
   if (minX === Infinity) {
@@ -1463,8 +1486,8 @@ function renderGenesisGraph(chapter, chapterQuests) {
     return;
   }
 
-  // Add padding to accommodate nodes
-  var padding = 130;
+  // Add padding to accommodate nodes and their borders
+  var padding = 160;
   var totalWidth = (maxX - minX) + padding * 2;
   var totalHeight = (maxY - minY) + padding * 2;
 
@@ -1478,6 +1501,15 @@ function renderGenesisGraph(chapter, chapterQuests) {
   wrapper.className = 'genesis-graph-wrapper';
   wrapper.style.width = totalWidth + 'px';
   wrapper.style.height = totalHeight + 'px';
+  // apply chapter style image to wrapper so it moves when panning
+  var stylePath = chapterStylePath ? chapterStylePath(chapter.name) : '';
+  if (stylePath) {
+    wrapper.style.backgroundImage = 'url(' + stylePath + ')';
+    wrapper.style.backgroundRepeat = 'repeat';
+    // By not using "cover", the texture scale remains static across all chapters
+    // instead of warping/stretching based on the chapter's quest bounding box.
+    wrapper.style.backgroundPosition = 'top left';
+  }
 
   var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   svg.setAttribute('class', 'genesis-graph-edges');
@@ -1656,7 +1688,8 @@ function renderGenesisGraph(chapter, chapterQuests) {
   questContentContainer.appendChild(panZoomContainer);
   
   // Add pan and zoom functionality
-  var scale = 0.4; // Start zoomed out so all content is visible and chapters can be seen
+  var scaleSlider = document.getElementById('graphScale');
+  var scale = scaleSlider ? parseFloat(scaleSlider.value) : 0.4;
   var panX = 0;
   var panY = 0;
   var isDragging = false;
@@ -1665,6 +1698,23 @@ function renderGenesisGraph(chapter, chapterQuests) {
   
   function updateTransform() {
     wrapper.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+    if (scaleSlider && parseFloat(scaleSlider.value) !== scale) {
+      scaleSlider.value = scale;
+    }
+  }
+
+  if (scaleSlider) {
+    scaleSlider.oninput = function () {
+      var newScale = parseFloat(this.value);
+      var containerRect = panZoomContainer.getBoundingClientRect();
+      var mouseX = containerRect.width / 2;
+      var mouseY = containerRect.height / 2;
+      
+      panX = mouseX - (mouseX - panX) * (newScale / scale);
+      panY = mouseY - (mouseY - panY) * (newScale / scale);
+      scale = newScale;
+      updateTransform();
+    };
   }
   
   // Mouse wheel zoom
@@ -2259,7 +2309,7 @@ async function loadLeaderboard() {
       const row = document.createElement('tr');
       row.className = 'leaderboard-empty-row';
       const cell = document.createElement('td');
-      cell.colSpan = 6;
+      cell.colSpan = 5;
       cell.textContent = 'No entries yet. Be the first to submit!';
       row.appendChild(cell);
       leaderboardBody.appendChild(row);
@@ -2285,24 +2335,6 @@ async function loadLeaderboard() {
       totalTd.textContent = String(entry.total_quests || 0);
       tr.appendChild(totalTd);
 
-      const pctTd = document.createElement('td');
-      const pctVal = typeof entry.percent_complete === 'number' ? entry.percent_complete : (entry.total_quests ? (entry.completed_count / entry.total_quests * 100) : 0);
-      pctTd.textContent = Math.round(pctVal) + '%';
-      tr.appendChild(pctTd);
-
-      const dateTd = document.createElement('td');
-      if (entry.submitted_at) {
-        var d = new Date(entry.submitted_at);
-        if (!isNaN(d.getTime())) {
-          dateTd.textContent = d.toLocaleString();
-        } else {
-          dateTd.textContent = entry.submitted_at;
-        }
-      } else {
-        dateTd.textContent = '-';
-      }
-      tr.appendChild(dateTd);
-
       if (window._playerDisplayName && entry.player_name === window._playerDisplayName) {
         tr.className += (tr.className ? ' ' : '') + 'leaderboard-row-self';
       }
@@ -2321,6 +2353,15 @@ async function loadLeaderboard() {
   if (!LEADERBOARD_ENABLED) return;
   if (!leaderboardPanel || !leaderboardBody || !leaderboardStatus) return;
 
+  // add collapse/expand button behaviour
+  var toggleBtn = document.getElementById('leaderboardToggle');
+  if (toggleBtn && leaderboardPanel) {
+    toggleBtn.addEventListener('click', function () {
+      var collapsed = leaderboardPanel.classList.toggle('collapsed');
+      toggleBtn.innerHTML = collapsed ? '\u25B6' : '\u25C0';
+      toggleBtn.setAttribute('aria-label', collapsed ? 'Show leaderboard' : 'Hide leaderboard');
+    });
+  }
   // If backend URL/key are not configured yet, show a helpful message and stop.
   if (!LEADERBOARD_SUPABASE_URL || !LEADERBOARD_SUPABASE_KEY) {
     leaderboardStatus.textContent = 'Leaderboard backend not configured yet.';

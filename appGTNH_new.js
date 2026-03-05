@@ -16,7 +16,7 @@ let loadedAtlases = {}; // Cache of loaded icon data {atlasName: {iconId: base64
 let iconLoadQueue = {}; // Queue of images waiting for atlas to load
 
 // ── DOM Elements ─────────────────────────────────────────────────────
-const questLineSelect = document.getElementById('questLineSelect');
+const questLineNav = document.getElementById('questLineNav');
 const questContainer = document.getElementById('questContainer');
 const playerFileInput = document.getElementById('playerFile');
 const progressContainer = document.getElementById('progressContainer');
@@ -25,6 +25,12 @@ const progressText = document.getElementById('progressText');
 const overallProgressContainer = document.getElementById('overallProgressContainer');
 const overallProgressFill = document.getElementById('overallProgressFill');
 const overallProgressText = document.getElementById('overallProgressText');
+const currentQuestLineTitle = document.getElementById('currentQuestLineTitle');
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebar = document.getElementById('questLineList');
+const sidebarClose = document.getElementById('sidebarClose');
+const leaderboardPanel = document.getElementById('leaderboardPanel');
+const leaderboardToggle = document.getElementById('leaderboardToggle');
 
 // ── Initialize ───────────────────────────────────────────────────────
 async function init() {
@@ -42,15 +48,18 @@ async function init() {
     await loadQuestData();
     
     // Setup event listeners
-    questLineSelect.addEventListener('change', handleQuestLineChange);
     playerFileInput.addEventListener('change', handlePlayerFileUpload);
     initQuestModal();
     initSharing();
+    initSidebar();
+    initLeaderboard();
+    
+    // Populate sidebar with quest lines
+    populateQuestLineNav();
     
     // Select first quest line by default
     if (questLines.length > 0) {
-      questLineSelect.value = questLines[0].quest;
-      handleQuestLineChange();
+      selectQuestLine(questLines[0].quest);
     }
   } catch (error) {
     showError('Failed to initialize: ' + error.message);
@@ -210,15 +219,6 @@ async function loadQuestLines() {
     if (!response.ok) throw new Error('Failed to load quest lines');
     questLines = await response.json();
     
-    // Populate select dropdown
-    questLineSelect.innerHTML = '';
-    questLines.forEach(line => {
-      const option = document.createElement('option');
-      option.value = line.quest;
-      option.textContent = line.title;
-      questLineSelect.appendChild(option);
-    });
-    
     console.log('Loaded', questLines.length, 'quest lines');
   } catch (error) {
     console.error('Error loading quest lines:', error);
@@ -240,44 +240,100 @@ async function loadQuestData() {
   }
 }
 
-// ── Handle Quest Line Selection ──────────────────────────────────────
-function handleQuestLineChange() {
-  const selectedLine = questLineSelect.value;
-  if (!selectedLine) return;
+// ── Populate Quest Line Navigation ───────────────────────────────────
+function populateQuestLineNav() {
+  questLineNav.innerHTML = '';
   
-  currentQuestLine = selectedLine;
-  renderQuestLine(selectedLine);
+  questLines.forEach(line => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = line.title;
+    a.dataset.questLine = line.quest;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      selectQuestLine(line.quest);
+      
+      // Close sidebar on mobile
+      if (window.innerWidth <= 768) {
+        sidebar.classList.remove('active');
+        sidebarToggle.classList.remove('active');
+      }
+    });
+    li.appendChild(a);
+    questLineNav.appendChild(li);
+  });
+}
+
+// ── Select Quest Line ─────────────────────────────────────────────────
+function selectQuestLine(questLineName) {
+  if (!questLineName) return;
+  
+  currentQuestLine = questLineName;
+  
+  // Update active state in sidebar
+  const navLinks = questLineNav.querySelectorAll('a');
+  navLinks.forEach(link => {
+    if (link.dataset.questLine === questLineName) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+  
+  // Update title
+  const line = questLines.find(l => l.quest === questLineName);
+  if (line && currentQuestLineTitle) {
+    currentQuestLineTitle.textContent = line.title;
+  }
+  
+  // Render quests
+  renderQuestLine(questLineName);
   updateProgressBar();
 }
 
 // ── Render Quest Line ────────────────────────────────────────────────
 function renderQuestLine(questLineName) {
   const lineData = questData[questLineName];
+  const questContent = questContainer.querySelector('.quest-content');
   
   if (!lineData || !lineData.data) {
-    questContainer.innerHTML = '<div class="loading-message">No quests found for this line</div>';
+    if (questContent) {
+      questContent.innerHTML = '<div class="loading-message">No quests found for this line</div>';
+    }
     return;
   }
   
+  // Show stats
+  const questStats = document.getElementById('questStats');
+  if (questStats) {
+    questStats.style.display = 'flex';
+  }
+  
   // Create grid container
-  questContainer.innerHTML = '';
-  const grid = document.createElement('div');
-  grid.className = 'quest-grid';
-  
-  // Render each quest
-  lineData.data.forEach(quest => {
-    // Filter out quests that have no title/name and no description
-    const title = quest.title || quest.name || '';
-    const desc = quest.description || '';
-    if (title.trim() === '' && desc.trim() === '') {
-      return;
-    }
+  if (questContent) {
+    questContent.innerHTML = '';
+    const grid = document.createElement('div');
+    grid.className = 'quest-grid';
+    
+    // Render each quest
+    lineData.data.forEach(quest => {
+      // Filter out quests that have no title/name and no description
+      const title = quest.title || quest.name || '';
+      const desc = quest.description || '';
+      if (title.trim() === '' && desc.trim() === '') {
+        return;
+      }
 
-    const questNode = createQuestNode(quest);
-    grid.appendChild(questNode);
-  });
-  
-  questContainer.appendChild(grid);
+      const questNode = createQuestNode(quest);
+      grid.appendChild(questNode);
+    });
+    
+    questContent.appendChild(grid);
+    
+    // Update quest stats
+    updateQuestStats();
+  }
 }
 
 // ── Create Quest Node ────────────────────────────────────────────────
@@ -342,6 +398,42 @@ function createQuestNode(quest) {
   node.appendChild(title);
   
   return node;
+}
+
+// ── Update Quest Stats ───────────────────────────────────────────────
+function updateQuestStats() {
+  if (!currentQuestLine || !questData[currentQuestLine]) return;
+  
+  const lineData = questData[currentQuestLine];
+  const quests = lineData.data || [];
+  const totalQuests = quests.filter(q => {
+    const title = q.title || q.name || '';
+    const desc = q.description || '';
+    return title.trim() !== '' || desc.trim() !== '';
+  }).length;
+  
+  let completedQuests = 0;
+  quests.forEach(quest => {
+    const questId = quest.quest_id || quest.name;
+    let isCompleted = completedQuestIds.has(String(questId));
+    
+    if (!isCompleted && questId && questId.length > 10) {
+      try {
+        const decimalId = processBase64ToDecimal(questId);
+        isCompleted = completedQuestIds.has(decimalId);
+      } catch (e) {
+        // Ignore
+      }
+    }
+    
+    if (isCompleted) completedQuests++;
+  });
+  
+  const completedEl = document.getElementById('completedCount');
+  const totalEl = document.getElementById('totalCount');
+  
+  if (completedEl) completedEl.textContent = completedQuests;
+  if (totalEl) totalEl.textContent = totalQuests;
 }
 
 // ── Minecraft Color Codes ────────────────────────────────────────────
@@ -612,6 +704,9 @@ function updateProgressBar() {
   progressContainer.style.display = 'flex';
   progressFill.style.width = percentage + '%';
   progressText.textContent = completed + '/' + total + ' (' + percentage + '%)';
+  
+  // Update quest stats
+  updateQuestStats();
 }
 
 function updateOverallProgress() {
@@ -655,6 +750,54 @@ function initSharing() {
   
   if (shareBtn) shareBtn.addEventListener('click', generateShareLink);
   if (copyBtn) copyBtn.addEventListener('click', copyShareLink);
+}
+
+// ── Initialize Sidebar ───────────────────────────────────────────────
+function initSidebar() {
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      sidebarToggle.classList.toggle('active');
+    });
+  }
+  
+  if (sidebarClose) {
+    sidebarClose.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      sidebarToggle.classList.remove('active');
+    });
+  }
+}
+
+// ── Initialize Leaderboard ───────────────────────────────────────────
+function initLeaderboard() {
+  if (leaderboardToggle) {
+    leaderboardToggle.addEventListener('click', () => {
+      leaderboardPanel.classList.toggle('collapsed');
+      leaderboardToggle.setAttribute('aria-label', 
+        leaderboardPanel.classList.contains('collapsed') ? 'Show leaderboard' : 'Hide leaderboard'
+      );
+    });
+  }
+  
+  // Try to load leaderboard data (placeholder for now)
+  loadLeaderboard();
+}
+
+// ── Load Leaderboard Data ────────────────────────────────────────────
+async function loadLeaderboard() {
+  const leaderboardStatus = document.getElementById('leaderboardStatus');
+  const leaderboardBody = document.getElementById('leaderboardBody');
+  
+  if (!leaderboardStatus || !leaderboardBody) return;
+  
+  // Placeholder implementation - in future this would fetch from a backend
+  leaderboardStatus.textContent = 'Leaderboard coming soon!';
+  leaderboardBody.innerHTML = `
+    <tr class="leaderboard-empty-row">
+      <td colspan="4">Leaderboard functionality coming soon!</td>
+    </tr>
+  `;
 }
 
 function generateShareLink() {

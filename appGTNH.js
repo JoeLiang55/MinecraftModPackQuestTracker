@@ -381,8 +381,8 @@ function renderChapters() {
     if (chapterQuests.length > 0) {
       const prog = document.createElement('div');
       prog.className = 'chapter-progress';
-      const percentage = Math.round((completedCount / chapterQuests.length) * 100);
-      prog.textContent = completedCount + '/' + chapterQuests.length + ' completed (' + percentage + '%)';
+      // just show count, no percentage
+      prog.textContent = completedCount + '/' + chapterQuests.length + ' completed';
       
       // Add color indicator for completion
       if (completedCount === chapterQuests.length) {

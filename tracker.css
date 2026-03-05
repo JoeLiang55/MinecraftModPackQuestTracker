@@ -23,7 +23,7 @@ header {
 
 header h1 {
   color: #00e08a;
-  margin-bottom: 15px;
+  margin-bottom: 24px;
   font-size: 2rem;
   text-shadow: 0 0 10px rgba(0, 224, 138, 0.15);
 }
@@ -133,7 +133,7 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .progress-bar {
@@ -165,12 +165,19 @@ header h1 {
   position: relative;
 }
 
-/* Sidebar toggle button */
+/* central content spacing remains, allow panels beside it */
+.quest-content,
+.quest-grid {
+  max-width: none;
+  margin: 0;
+}
+
+/* Sidebar toggle button (hamburger menu) - high Z-index to stay above content */
 .sidebar-toggle {
   position: fixed;
   top: 20px;
   left: 20px;
-  z-index: 1001;
+  z-index: 2000; /* Ensure this is above everything including modal backdrops if needed, though modals serve a different purpose */
   background: linear-gradient(135deg, #00e08a, #00b86b);
   border: none;
   border-radius: 12px;
@@ -213,21 +220,39 @@ header h1 {
 
 /* Sidebar */
 .sidebar {
-  width: 420px;
+  /* restore sensible width; 2000px was accidentally added and crushed the
+     central content area.  Keep narrow so the middle pane can grow. */
+  width: 480px;
+  min-width: 480px;
+  flex-shrink: 0;
   background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
   border-right: 2px solid #2e3a4e;
-  overflow: hidden;
+  overflow-y: auto;
   height: 100%;
   display: flex;
+  position: relative;
+  z-index: 1000;
   flex-direction: column;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.sidebar.hidden {
-  width: 0;
-  border-right: none;
-  box-shadow: none;
+.quest-content {
+  flex: 1;
+  padding: 0; /* Remove padding for graph view to allow full edge-to-edge panning */
+  /* allow horizontal/vertical scroll so a large graph doesn't push the sidebar */
+  overflow: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  z-index: 10; /* above graph wrapper but below sidebar/leaderboard */
+}
+
+/* Add padding back for normal grid layout */
+.quest-grid {
+  padding: 32px 40px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .sidebar-header {
@@ -258,6 +283,102 @@ header h1 {
 .sidebar-close:hover {
   background-color: rgba(154, 160, 170, 0.1);
   color: #fff;
+}
+
+/* Genesis graph layout (chapter "Genesis" only) */
+.genesis-graph-wrapper {
+  position: relative;
+  margin: 20px auto;
+  background-color: #252b36;
+  border-radius: 12px;
+  border: 2px solid #2e3a4e;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: visible;
+}
+
+.genesis-graph-edges {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.genesis-graph-nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.genesis-node {
+  position: absolute;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 3px solid #00e08a;
+  background-color: #1f2a22;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 6px 6px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background-color 0.12s ease;
+}
+
+.genesis-node.incomplete {
+  border-color: #666f80;
+  background-color: #222733;
+}
+
+.genesis-node.completed {
+  border-color: #00e08a;
+  background-color: #123726;
+}
+
+.genesis-node:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* genesis icons are handled like normal quest nodes so that once we
+   roll the layout into other packs the look/feel stays consistent.  the
+   duplication earlier in the file was confusing and produced two different
+   sizes depending on which rule happened to win.  we now define the rules
+   only once (later in the stylesheet) and reuse the generic styling. */
+
+/* -- (the later rules at the bottom of this file will override these) -- */
+
+.genesis-node-label {
+  font-size: 11px;
+  text-align: center;
+  color: #e0e0e0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.genesis-node-badge {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 13px;
+  background-color: #00e08a;
+  color: #122018;
+  border-radius: 10px;
+  padding: 2px 6px;
+  font-weight: 700;
+}
+
+.genesis-edge {
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+.genesis-edge.completed {
+  stroke: #18e38f;
+}
+
+.genesis-edge.incomplete {
+  stroke: #c33; /* Restore red color for incomplete edges */
 }
 
 .sidebar-content {
@@ -324,6 +445,8 @@ header h1 {
   transition: opacity 0.3s ease;
 }
 
+/* when a chapter has a style image, make the entry larger and overlay the text */
+
 #chapterNav li .chapter-icon {
   width: 44px;
   height: 44px;
@@ -361,6 +484,17 @@ header h1 {
   color: #fff;
 }
 
+.graph-controls {
+  margin-top: 8px;
+  color: #9aa0aa;
+  font-size: 0.9rem;
+  text-align: center;
+}
+.graph-controls input[type=range] {
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
 #chapterNav li.active {
   background: linear-gradient(135deg, #3a4660 0%, #2e3a4e 100%);
   border-left-color: #00e08a;
@@ -393,24 +527,61 @@ header h1 {
 
 /* Layout: quest list + leaderboard side-by-side on wide screens */
 .container {
-  gap: 16px;
+  gap: 24px;
 }
 
 .leaderboard-panel {
-  width: 360px;
-  max-width: 380px;
+  width: 400px; /* narrower now that last-updated column removed */
+  min-width: 400px;
+  flex-shrink: 0;
+  max-width: 420px;
+  position: relative;
+  z-index: 1000;
   background: linear-gradient(180deg, #252d3d 0%, #1f2632 100%);
   border-left: 2px solid #2e3a4e;
   padding: 20px 18px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: width 0.3s ease, min-width 0.3s ease, padding 0.3s ease;
+}
+
+.leaderboard-panel.collapsed {
+  width: 44px;
+  min-width: 44px;
+  padding: 20px 5px;
+}
+
+.leaderboard-panel.collapsed h2,
+.leaderboard-panel.collapsed .leaderboard-status,
+.leaderboard-panel.collapsed .leaderboard-table-wrapper {
+  display: none;
 }
 
 .leaderboard-panel h2 {
   font-size: 1.2rem;
   color: #ffd700;
   margin-bottom: 8px;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leaderboard-toggle-btn {
+  background: none;
+  border: none;
+  color: #ffd700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  transition: transform 0.2s;
+}
+
+.leaderboard-toggle-btn:hover {
+  transform: scale(1.2);
 }
 
 .leaderboard-status {
@@ -443,6 +614,8 @@ header h1 {
   text-align: left;
   border-bottom: 1px solid #2e3a4e;
 }
+
+/* ensure percent column has enough space */
 
 .leaderboard-table th {
   font-weight: 600;
@@ -479,7 +652,7 @@ header h1 {
 .quest-chapter-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
 }
 
 .quest-chapter-icon {
@@ -535,7 +708,7 @@ header h1 {
 
 .quest-content {
   flex: 1;
-  padding: 24px 32px;
+  padding: 32px 40px;
   overflow-y: auto;
 }
 
@@ -561,7 +734,7 @@ header h1 {
 .quest-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  gap: 30px;
 }
 
 .placeholder {
@@ -576,7 +749,7 @@ header h1 {
 .quest-card {
   background: linear-gradient(135deg, #252d3d 0%, #1f2632 100%);
   border-radius: 16px;
-  padding: 18px;
+  padding: 24px;
   min-height: 180px;
   width: 100%;
   display: flex;
@@ -958,6 +1131,167 @@ header h1 {
   text-align: center;
 }
 
+/* Genesis Graph Layout */
+.genesis-pan-zoom-container {
+  flex: 1;
+  min-height: 0; /* Allow flex shrinking */
+  overflow: auto; /* show scrollbar if graph is wider/taller than container */
+  position: relative;
+  background-color: #1e2430;
+  cursor: grab;
+  user-select: none; /* Prevent text selection while dragging */
+}
+
+.genesis-pan-zoom-container.panning {
+  cursor: grabbing;
+}
+
+.genesis-graph-wrapper {
+  position: relative;
+  margin: auto; 
+  background-color: #1e2430;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease-out;
+  max-width: 100%; /* never force container wider than available space */
+  z-index: 1; /* keep under side panels */
+}
+
+.genesis-graph-edges {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.genesis-edge {
+  stroke: #555;
+  stroke-width: 2;
+  fill: none;
+}
+
+.genesis-edge.completed {
+  stroke: #4caf50;
+}
+
+.genesis-graph-nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.genesis-node {
+  position: absolute;
+  background-color: #2d2d2d;
+  border: 5px solid #555;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  padding: 6px;
+  box-sizing: border-box;
+  margin: 16px;
+  width: 64px;
+  height: 64px;
+}
+
+.genesis-node:hover {
+  transform: scale(1.08);
+  border-color: #aaa;
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.genesis-node:hover .genesis-node-label {
+  display: block;
+}
+
+.genesis-node.completed {
+  border-color: #5caf60;
+  background-color: #1e3d23;
+  box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* icon container – mimic the generic quest-node-icon style */
+.genesis-node-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2e3a4e;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.genesis-node.completed .genesis-node-icon {
+  border-color: #00c878;
+  background-color: rgba(0, 200, 120, 0.12);
+  box-shadow: 0 0 10px rgba(0, 224, 138, 0.25);
+}
+
+.genesis-node-icon img {
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
+}
+
+.genesis-node-label {
+  font-size: 12px;
+  text-align: center;
+  color: #ddd;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: none; /* Hidden by default */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 15;
+  min-width: 80px;
+  max-width: 200px;
+  white-space: normal;
+}
+
+.genesis-node-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .container {
@@ -967,6 +1301,7 @@ header h1 {
 
   #chapterList {
     width: 100%;
+    min-width: 100%;
     border-right: none;
     border-bottom: 2px solid #2e3a4e;
   }
@@ -974,7 +1309,7 @@ header h1 {
   #chapterNav {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
   }
 
   #chapterNav li {
@@ -987,6 +1322,7 @@ header h1 {
 
   .leaderboard-panel {
     width: 100%;
+    min-width: 100%;
     max-width: none;
     border-left: none;
     border-top: 2px solid #2e3a4e;
@@ -996,7 +1332,7 @@ header h1 {
 @media (max-width: 600px) {
   .file-inputs {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
   }
 
   header h1 {

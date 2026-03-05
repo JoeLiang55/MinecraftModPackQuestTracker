@@ -33,6 +33,7 @@
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 15px;
       padding: 20px;
+      max-width: 100%;
     }
 
     .quest-node {
@@ -82,6 +83,9 @@
     .quest-node-icon img {
       max-width: 40px;
       max-height: 40px;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
       image-rendering: pixelated;
       filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
     }
@@ -177,18 +181,75 @@
       </div>
       <span class="progress-text" id="progressText">0%</span>
     </div>
-
-    <div class="quest-line-selector">
-      <label for="questLineSelect" style="color: #9aa0aa; margin-right: 10px;">Select Quest Line:</label>
-      <select id="questLineSelect">
-        <option value="">Loading quest lines...</option>
-      </select>
-    </div>
   </header>
 
-  <main id="questContainer">
-    <div class="loading-message">Loading quest data...</div>
-  </main>
+  <div class="container">
+    <!-- Sidebar toggle button -->
+    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    
+    <!-- Left sidebar for quest lines (chapters) -->
+    <aside id="questLineList" class="sidebar">
+      <div class="sidebar-header">
+        <h2>Quest Lines</h2>
+        <button id="sidebarClose" class="sidebar-close" aria-label="Close sidebar">&times;</button>
+      </div>
+      <div class="sidebar-content">
+        <ul id="questLineNav"></ul>
+      </div>
+    </aside>
+
+    <!-- Main panel for quests -->
+    <main id="questContainer">
+      <div class="quest-header">
+        <div class="quest-chapter-info">
+          <h2 id="currentQuestLineTitle">Select a Quest Line</h2>
+        </div>
+        <div class="quest-stats" id="questStats" style="display: none;">
+          <span class="stat-item">
+            <span class="stat-label">Completed:</span>
+            <span class="stat-value" id="completedCount">0</span>
+          </span>
+          <span class="stat-item">
+            <span class="stat-label">Total:</span>
+            <span class="stat-value" id="totalCount">0</span>
+          </span>
+        </div>
+      </div>
+      <div class="quest-content">
+        <div class="loading-message">Loading quest data...</div>
+      </div>
+    </main>
+    
+    <!-- Leaderboard panel -->
+    <section id="leaderboardPanel" class="leaderboard-panel" aria-label="GTNH Leaderboard">
+      <div class="leaderboard-header">
+        <h2>GTNH Leaderboard</h2>
+        <button id="leaderboardToggle" class="leaderboard-toggle-btn" aria-label="Hide leaderboard">&#x25C0;</button>
+      </div>
+      <p id="leaderboardStatus" class="leaderboard-status">Loading leaderboard...</p>
+      <div class="leaderboard-table-wrapper">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Completed</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr class="leaderboard-empty-row">
+              <td colspan="4">No entries yet. Be the first to submit!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
   <div id="questModal" class="quest-modal hidden" aria-hidden="true">
     <div class="quest-modal-backdrop"></div>

@@ -40,9 +40,61 @@ This document describes how to add a Nomifactory-specific leaderboard to the exi
   - `total_quests`: integer, not null.
   - `percent_complete`: double precision (or numeric), indexed for sorting.
   - `submitted_at`: timestamptz, default `now()`.
-- Add a unique constraint for "one row per player per pack" if desired:
-  - For example, a unique index on `(pack_id, player_name)` or `(pack_id, player_uuid)` when UUID is present.
-  - This allows simple upsert semantics (latest submission overwrites previous for that player/pack).
+- Add a unique constraint for "one row per player per pack".  Use whichever identifier you plan to dedupe on:
+  - **recommended:** a unique index on `(pack_id, player_uuid)` (UUID has fewer collisions). make sure the index is actually created in the database; if it is missing then upserts will fail with a 409 error.
+  - fallback: `(pack_id, player_name)` if you don't have UUIDs.
+
+  The client will perform an **upsert** instead of a blind insert, so the first submission creates a row and subsequent submissions for the same `(pack_id, player_uuid)` simply update the existing row.  (If the first submission lacked a UUID, the client now issues a small cleanup DELETE for any row with `player_uuid IS NULL` and the same `player_name` before doing the upsert; this removes stale 58% entries once the 60% submission includes a UUID.)
+
+  In plain SQL the behaviour looks like:
+
+```sql
+insert into public.leaderboard_entries(
+  pack_id,player_name,player_uuid,completed_count,total_quests,percent_complete
+) values ( ... )
+on conflict (pack_id, player_uuid) do update set
+  player_name      = excluded.player_name,
+  completed_count  = excluded.completed_count,
+  total_quests     = excluded.total_quests,
+  percent_complete = excluded.percent_complete,
+  submitted_at     = now();
+```
+
+  The Supabase REST endpoint supports this via the `Prefer: resolution=merge-duplicates` header (and you may also include `return=representation` if you want the updated row back).
+
+  If your project uses the RPC helper instead, be sure the `ON CONFLICT` clause in the function targets the same pair of columns (`pack_id, player_uuid`); mismatches here are the most common cause of the 409 error described in the user report.
+
+  *Optional behaviour:* if you prefer each click of “Submit” to **add** to the existing completed count (accumulate progress) rather than overwrite it, create a tiny stored procedure on the database and call it with a RPC request.  For example:
+
+  ```sql
+  create function public.upsert_leaderboard_entry(
+      p_pack_id text,
+      p_player_name text,
+      p_player_uuid text,
+      p_completed_count integer,
+      p_total_quests integer
+  ) returns void language plpgsql as $$
+  begin
+      insert into public.leaderboard_entries(
+        pack_id, player_name, player_uuid,
+        completed_count, total_quests, percent_complete
+      ) values (
+        p_pack_id, p_player_name, p_player_uuid,
+        p_completed_count, p_total_quests,
+        (p_completed_count::double precision / p_total_quests) * 100
+      )
+      on conflict (pack_id, player_name) do update set
+        completed_count = public.leaderboard_entries.completed_count + excluded.completed_count,
+        total_quests = excluded.total_quests,
+        percent_complete =
+          (public.leaderboard_entries.completed_count + excluded.completed_count)::double precision
+          / excluded.total_quests * 100,
+        submitted_at = now();
+  end;
+  $$;
+  ```
+
+  The frontend would then POST to `/rest/v1/rpc/upsert_leaderboard_entry` instead of to the table endpoint.
 
 ### 3.1. Supabase project setup (concrete steps)
 
@@ -62,8 +114,22 @@ This document describes how to add a Nomifactory-specific leaderboard to the exi
 
   create index if not exists leaderboard_pack_idx on public.leaderboard_entries (pack_id);
   create index if not exists leaderboard_percent_idx on public.leaderboard_entries (pack_id, percent_complete desc);
+
+  -- one row per player per pack; uuid is preferred but may be null on first submit.
+  -- we clean up any null-uuid row on the client when a real UUID becomes
+  -- available, but you can also enforce it entirely in SQL with the
+  -- COALESCE trick shown below.
   create unique index if not exists leaderboard_unique_player_per_pack
-    on public.leaderboard_entries (pack_id, player_name);
+    on public.leaderboard_entries (pack_id, player_uuid);
+
+  -- alternate version that treats NULL and the player's name equivalently:
+  --
+  -- create unique index if not exists leaderboard_unique_person_per_pack
+  --   on public.leaderboard_entries (pack_id, COALESCE(player_uuid, player_name));
+  --
+  -- With the above, an insert with a name but no UUID will conflict against a
+  -- later insert that carries the UUID (and vice‑versa), automatically
+  -- updating the single row instead of leaving a stale 58% entry behind.
   ```
 3. In **Authentication → Policies** (or Table editor → RLS), enable Row Level Security for `leaderboard_entries` and add policies:
   - `Allow anonymous select` – `using (true)`.

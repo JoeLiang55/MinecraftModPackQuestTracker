@@ -23,7 +23,7 @@ header {
 
 header h1 {
   color: #00e08a;
-  margin-bottom: 15px;
+  margin-bottom: 24px;
   font-size: 2rem;
   text-shadow: 0 0 10px rgba(0, 224, 138, 0.15);
 }
@@ -133,7 +133,7 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 .progress-bar {
@@ -250,7 +250,7 @@ header h1 {
 
 /* Add padding back for normal grid layout */
 .quest-grid {
-  padding: 24px 32px;
+  padding: 32px 40px;
   overflow-y: auto;
   height: 100%;
 }
@@ -527,7 +527,7 @@ header h1 {
 
 /* Layout: quest list + leaderboard side-by-side on wide screens */
 .container {
-  gap: 16px;
+  gap: 24px;
 }
 
 .leaderboard-panel {
@@ -652,7 +652,7 @@ header h1 {
 .quest-chapter-info {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 24px;
 }
 
 .quest-chapter-icon {
@@ -708,7 +708,7 @@ header h1 {
 
 .quest-content {
   flex: 1;
-  padding: 24px 32px;
+  padding: 32px 40px;
   overflow-y: auto;
 }
 
@@ -734,7 +734,7 @@ header h1 {
 .quest-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 20px;
+  gap: 30px;
 }
 
 .placeholder {
@@ -749,7 +749,7 @@ header h1 {
 .quest-card {
   background: linear-gradient(135deg, #252d3d 0%, #1f2632 100%);
   border-radius: 16px;
-  padding: 18px;
+  padding: 24px;
   min-height: 180px;
   width: 100%;
   display: flex;
@@ -1309,7 +1309,7 @@ header h1 {
   #chapterNav {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 16px;
   }
 
   #chapterNav li {
@@ -1332,7 +1332,7 @@ header h1 {
 @media (max-width: 600px) {
   .file-inputs {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
   }
 
   header h1 {

@@ -48,7 +48,7 @@ body {
 .modpack-grid {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
   width: 100%;
   max-width: 640px;
 }
